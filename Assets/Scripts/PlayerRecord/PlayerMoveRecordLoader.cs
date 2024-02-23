@@ -39,7 +39,7 @@ public class PlayerMoveRecordLoader : MonoBehaviour
                 transform.rotation = _currentRecord.PlayerRotation;
                 // 座標を更新
                 transform.position = _currentRecord.PlayerPosition;
-                Debug.Log($"Record : {_currentRecord.PlayerRotation}\nCurrent : {transform.rotation}");
+                //Debug.Log($"Record : {_currentRecord.PlayerRotation}\nCurrent : {transform.rotation}");
             }
         }
         else
@@ -52,7 +52,7 @@ public class PlayerMoveRecordLoader : MonoBehaviour
             transform.rotation = lerpRotation;
             var lerpTransform = Vector3.Lerp(transform.position, _currentRecord.PlayerPosition, 0.5f);
             transform.position = lerpTransform;
-            Debug.Log($"Record : {_currentRecord.PlayerRotation}\nCurrent : {transform.rotation}");
+            //Debug.Log($"Record : {_currentRecord.PlayerRotation}\nCurrent : {transform.rotation}");
         }
 
         _flameCount++;
