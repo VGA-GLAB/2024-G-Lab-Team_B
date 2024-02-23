@@ -44,7 +44,7 @@ public class PlayerMoveRecordLoader : MonoBehaviour
         }
         else
         {
-            Debug.Log("Load");
+            //Debug.Log("Load");
             _currentRecord = _records[_currentIndex];
             _currentIndex++;
             // 奇数フレームの補間を行う
