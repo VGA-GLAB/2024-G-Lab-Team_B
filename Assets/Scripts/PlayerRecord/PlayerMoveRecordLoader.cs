@@ -18,7 +18,7 @@ public class PlayerMoveRecordLoader : MonoBehaviour
         _currentRecord = _records[0];
         _currentIndex++;
 
-        Debug.Log($"Record : {_currentRecord.PlayerRotation}\nCurrent : {transform.rotation}");
+        //Debug.Log($"Record : {_currentRecord.PlayerRotation}\nCurrent : {transform.rotation}");
     }
 
     void FixedUpdate()
