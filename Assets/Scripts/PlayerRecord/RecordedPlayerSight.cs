@@ -4,16 +4,16 @@ using UnityEngine.UI;
 public class RecordedPlayerSight : MonoBehaviour
 {
     [SerializeField, Header("視点方向を示すオブジェクト")]
-    Transform lookAtTarget;
+    private Transform lookAtTarget;
 
     [SerializeField, Header("視野角"), Range(0, 180)]
-    float sightAngle;
+    private float sightAngle;
 
     [SerializeField, Header("見える距離")] private float _sightDistance = 5f;
 
-    Text _visibleMessage; // 発見テキスト
-    Transform _target; // 発見したいオブジェクト
-    bool _isVisible = true; // 発見フラグ
+    private Text _visibleMessage; // 発見テキスト
+    private Transform _target; // 発見したいオブジェクト
+    private bool _isVisible = true; // 発見フラグ
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class RecordedPlayerSight : MonoBehaviour
         _visibleMessage = FindFirstObjectByType<Text>();
     }
 
-    void Update()
+    private void Update()
     {
         if (_isVisible ^ IsVisible())
         {
@@ -31,7 +31,7 @@ public class RecordedPlayerSight : MonoBehaviour
     }
 
     /// <summary>発見フラグの計算</summary>
-    bool IsVisible()
+    private bool IsVisible()
     {
         // 発見したいオブジェクトがない場合はプレイヤーを探して割り当てる
         if (!_target)
@@ -50,7 +50,7 @@ public class RecordedPlayerSight : MonoBehaviour
                target.magnitude < _sightDistance; // ターゲットへの角度が視界の角度より小さく、かつ距離が視界より近いなら見えていると判定して true を返す
     }
 
-    void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         // 視界の範囲（正面及び左右の端）をギズモとして描く
         Vector3 lookAtDirection = (lookAtTarget.position - this.transform.position).normalized; // 正面（正規化）

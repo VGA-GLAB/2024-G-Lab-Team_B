@@ -15,7 +15,7 @@ public class PlayerMoveRecorder : MonoBehaviour
     /// <summary>PlayerRecordのListを取得します</summary>
     public List<Record> PlayerRecords => _playerRecords;
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         // 2フレームに1回保存する
         if (_flameCount % 2 == 0)

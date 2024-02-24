@@ -4,16 +4,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMoveModern : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 3;
+    [SerializeField] private float _moveSpeed = 3;
     
-    Rigidbody _rigidbody = default;
+    private Rigidbody _rigidbody = default;
 
-    void Start()
+    private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    void Update()
+    private void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
@@ -25,6 +25,6 @@ public class PlayerMoveModern : MonoBehaviour
         dir.y = 0;
         // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
         if (dir != Vector3.zero) this.transform.forward = dir;
-        _rigidbody.velocity = dir.normalized * moveSpeed;
+        _rigidbody.velocity = new Vector3(dir.x, _rigidbody.velocity.y, dir.z).normalized * _moveSpeed;
     }
 }
