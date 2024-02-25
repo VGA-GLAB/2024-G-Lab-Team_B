@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
@@ -8,15 +9,17 @@ using UnityEngine.AI;
 /// ※２　プレイヤーに「NavMeshObstacle」コンポーネントをつけるとより良い
 /// （プレイヤーが静止しているときに、障害物としてみなす機能）
 /// </summary>
+[RequireComponent(typeof(NavMeshAgent))]
 public class NPC : MonoBehaviour
 {
     #region"変数"
 
     [Tooltip("ステートマシン")] NPCStateMachine _nPCStateMachine = default;
 
-    [Tooltip("アイドルステート")] IdleState _idleState;
-    [Tooltip("巡回ステート")] PatrolState _patrolState;
-    [Tooltip("回避ステート")] AvoidState _avoidState;
+    [Tooltip("アイドルステート")] IdleState _idleState = default;
+    [Tooltip("巡回ステート")] PatrolState _patrolState = default;
+    [Tooltip("回避ステート")] AvoidState _avoidState = default;
+    [Tooltip("立ち作業ステート")] StandingWorkState _standingWorkState = default;
 
     [Header("移動速度"), SerializeField] [Tooltip("移動速度")]
     float _speed = 1f;
@@ -25,12 +28,26 @@ public class NPC : MonoBehaviour
     GameObject _parentRoute = default;
 
     [Tooltip("経路の位置情報")] Vector3[] _positions = default;
-    [Tooltip("到達した経路のインデックス番号")] int _indexNum = 0;
+
+    [Tooltip("到達した場所のインデックス番号")] int _reachIndexNum = default;
+
+    [Tooltip("めざす場所のインデックス番号")] int _indexNum = default;
+
+    [Header("立ち作業の時間"), SerializeField] [Tooltip("立ち作業の時間")]
+    float _standingWorkTime = default;
+
+    [Tooltip("立ち作業する場所：インデックス番号")] int[] _standingWorkPositionIndexes = default;
+
+    [Header("立ち作業する場所"), SerializeField] GameObject[] _standingWorkPositions = default;
+
+    [Header("各ポジションに到達したら、毎度その場で一時停止するか"), SerializeField] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
+    bool _isWait = default;
 
     [Header("アイドル状態の継続時間"), SerializeField] [Tooltip("アイドル状態の継続時間")]
     float _idleTime = 2f;
 
     [Tooltip("（アイドル時間の）時間計算")] float _timer = 0f;
+
     [Tooltip("（アイドル時間の）時間計算するか")] bool _isTimer = false;
 
     NavMeshAgent _navMeshAgent = default;
@@ -61,7 +78,7 @@ public class NPC : MonoBehaviour
         get => _positions;
     }
 
-    /// <summary> 到達した経路のインデックス番号 </summary>
+    /// <summary> めざす場所のインデックス番号 </summary>
     public int IndexNum
     {
         get => _indexNum;
@@ -81,6 +98,26 @@ public class NPC : MonoBehaviour
         set => _avoidPoint = value;
     }
 
+    /// <summary> （アイドル時間の）時間計算するか </summary>
+    public bool IsTimer
+    {
+        get => _isTimer;
+        set => _isTimer = value;
+    }
+
+    /// <summary> 各ポジションに到達したら、毎度その場で一時停止するか </summary>
+    public bool IsWait
+    {
+        get => _isWait;
+        //set => _isWait = value;
+    }
+
+    /// <summary> 立ち作業の時間 </summary>
+    public float StandingWorkTime
+    {
+        get => _standingWorkTime;
+    }
+
     #endregion
 
     void Start()
@@ -88,6 +125,7 @@ public class NPC : MonoBehaviour
         _idleState = new IdleState(this);
         _patrolState = new PatrolState(this);
         _avoidState = new AvoidState(this);
+        _standingWorkState = new StandingWorkState(this);
 
         _navMeshAgent = GetComponent<NavMeshAgent>();
         NavMeshAgent.speed = Speed;
@@ -105,6 +143,14 @@ public class NPC : MonoBehaviour
         {
             Positions[i] = _parentRoute.transform.GetChild(i).transform.position;
         }
+
+        // 立ち作業の場所を入れる
+        _standingWorkPositionIndexes = new int[_standingWorkPositions.Length];
+        for (var i = 0; i < _standingWorkPositions.Length; i++)
+        {
+            var positionIndex = _standingWorkPositions[i];
+            _standingWorkPositionIndexes[i] = positionIndex.transform.GetSiblingIndex();
+        }
     }
 
     void Update()
@@ -112,15 +158,21 @@ public class NPC : MonoBehaviour
         // 更新 
         _nPCStateMachine.Update();
 
-        // テスト アイドルステートにする
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    _NPCStateMachine.ChangeState(_idleState);
-        //    _isTimer = true;
-        //}
-
+        // パトロール再開までは待機
         if (_isTimer)
+        {
             _timer += Time.deltaTime;
+            _nPCStateMachine.ChangeState(_idleState);
+        }
+
+        // 到達した瞬間に作業場所かどうか見る
+        if (_standingWorkPositionIndexes.Contains(_indexNum - 1) && _reachIndexNum != _indexNum - 1)
+        {
+            _nPCStateMachine.ChangeState(_standingWorkState);
+        }
+
+        _reachIndexNum = _indexNum - 1;
+
         // 一定時間が経過したらパトロール再開 
         if (_timer > _idleTime)
         {
@@ -129,6 +181,14 @@ public class NPC : MonoBehaviour
             _timer = 0f;
         }
 
+        DecideAvoidPoint();
+    }
+
+    /// <summary>
+    /// 回避先を決める
+    /// </summary>
+    void DecideAvoidPoint()
+    {
         // 回避先を決める 
         Vector3 raycastDirection = _startPoint.transform.TransformDirection(_direction);
         RaycastHit hit;
@@ -157,10 +217,11 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _nPCStateMachine.ChangeState(_avoidState);
-            _isTimer = true;
         }
     }
 }
+
+#region 各ステートの機能
 
 /// <summary>
 /// アイドル機能
@@ -173,7 +234,7 @@ public class IdleState : StateBase
 
     public override void Enter()
     {
-        Debug.Log("Enter: Idle state");
+        //Debug.Log("Enter: Idle state");
     }
 
     public override void Update()
@@ -182,7 +243,7 @@ public class IdleState : StateBase
 
     public override void Exit()
     {
-        Debug.Log("Exit : Idle state");
+        //Debug.Log("Exit : Idle state");
     }
 }
 
@@ -209,9 +270,13 @@ public class PatrolState : StateBase
         _npc.NavMeshAgent.SetDestination(_npc.Positions[_npc.IndexNum]);
         float distance = (_npc.transform.position - _npc.Positions[_npc.IndexNum]).sqrMagnitude;
         // だいたい近づいたら到達と見做す
-        if (distance <= 3f)
+        if (distance <= 1f)
         {
-            _npc.IndexNum++;
+            _npc.IndexNum++; // 次の目標地点を更新
+            if (_npc.IsWait)
+            {
+                _npc.IsTimer = true;
+            }
         }
 
         if (_npc.IndexNum == _npc.Positions.Length)
@@ -222,6 +287,7 @@ public class PatrolState : StateBase
         // 滑らかに進行方向へ向く
         _npc.transform.LookAt(Vector3.Lerp(_npc.transform.forward + _npc.transform.position,
             _npc.Positions[_npc.IndexNum], 0.007f));
+        // Debug.Log("Update: Patrol state");
     }
 
     public override void Exit()
@@ -252,12 +318,56 @@ public class AvoidState : StateBase
 
     public override void Update()
     {
+        // 回避先に着いたらアイドルステートへ
+        if (_npc.NavMeshAgent.remainingDistance == 0.0f)
+        {
+            _npc.IsTimer = true;
+        }
+
+        //Debug.Log("Update : Avoid state");
     }
 
     public override void Exit()
     {
-        //有効化
-        _npc.NavMeshAgent.isStopped = true;
         //Debug.Log("Exit : Avoid state");
     }
 }
+
+
+/// <summary>
+/// 立ち作業する場所で留まる機能
+/// </summary>
+public class StandingWorkState : StateBase
+{
+    float _timer = default;
+
+    public StandingWorkState(NPC owner) : base(owner)
+    {
+    }
+
+    public override void Enter()
+    {
+        //Debug.Log("Enter: StandingWork state");
+    }
+
+    // 立ち作業の時間を超えたら、立ち作業を終える
+    public override void Update()
+    {
+        _timer += Time.deltaTime;
+        if (_timer > _npc.StandingWorkTime)
+        {
+            Exit();
+        }
+
+        //Debug.Log("Update : StandingWork state");
+    }
+
+    public override void Exit()
+    {
+        _timer = 0f;
+        _npc.IsTimer = true;
+        // Debug.Log("Exit : StandingWork state");
+    }
+}
+
+#endregion

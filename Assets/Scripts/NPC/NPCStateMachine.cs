@@ -12,6 +12,7 @@ public class NPCStateMachine
         _currentState?.Exit();
         _currentState = newState;
         _currentState.Enter();
+        //Debug.LogWarning(newState);
     }
 
     public void Update()
