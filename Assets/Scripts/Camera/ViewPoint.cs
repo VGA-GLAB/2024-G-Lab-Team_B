@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,14 +15,11 @@ public class ViewPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cameraSwitcher.IsFirstPerson == true)
-        {
-            
-        }
-        else
+        if (!cameraSwitcher.IsFirstPerson) 
         {
             float mousex = Input.GetAxis("Mouse X");
-            cameraSwitcher.vcam2.transform.RotateAround(transform.position, transform.up, mousex);
+            cameraSwitcher.ThirdPerson.transform.RotateAround(transform.position, transform.up, mousex);
         }
+        
     }
 }
