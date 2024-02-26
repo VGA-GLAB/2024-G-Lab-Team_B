@@ -63,6 +63,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 4
   _parentRoute: {fileID: 6925875243472425115}
+  _standingWorkTime: 0
+  _standingWorkPositions: []
+  _isWait: 0
   _idleTime: 2
   _startPoint: {fileID: 6925875242415575532}
   _direction: {x: 1, y: 0, z: 0.2}
@@ -76,7 +79,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 6925875242327272304}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
