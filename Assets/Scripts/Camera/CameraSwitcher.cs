@@ -1,12 +1,12 @@
-using Cinemachine;
+ï»¿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    public CinemachineVirtualCameraBase vcam1;//ˆêlÌ
-    public CinemachineVirtualCameraBase vcam2;//OlÌ
+    [SerializeField]private CinemachineVirtualCameraBase firstPerson;//ä¸€äººç§°
+    [SerializeField]private CinemachineVirtualCameraBase thirdPerson;//ä¸‰äººç§°
 
     public bool IsFirstPerson;
 
@@ -20,17 +20,38 @@ public class CameraSwitcher : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.RightShift) && IsFirstPerson == true)
         {
-            //OlÌ‚É‚·‚éiPriority‚Ì’l‚ª‘å‚«‚¢‚Ù‚¤‚ª—Dæ‚³‚ê‚éj
-            vcam1.Priority = 0;
-            vcam2.Priority = 1;
+            //ä¸‰äººç§°ã«ã™ã‚‹ï¼ˆPriorityã®å€¤ãŒå¤§ãã„ã»ã†ãŒå„ªå…ˆã•ã‚Œã‚‹ï¼‰
+            FirstPerson.Priority = 0;
+            ThirdPerson.Priority = 1;
             IsFirstPerson = false;
         }
         else if (Input.GetKeyDown(KeyCode.RightShift) && IsFirstPerson == false)
         {
-            //ˆêlÌ‚É–ß‚·
-            vcam1.Priority = 1;
-            vcam2.Priority = 0;
+            //ä¸€äººç§°ã«æˆ»ã™
+            FirstPerson.Priority = 1;
+            ThirdPerson.Priority = 0;
             IsFirstPerson = true;
         }
+    }
+    public CinemachineVirtualCameraBase FirstPerson
+    {
+        get { return firstPerson; }
+    }
+
+    public CinemachineVirtualCameraBase ThirdPerson
+    {
+        get { return thirdPerson; }
+    }
+
+    public int FirstPersonPriority
+    {
+        
+        set { firstPerson.Priority = value; }
+    }
+
+    public int ThirdPersonPriority
+    {
+        
+        set { thirdPerson.Priority = value; }
     }
 }
