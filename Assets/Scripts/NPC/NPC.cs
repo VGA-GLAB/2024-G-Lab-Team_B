@@ -166,7 +166,7 @@ public class NPC : MonoBehaviour
         }
 
         // 到達した瞬間に作業場所かどうか見る
-        if (_standingWorkPositionIndexes.Contains(_indexNum - 1) && _reachIndexNum != _indexNum - 1)
+        if (_standingWorkPositionIndexes.Contains(_reachIndexNum + 1) && _reachIndexNum != _indexNum - 1)
         {
             _nPCStateMachine.ChangeState(_standingWorkState);
         }
