@@ -4,12 +4,11 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMoveController : MonoBehaviour
 {
-    /// <summary>移動速度</summary>
-    [SerializeField] private　float _speed = 3f;
+    [SerializeField, Header("移動速度")] private　float _speed = 3f;
 
     //private Rigidbody _rigidbody;
     private　CharacterController _controller;
-    private float _moveVelocityY;
+    private float _moveVelocityY; // 重力の代わり
 
     void Start()
     {
@@ -48,7 +47,7 @@ public class PlayerMoveController : MonoBehaviour
     /// <param name="hit"></param>
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log($"{hit.collider.name} に衝突した(OnControllerColliderHit)");
+        //Debug.Log($"{hit.collider.name} に衝突した(OnControllerColliderHit)");
     }
 
     /// <summary>
@@ -57,6 +56,6 @@ public class PlayerMoveController : MonoBehaviour
     /// <param name="collision"></param>
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"{collision.gameObject.name} に衝突した(OnCollisionEnter)");
+        //Debug.Log($"{collision.gameObject.name} に衝突した(OnCollisionEnter)");
     }
 }

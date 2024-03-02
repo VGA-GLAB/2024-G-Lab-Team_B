@@ -229,6 +229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 724a4344f8fc9c5499b2c5a06585bc0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sightCamera: {fileID: 7322258809711073634}
+  _id: 0
 --- !u!114 &2459162256099705601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,10 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3292bc2924d0b42aa77d073536212a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sightCamera: {fileID: 7322258809711073634}
-  lookAtTarget: {fileID: 0}
-  sightAngle: 120
+  _sightCamera: {fileID: 7322258809711073634}
   _sightDistance: 10
   _targetLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 65

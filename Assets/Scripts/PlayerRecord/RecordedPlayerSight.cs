@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>過去のプレイヤーの視界の処理を行います</summary>
 public class RecordedPlayerSight : MonoBehaviour
 {
     [SerializeField, Header("視界判定用のカメラ")]
@@ -40,14 +41,17 @@ public class RecordedPlayerSight : MonoBehaviour
             _player = GameObject.FindGameObjectWithTag("Player");
         }
 
+        // カメラから視錘台の形の範囲を取得します
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_sightCamera);
 
+        // 視錘台の中にプレイヤーのコライダーが在れば
         if (GeometryUtility.TestPlanesAABB(planes, _player.GetComponent<Collider>().bounds))
         {
-            Vector3 dir = _player.transform.position - transform.position;
-            Ray ray = new Ray(this.transform.position, dir.normalized);
-            RaycastHit hit;
+            Vector3 dir = _player.transform.position - transform.position; // プレイヤーの方向
+            Ray ray = new Ray(this.transform.position, dir.normalized); // 自身からプレイヤーのレイ
+            RaycastHit hit;// レイの当たり判定
 
+            // レイを飛ばす
             if (Physics.Raycast(ray, out hit, _sightDistance, _targetLayerMask))
             {
                 if (hit.collider.CompareTag("Player"))
