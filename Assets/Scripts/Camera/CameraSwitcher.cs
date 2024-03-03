@@ -20,14 +20,14 @@ public class CameraSwitcher : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.RightShift) && IsFirstPerson == true)
+        if (Input.GetButtonDown("Fire2") && IsFirstPerson == true)
         {
             //三人称にする（Priorityの値が大きいほうが優先される）
             FirstPerson.Priority = 0;
             ThirdPerson.Priority = 1;
             IsFirstPerson = false;
         }
-        else if (Input.GetKeyDown(KeyCode.RightShift) && IsFirstPerson == false)
+        else if (Input.GetButtonDown("Fire2") && IsFirstPerson == false)
         {
             //一人称に戻す
             FirstPerson.Priority = 1;
