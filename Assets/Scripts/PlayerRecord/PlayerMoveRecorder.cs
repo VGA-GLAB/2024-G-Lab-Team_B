@@ -45,6 +45,7 @@ public class PlayerMoveRecorder : MonoBehaviour
         
         if (!_isRecording)
         {
+            //TODO ずっと追加の処理をしているためそれを防ぎたい
             _recordsDataList.AddRecordsData(_id, _playerRecords);
             _playerRecords.Clear();
             _flameCount = 0;

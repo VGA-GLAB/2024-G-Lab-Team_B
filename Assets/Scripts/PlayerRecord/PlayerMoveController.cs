@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>「カメラから見た方向」にキャラクターを動かします</summary>
 [RequireComponent(typeof(CharacterController))]
@@ -32,9 +31,13 @@ public class PlayerMoveController : MonoBehaviour
         dir.y = 0;
 
         // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
-        if (dir != Vector3.zero)
+        if (dir != Vector3.zero && !_cameraSwitcher.IsFirstPerson)
         {
             this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
+        }
+        else if (_cameraSwitcher.IsFirstPerson)
+        {
+            this.transform.forward = Camera.main.transform.forward;
         }
 
         // 地上にいる場合
