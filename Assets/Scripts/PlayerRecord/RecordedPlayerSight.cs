@@ -47,8 +47,8 @@ public class RecordedPlayerSight : MonoBehaviour
         // 視錘台の中にプレイヤーのコライダーが在れば
         if (GeometryUtility.TestPlanesAABB(planes, _player.GetComponent<Collider>().bounds))
         {
-            Vector3 dir = _player.transform.position - transform.position; // プレイヤーの方向
-            Ray ray = new Ray(this.transform.position, dir.normalized); // 自身からプレイヤーのレイ
+            Vector3 dir = _player.transform.position - _sightCamera.transform.position; // プレイヤーの方向
+            Ray ray = new Ray(_sightCamera.transform.position, dir.normalized); // 自身からプレイヤーのレイ
             RaycastHit hit;// レイの当たり判定
 
             // レイを飛ばす
@@ -57,7 +57,7 @@ public class RecordedPlayerSight : MonoBehaviour
                 if (hit.collider.CompareTag("Player"))
                 {
 #if UNITY_EDITOR
-                    Debug.DrawRay(this.transform.position, hit.point - this.transform.position, Color.green);
+                    Debug.DrawRay(_sightCamera.transform.position, hit.point - _sightCamera.transform.position, Color.green);
 #endif
                     
                     return true;
@@ -65,7 +65,7 @@ public class RecordedPlayerSight : MonoBehaviour
                 else
                 {
 #if UNITY_EDITOR
-                    Debug.DrawRay(this.transform.position, hit.point - this.transform.position, Color.red);
+                    Debug.DrawRay(_sightCamera.transform.position, hit.point - _sightCamera.transform.position, Color.red);
 #endif
                     
                     return false;

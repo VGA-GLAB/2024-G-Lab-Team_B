@@ -8,12 +8,14 @@ public class PlayerMoveController : MonoBehaviour
 
     //private Rigidbody _rigidbody;
     private　CharacterController _controller;
+    private CameraSwitcher _cameraSwitcher;
     private float _moveVelocityY; // 重力の代わり
 
     void Start()
     {
         //_rigidbody = GetComponent<Rigidbody>();
         _controller = GetComponent<CharacterController>();
+        _cameraSwitcher = FindFirstObjectByType<CameraSwitcher>();
     }
 
     void Update()
