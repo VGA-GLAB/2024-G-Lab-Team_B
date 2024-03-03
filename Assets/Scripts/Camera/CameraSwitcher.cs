@@ -5,10 +5,12 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
-    [SerializeField]private CinemachineVirtualCameraBase firstPerson;//一人称
-    [SerializeField]private CinemachineVirtualCameraBase thirdPerson;//三人称
+    [SerializeField,Header("一人称カメラ")]
+    private CinemachineVirtualCameraBase firstPerson;//一人称
+    [SerializeField, Header("三人称カメラ")] 
+    private CinemachineFreeLook thirdPerson;//三人称
 
-    public bool IsFirstPerson;
+    public bool IsFirstPerson;//一人称かどうか
 
     private void Start()
     {
