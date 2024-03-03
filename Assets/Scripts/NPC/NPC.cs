@@ -21,6 +21,9 @@ public class NPC : MonoBehaviour
     [Tooltip("回避ステート")] AvoidState _avoidState = default;
     [Tooltip("立ち作業ステート")] StandingWorkState _standingWorkState = default;
 
+    // [Header("アニメーター"), SerializeField] [Tooltip("アニメーター")]
+    // Animator _animator = default;
+
     [Header("移動速度"), SerializeField] [Tooltip("移動速度")]
     float _speed = 1f;
 
@@ -28,16 +31,13 @@ public class NPC : MonoBehaviour
     GameObject _parentRoute = default;
 
     [Tooltip("経路の位置情報")] Vector3[] _positions = default;
-
     [Tooltip("到達した場所のインデックス番号")] int _reachIndexNum = default;
-
     [Tooltip("めざす場所のインデックス番号")] int _indexNum = default;
 
-    [Header("立ち作業の時間"), SerializeField] [Tooltip("立ち作業の時間")]
+    [Header("立ち作業の時間  ※巡回再開までにアイドル時間もかかる"), SerializeField] [Tooltip("立ち作業の時間")]
     float _standingWorkTime = default;
 
     [Tooltip("立ち作業する場所：インデックス番号")] int[] _standingWorkPositionIndexes = default;
-
     [Header("立ち作業する場所"), SerializeField] GameObject[] _standingWorkPositions = default;
 
     [Header("各ポジションに到達したら、毎度その場で一時停止するか"), SerializeField] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
@@ -47,7 +47,6 @@ public class NPC : MonoBehaviour
     float _idleTime = 2f;
 
     [Tooltip("（アイドル時間の）時間計算")] float _timer = 0f;
-
     [Tooltip("（アイドル時間の）時間計算するか")] bool _isTimer = false;
 
     NavMeshAgent _navMeshAgent = default;
@@ -182,6 +181,12 @@ public class NPC : MonoBehaviour
         }
 
         DecideAvoidPoint();
+
+        // テスト用 
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Stagger();
+        }
     }
 
     /// <summary>
@@ -210,6 +215,7 @@ public class NPC : MonoBehaviour
 
     /// <summary>
     /// プレイヤーがコライダー内に侵入したら、避けるステートに切り替える
+    /// ※コライダーはNPCの前面に配置していると想定
     /// </summary>
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
@@ -219,7 +225,38 @@ public class NPC : MonoBehaviour
             _nPCStateMachine.ChangeState(_avoidState);
         }
     }
+
+    /// <summary>
+    /// NPC自体にプレイヤーが接触したら、よろけるアニメーションを再生
+    /// ※アニメーション内でAnimationEventを設定する想定
+    /// </summary>
+    /// <param name="other"></param>
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            // 無効化
+            _navMeshAgent.isStopped = true;
+            // よろけるアニメーション再生
+
+            var dir = other.transform.position - transform.position;
+            var pos = transform.position;
+            transform.position = pos - dir.normalized; // otherとは逆方向に移動
+
+            Debug.Log("よろける！！");
+        }
+    }
+
+    /// <summary>
+    /// よろめくアニメーションが、終了するタイミングで呼ぶ(AnimationEvent)
+    /// 変更するステート：回避ステート
+    /// </summary>
+    public void Stagger()
+    {
+        _nPCStateMachine.ChangeState(_avoidState);
+    }
 }
+
 
 #region 各ステートの機能
 
@@ -234,6 +271,8 @@ public class IdleState : StateBase
 
     public override void Enter()
     {
+        // 待機アニメーション再生
+
         //Debug.Log("Enter: Idle state");
     }
 
@@ -258,6 +297,8 @@ public class PatrolState : StateBase
 
     public override void Enter()
     {
+        // 歩くアニメーション再生
+
         //速度を戻す
         _npc.NavMeshAgent.speed = _npc.Speed;
         //有効化
@@ -284,9 +325,23 @@ public class PatrolState : StateBase
             _npc.IndexNum = 0;
         }
 
-        // 滑らかに進行方向へ向く
-        _npc.transform.LookAt(Vector3.Lerp(_npc.transform.forward + _npc.transform.position,
-            _npc.Positions[_npc.IndexNum], 0.007f));
+        // 回転
+        Vector3 nextCorner = _npc.transform.position;
+        if (_npc.NavMeshAgent.path != null && _npc.NavMeshAgent.path.corners.Length > 1)
+        {
+            nextCorner = _npc.NavMeshAgent.path.corners[1];
+            Debug.DrawLine(_npc.transform.position, nextCorner, Color.yellow);
+        }
+
+        var to = nextCorner - _npc.transform.position;
+        float angle = Vector3.SignedAngle(_npc.transform.forward, to, Vector3.up);
+        // 角度が45゜を越えていたら
+        if (Mathf.Abs(angle) > 45)
+        {
+            float rotMax = _npc.NavMeshAgent.angularSpeed * Time.deltaTime;
+            float rot = Mathf.Min(Mathf.Abs(angle), rotMax);
+            _npc.transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
+        }
         // Debug.Log("Update: Patrol state");
     }
 
@@ -309,6 +364,8 @@ public class AvoidState : StateBase
 
     public override void Enter()
     {
+        // 歩くアニメーション再生
+
         //有効化
         _npc.NavMeshAgent.isStopped = false;
         // 回避先をめざして移動
@@ -347,6 +404,8 @@ public class StandingWorkState : StateBase
 
     public override void Enter()
     {
+        // 立ち作業のアニメーション再生
+
         //Debug.Log("Enter: StandingWork state");
     }
 
