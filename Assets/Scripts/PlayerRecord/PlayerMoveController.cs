@@ -1,10 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>「カメラから見た方向」にキャラクターを動かします</summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMoveController : MonoBehaviour
 {
-    [SerializeField, Header("移動速度")] private　float _speed = 3f;
+    [SerializeField, Header("歩く時の移動速度")] private　float _walkSpeed = 3f;
+    [SerializeField, Header("走る時の移動速度")] private float _runSpeed = 6f;
+    [SerializeField, Header("回転速度")] private　float _rotarionSpeed = 3f;
 
     //private Rigidbody _rigidbody;
     private　CharacterController _controller;
@@ -25,13 +28,14 @@ public class PlayerMoveController : MonoBehaviour
         // 入力を受け取り、カメラを基準にした XZ 平面上に変換する
         Vector3 dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
 
-        if (!_cameraSwitcher.IsFirstPerson)
-            dir = Camera.main.transform.TransformDirection(dir);
-        
+        dir = Camera.main.transform.TransformDirection(dir);
         dir.y = 0;
 
         // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
-        if (dir != Vector3.zero) this.transform.forward = dir;
+        if (dir != Vector3.zero)
+        {
+            this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
+        }
 
         // 地上にいる場合
         if (_controller.isGrounded)
@@ -42,7 +46,19 @@ public class PlayerMoveController : MonoBehaviour
             _moveVelocityY = -0.5f;
         }
 
-        _controller.Move((dir.normalized + Vector3.up * _moveVelocityY) * (_speed * Time.deltaTime));
+        float speed = 0;
+
+        // ダッシュ時の処理
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = _runSpeed;
+        }
+        else
+        {
+            speed = _walkSpeed;
+        }
+
+        _controller.Move((dir.normalized + Vector3.up * _moveVelocityY) * (speed * Time.deltaTime));
     }
 
 
