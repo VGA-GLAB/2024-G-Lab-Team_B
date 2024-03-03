@@ -19,6 +19,7 @@ public class RecordedPlayerSight : MonoBehaviour
 
     private void Start()
     {
+        //TODO 違うテキストが呼ばれることがある
         // 発見テキストの検索
         _visibleMessage = FindFirstObjectByType<Text>();
     }

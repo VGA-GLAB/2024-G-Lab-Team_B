@@ -30,6 +30,7 @@ public class DebugCommonds : MonoBehaviour
 
     public void SwitchIsRecording()
     {
+        //TODO この呼び方は不安定なので変更しないといけない
         var flag = _recorder.GedIsRecording();
         flag = !flag;
         _recorder.SetIsRecording(flag);

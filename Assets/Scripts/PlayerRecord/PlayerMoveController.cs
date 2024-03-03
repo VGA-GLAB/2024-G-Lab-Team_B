@@ -26,7 +26,6 @@ public class PlayerMoveController : MonoBehaviour
         _moveVelocityY += Physics.gravity.y * Time.deltaTime;
         // 入力を受け取り、カメラを基準にした XZ 平面上に変換する
         Vector3 dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-
         dir = Camera.main.transform.TransformDirection(dir);
         dir.y = 0;
 
@@ -37,6 +36,7 @@ public class PlayerMoveController : MonoBehaviour
         }
         else if (_cameraSwitcher.IsFirstPerson)
         {
+            // 一人称時に自身の向きをカメラの向きに合わせる
             this.transform.forward = Camera.main.transform.forward;
         }
 
