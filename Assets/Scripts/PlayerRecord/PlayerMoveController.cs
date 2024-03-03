@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>「カメラから見た方向」にキャラクターを動かします</summary>
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMoveController : MonoBehaviour
 {
-    [SerializeField, Header("移動速度")] private　float _moveSpeed = 3f;
+    [SerializeField, Header("歩く時の移動速度")] private　float _walkSpeed = 3f;
+    [SerializeField, Header("走る時の移動速度")] private float _runSpeed = 6f;
     [SerializeField, Header("回転速度")] private　float _rotarionSpeed = 3f;
 
     //private Rigidbody _rigidbody;
@@ -44,7 +46,19 @@ public class PlayerMoveController : MonoBehaviour
             _moveVelocityY = -0.5f;
         }
 
-        _controller.Move((dir.normalized + Vector3.up * _moveVelocityY) * (_moveSpeed * Time.deltaTime));
+        float speed = 0;
+
+        // ダッシュ時の処理
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = _runSpeed;
+        }
+        else
+        {
+            speed = _walkSpeed;
+        }
+
+        _controller.Move((dir.normalized + Vector3.up * _moveVelocityY) * (speed * Time.deltaTime));
     }
 
 
