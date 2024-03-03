@@ -8,12 +8,14 @@ public class PlayerMoveController : MonoBehaviour
 
     //private Rigidbody _rigidbody;
     private　CharacterController _controller;
+    private CameraSwitcher _cameraSwitcher;
     private float _moveVelocityY; // 重力の代わり
 
     void Start()
     {
         //_rigidbody = GetComponent<Rigidbody>();
         _controller = GetComponent<CharacterController>();
+        _cameraSwitcher = FindFirstObjectByType<CameraSwitcher>();
     }
 
     void Update()
@@ -22,7 +24,10 @@ public class PlayerMoveController : MonoBehaviour
         _moveVelocityY += Physics.gravity.y * Time.deltaTime;
         // 入力を受け取り、カメラを基準にした XZ 平面上に変換する
         Vector3 dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-        dir = Camera.main.transform.TransformDirection(dir);
+
+        if (!_cameraSwitcher.IsFirstPerson)
+            dir = Camera.main.transform.TransformDirection(dir);
+        
         dir.y = 0;
 
         // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
