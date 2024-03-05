@@ -27,6 +27,7 @@ public struct RecordsDataList
     /// <summary>IDとプレイヤーの記録を追加します</summary>
     public void AddRecordsData(int id, List<Record> records)
     {
+        //TODO:追加の条件や上書きの処理を考えないといけない
         // DataListが無ければ新しく作ります
         if (DataList == null)
         {
