@@ -182,7 +182,7 @@ public class NPC : MonoBehaviour
 
         DecideAvoidPoint();
 
-        // テスト用 
+        // テスト用 アニメーション終了したときに実行するメソッドを呼び出す
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Stagger();
@@ -220,7 +220,7 @@ public class NPC : MonoBehaviour
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("RecordedPlayer"))
         {
             _nPCStateMachine.ChangeState(_avoidState);
         }
@@ -233,7 +233,7 @@ public class NPC : MonoBehaviour
     /// <param name="other"></param>
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("RecordedPlayer"))
         {
             // 無効化
             _navMeshAgent.isStopped = true;
@@ -278,6 +278,7 @@ public class IdleState : StateBase
 
     public override void Update()
     {
+        //Debug.Log("Update: Idle state");
     }
 
     public override void Exit()
@@ -342,6 +343,7 @@ public class PatrolState : StateBase
             float rot = Mathf.Min(Mathf.Abs(angle), rotMax);
             _npc.transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
         }
+
         // Debug.Log("Update: Patrol state");
     }
 
