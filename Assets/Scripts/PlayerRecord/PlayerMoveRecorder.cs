@@ -21,7 +21,7 @@ public class PlayerMoveRecorder : MonoBehaviour
     public RecordsDataList GetRecordsDataList => _recordsDataList;
 
     /// <summary>記録中フラグを設定します</summary>
-    public bool GedIsRecording() => _isRecording;
+    public bool GetIsRecording() => _isRecording;
 
     /// <summary>記録中フラグを設定します</summary>
     public void SetIsRecording(bool flag) => _isRecording = flag;
@@ -45,7 +45,7 @@ public class PlayerMoveRecorder : MonoBehaviour
         
         if (!_isRecording)
         {
-            //TODO ずっと追加の処理をしているためそれを防ぎたい
+            //TODO:ずっと追加の処理をしているためそれを防ぎたい
             _recordsDataList.AddRecordsData(_id, _playerRecords);
             _playerRecords.Clear();
             _flameCount = 0;

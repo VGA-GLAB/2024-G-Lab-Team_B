@@ -23,7 +23,7 @@ public class PlayerMoveRecordLoader : MonoBehaviour
 
     private void Start()
     {
-        //TODO データを全て持ってきているため必要分だけ持ってこれるようにしたい
+        //TODO:データを全て持ってきているため必要分だけ持ってこれるようにしたい
         _recordsList = FindFirstObjectByType<RecordsDataSaver>().RoadData();
         //_recordsList = FindFirstObjectByType<PlayerMoveRecorder>().GetRecordsDataList;
         _records = _recordsList.GetRecords(_id);
