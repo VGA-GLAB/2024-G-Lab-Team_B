@@ -72,6 +72,7 @@ public class PatrolNPC : NPC
     {
         _patrolState = new PatrolState(this);
         NavMeshAgent.speed = _speed;
+        _reachIndexNum = -1;
         _indexNum = 0; // 最初の目標地点
         // 経路を取得
         int childCount = _parentRoute.transform.childCount;
