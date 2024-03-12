@@ -21,12 +21,8 @@ public class PatrolNPC : NPC
 
 
     [Tooltip("経路の位置情報")] Vector3[] _positions = default;
-
-    [Header("到達した場所のインデックス番号"), SerializeField] [Tooltip("到達した場所のインデックス番号")]
-    int _reachIndexNum = default;
-
-    [Header("めざす場所のインデックス番号"), SerializeField] [Tooltip("めざす場所のインデックス番号")]
-    int _indexNum = default;
+    [Tooltip("到達した場所のインデックス番号")] int _reachIndexNum = default;
+    [Tooltip("めざす場所のインデックス番号")] int _indexNum = default;
 
     [Header("各ポジションに到達したら、毎度その場で一時停止するか"), SerializeField] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
     bool _isWait = default;
