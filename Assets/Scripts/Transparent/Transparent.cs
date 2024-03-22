@@ -8,30 +8,30 @@ using DG.Tweening;
 /// </summary>
 public class Transparent : MonoBehaviour
 {
-    [Header("透明化する対象"), SerializeField] [Tooltip("透明化する対象")]
-    GameObject _target = default;
+    [Header("透明化する対象")] [Tooltip("透明化する対象")]
+    [SerializeField] private GameObject _target = default;
 
-    Renderer[] _renderers = default;
+    private Renderer[] _renderers = default;
 
-    [Header("透明度"), SerializeField] [Tooltip("透明度")]
-    float _value = default;
+    [Header("透明度")] [Tooltip("透明度")]
+    [SerializeField] private float _value = default;
 
-    [Header("透明化にかける時間"), SerializeField] [Tooltip("透明化にかける時間")]
-    float _duration = default;
+    [Header("透明化にかける時間")] [Tooltip("透明化にかける時間")]
+    [SerializeField] private float _duration = default;
 
-    [Header("透明にするか"), SerializeField] [Tooltip("透明にするか")]
-    bool _isTransparent = default;
+    [Header("透明にするか")] [Tooltip("透明にするか")]
+    [SerializeField] private bool _isTransparent = default;
 
-    [Header("切り替え可能か"), SerializeField] [Tooltip("切り替え可能か")]
-    bool _isCanChangeFlag = default;
+    [Header("切り替え可能か")] [Tooltip("切り替え可能か")]
+    [SerializeField] private bool _isCanChangeFlag = default;
 
-    [Header("レイヤーの名前：TransparentPlayer"), SerializeField] [Tooltip("レイヤーの名前：TransparentPlayer")]
-    string _layerName = "TransparentPlayer";
+    [Header("レイヤーの名前：TransparentPlayer")] [Tooltip("レイヤーの名前：TransparentPlayer")]
+    [SerializeField] private string _layerName = "TransparentPlayer";
 
-    [Header("テスト中か"), SerializeField] [Tooltip("テスト中か")]
-    bool _isTest = default;
+    [Header("テスト中か")] [Tooltip("テスト中か")]
+    [SerializeField] private bool _isTest = default;
 
-    string _defaultLayerName = default;
+    private string _defaultLayerName = default;
 
     void Start()
     {
@@ -63,7 +63,7 @@ public class Transparent : MonoBehaviour
     /// </summary>
     /// <param name="isFlag"></param>
     /// <returns></returns>
-    void ChangeFlag(bool isFlag)
+    private void ChangeFlag(bool isFlag)
     {
         if (_isCanChangeFlag)
         {
@@ -79,7 +79,7 @@ public class Transparent : MonoBehaviour
     /// ShadowCastingMode：On ⇔ Off
     /// </summary>
     /// <param name="isFlag"></param>
-    void ChangeAlpha(bool isFlag)
+    public void ChangeAlpha(bool isFlag)
     {
         for (int i = 0; i < _renderers.Length; i++)
         {

@@ -13,9 +13,17 @@ public class RecordedPlayerSight : MonoBehaviour
     [SerializeField, Header("視界判定用のRayCastが当たるレイヤー")]
     private LayerMask _targetLayerMask;
 
+    [SerializeField, Header("発見時のダメージ数")]
+    private int _damageDealt = 20;
+
+    [SerializeField, Header("ダメージのインターバル")]
+    private float _damageInterval = 1f;
+
     private Text _visibleMessage; // 発見テキスト
     private GameObject _player; // 発見したいオブジェクト
     private bool _isVisible = true; // 発見フラグ
+    private float _visiblTime = 0f; // 見つけている時間
+    private bool _isDamage = false;
 
     private void Start()
     {
@@ -27,11 +35,37 @@ public class RecordedPlayerSight : MonoBehaviour
 
     private void Update()
     {
-        if (_isVisible ^ IsVisible())
+        FindPlyer();
+    }
+
+    /// <summary>
+    /// Playerを発見したときにダメージを与える
+    /// </summary>
+    private void FindPlyer()
+    {
+        if (IsVisible() && _player.TryGetComponent<IDamage>(out IDamage damage))
         {
-            _isVisible = !_isVisible;
-            _visibleMessage.enabled = _isVisible; // 発見したらメッセージを表示する, 見失ったらメッセージを消す
+            _visiblTime += Time.deltaTime;
+
+            if (!_isDamage)//初回ダメージ
+            {
+                damage.SendDamage(_damageDealt);
+                _isDamage = true;
+            }
+
+            if (_visiblTime >= _damageInterval)
+            {
+                damage.SendDamage(_damageDealt);
+                _visiblTime = 0f;
+            }
+            //_isVisible = !_isVisible;
+            //_visibleMessage.enabled = _isVisible; // 発見したらメッセージを表示する, 見失ったらメッセージを消す
         } // 論理積（最後のフレームと現フレームで見える/見えないが切り替わった時）
+        else
+        {
+            _isDamage = false;
+            _visiblTime = 0f;
+        }
     }
 
     /// <summary>プレイヤー発見の判定を行います</summary>
@@ -61,7 +95,7 @@ public class RecordedPlayerSight : MonoBehaviour
 #if UNITY_EDITOR
                     Debug.DrawRay(_sightCamera.transform.position, hit.point - _sightCamera.transform.position, Color.green);
 #endif
-                    
+
                     return true;
                 }
                 else
@@ -69,7 +103,7 @@ public class RecordedPlayerSight : MonoBehaviour
 #if UNITY_EDITOR
                     Debug.DrawRay(_sightCamera.transform.position, hit.point - _sightCamera.transform.position, Color.red);
 #endif
-                    
+
                     return false;
                 }
             }

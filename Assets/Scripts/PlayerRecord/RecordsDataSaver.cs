@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.Profiling;
 
 /// <summary>JSON形式のデータをセーブ、ロードします</summary>
 public class RecordsDataSaver : MonoBehaviour
@@ -36,6 +37,7 @@ public class RecordsDataSaver : MonoBehaviour
         
         // PlayerMoveRecorderにあるRecordsDataListを取得します
         PlayerMoveRecorder recorder = FindFirstObjectByType<PlayerMoveRecorder>();
+        recorder.AddRecord();
         RecordsDataList data = recorder.GetRecordsDataList;
         
         // JSON形式に変換して保存

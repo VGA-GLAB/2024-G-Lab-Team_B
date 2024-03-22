@@ -45,8 +45,6 @@ public class PlayerMoveRecorder : MonoBehaviour
         
         if (!_isRecording)
         {
-            //TODO:ずっと追加の処理をしているためそれを防ぎたい
-            _recordsDataList.AddRecordsData(_id, _playerRecords);
             _playerRecords.Clear();
             _flameCount = 0;
             _currentTime = 0;
@@ -66,5 +64,10 @@ public class PlayerMoveRecorder : MonoBehaviour
         // カウントアップ
         _flameCount++;
         _currentTime += Time.fixedDeltaTime;
+    }
+
+    public void AddRecord()
+    {
+        _recordsDataList.AddRecordsData(_id, _playerRecords);
     }
 }
