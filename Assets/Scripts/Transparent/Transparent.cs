@@ -9,6 +9,8 @@ using DG.Tweening;
 /// </summary>
 public class Transparent : MonoBehaviour
 {
+    #region 変数
+
     [Header("透明化する対象")] [Tooltip("透明化する対象")]
     [SerializeField] private GameObject _target = default;
 
@@ -28,6 +30,18 @@ public class Transparent : MonoBehaviour
 
     private string _defaultLayerName = default;
 
+    [Header("キー入力ができるか")] [Tooltip("キー入力ができるか")]
+    [SerializeField] private bool _canInput = default;
+    
+    #endregion
+
+    /// <summary> キー入力ができるか </summary>
+    public bool CanInput
+    {
+        get => _canInput;
+        set => _canInput = value;
+    }
+    
     private void Start()
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
@@ -36,7 +50,7 @@ public class Transparent : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && CanInput)
         {
             OnClick();
         }
