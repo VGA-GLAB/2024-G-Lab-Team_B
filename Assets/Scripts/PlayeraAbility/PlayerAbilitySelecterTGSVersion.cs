@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>プレイヤーの能力の切り替えを行います(TGS版)</summary>
 public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
@@ -7,17 +6,8 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     private const int ABILITIES_COUNT = 2; // 能力数
 
     [SerializeField, Header("能力のUI\n0 : カメラ切り替え\n1 : 透明化\n2 : 透明化")]
-    private Image[] _abilitiesUI;
+    private CanvasGroup[] _abilitiesUI;
 
-    [SerializeField, Header("能力のUIの選択時の色")]
-    private Color _selectedColor = Color.blue;
-
-    [SerializeField, Header("能力のUIの非選択時の色")]
-    private Color _nonSelectedColor = Color.white;
-    
-    [SerializeField, Header("能力のUIの透明化に掛ける時間")]
-    float _duration = default;
-    
     [SerializeField, Header("能力のUIのCanvasGroup")]
     private CanvasGroup _canvasGroup;
 
@@ -38,10 +28,6 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
 #endif
             return;
         }
-
-        NullificationCameraSwitcher();
-        NullificationTransparent();
-        NullificationClairvoyance();
     }
 
     private void Update()
@@ -111,6 +97,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     /// <summary>Transparentの無効化</summary>
     private void NullificationTransparent()
     {
+        _transparent.ChangeAlpha(false);
         _transparent.enabled = false;
     }
 
@@ -126,13 +113,13 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         {
             if (i == _currentIndex)
             {
-                // 選択している能力に対応するUIの色の変更
-                _abilitiesUI[i].color = _selectedColor;
+                // 選択している能力を表示
+                _abilitiesUI[i].alpha = 1;
             }
             else
             {
-                // それ以外は非選択時の色に変更
-                _abilitiesUI[i].color = _nonSelectedColor;
+                // それ以外は非表示
+                _abilitiesUI[i].alpha = 0;
             }
         }
     }
