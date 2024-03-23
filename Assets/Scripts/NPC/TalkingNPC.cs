@@ -2,13 +2,13 @@ using UnityEngine;
 
 /// <summary>
 /// 話す動きをするモブNPC
-/// 03.12：ずっと喋っている状態
+/// ずっと喋っているだけ
 /// </summary>
 public class TalkingNPC : NPC
 {
     #region 変数
 
-    [Tooltip("会話ステート")] TalkingState _talkingState = default;
+    [Tooltip("会話ステート")] private TalkingState _talkingState = default;
 
     #endregion
 
@@ -23,38 +23,54 @@ public class TalkingNPC : NPC
         ToDefaultState(_talkingState);
     }
 
+}
 
-    #region ステート機能
+#region ステート機能
 
-    /// <summary>
-    /// 会話ステート
-    /// </summary>
-    public class TalkingState : StateBase
+/// <summary>
+/// 会話ステート
+/// </summary>
+public class TalkingState : StateBase
+{
+    TalkingNPC _talkingNPC;
+
+    public TalkingState(TalkingNPC owner) : base(owner)
     {
-        TalkingNPC talkingNPC;
-
-        public TalkingState(TalkingNPC owner) : base(owner)
-        {
-            talkingNPC = owner;
-        }
-
-        public override void Enter()
-        {
-            // TODO：話しているしぐさのアニメーション再生
-
-            //Debug.Log("Enter: Talking state");
-        }
-
-        public override void Update()
-        {
-            Debug.Log("Update: Talking state");
-        }
-
-        public override void Exit()
-        {
-            //Debug.Log("Exit: Talking state");
-        }
+        _talkingNPC = owner;
     }
 
-    #endregion
+    public override void Enter()
+    {
+        // TODO：話しているしぐさのアニメーション再生
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetBool("Talk", true);
+            _npc.Anim.SetBool(_npc.IsStand ? "Stand" : "Sit", true); // 立っている : 座っている
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
+        //Debug.Log("Enter: Talking state");
+    }
+
+    public override void Update()
+    {
+        Debug.Log("Update: Talking state");
+    }
+
+    public override void Exit()
+    {
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetBool("Talk", false);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
+        //Debug.Log("Exit: Talking state");
+    }
 }
+
+#endregion
