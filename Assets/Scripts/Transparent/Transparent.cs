@@ -22,9 +22,6 @@ public class Transparent : MonoBehaviour
     [Header("透明にするか")] [Tooltip("透明にするか")]
     [SerializeField] private bool _isTransparent = default;
 
-    [Header("切り替え可能か")] [Tooltip("切り替え可能か")]
-    [SerializeField] private bool _isCanChangeFlag = default;
-
     [Header("レイヤーの名前：TransparentPlayer")] [Tooltip("レイヤーの名前：TransparentPlayer")]
     [SerializeField] private string _layerName = "TransparentPlayer";
 
@@ -37,39 +34,34 @@ public class Transparent : MonoBehaviour
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
         _defaultLayerName = LayerMask.LayerToName(gameObject.layer);
-        _isCanChangeFlag = true;
-    }
-
-    void Update()
-    {
-        // テスト
-        if (_isTest && Input.GetKeyDown(KeyCode.J))
-        {
-            OnClick();
-        }
     }
 
     /// <summary>
-    /// 呼ぶたびに透明化を切り替える
+    /// 呼ぶたびにフラグが切り替わる
     /// </summary>
+    /// <param name="isFlag"></param>
     public void OnClick()
     {
-        ChangeFlag(_isTransparent);
+        _isTransparent = !_isTransparent;
         ChangeAlpha(_isTransparent);
     }
 
     /// <summary>
-    /// 透明度を変更している最中に、入力があっても無視する
+    /// テスト用
     /// </summary>
-    /// <param name="isFlag"></param>
-    /// <returns></returns>
-    private void ChangeFlag(bool isFlag)
+    public void ToFalse()
     {
-        if (_isCanChangeFlag)
-        {
-            isFlag = !isFlag;
-            _isTransparent = isFlag;
-        }
+        _isTransparent = false;
+        ChangeAlpha(_isTransparent);
+    }
+
+    /// <summary>
+    /// テスト用
+    /// </summary>
+    public void ToTrue()
+    {
+        _isTransparent = true;
+        ChangeAlpha(_isTransparent);
     }
 
     /// <summary>
@@ -81,6 +73,7 @@ public class Transparent : MonoBehaviour
     /// <param name="isFlag"></param>
     public void ChangeAlpha(bool isFlag)
     {
+        DOTween.KillAll();
         for (int i = 0; i < _renderers.Length; i++)
         {
             for (int j = 0; j < _renderers[i].materials.Length; j++)
@@ -102,13 +95,11 @@ public class Transparent : MonoBehaviour
                     material.DisableKeyword("_ALPHATEST_ON");
                     material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
                     renderer.shadowCastingMode = ShadowCastingMode.Off;
-                    _isCanChangeFlag = false;
 
-                    material.DOFade(_value, _duration).OnComplete(() => { _isCanChangeFlag = true; });
+                    material.DOFade(_value, _duration);
                 }
                 else
                 {
-                    _isCanChangeFlag = false;
                     // 不透明にする処理
                     material.DOFade(1.0f, _duration).OnComplete(() =>
                     {
@@ -123,7 +114,6 @@ public class Transparent : MonoBehaviour
                         material.renderQueue = (int)RenderQueue.Geometry;
 
                         renderer.shadowCastingMode = ShadowCastingMode.On;
-                        _isCanChangeFlag = true;
                         gameObject.layer = LayerMask.NameToLayer(_defaultLayerName);
                     });
                 }
