@@ -97,7 +97,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     /// <summary>Transparentの無効化</summary>
     private void NullificationTransparent()
     {
-        _transparent.ChangeAlpha(false);
+        _transparent.ToFalse();
         _transparent.enabled = false;
     }
 
