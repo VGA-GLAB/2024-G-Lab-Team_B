@@ -14,6 +14,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     private CameraSwitcher _cameraSwitcher;
     private Transparent _transparent;
     private int _currentIndex; // 現在の能力の番号
+    private bool _isScroll;
 
     private void Start()
     {
@@ -28,6 +29,8 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
 #endif
             return;
         }
+
+        UIDisplayChange();
     }
 
     private void Update()
@@ -46,10 +49,12 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         if (scroll > 0)
         {
             _currentIndex++;
+            _isScroll = true;
         }
         else if (scroll < 0)
         {
             _currentIndex--;
+            _isScroll = true;
         }
 
         if (_currentIndex > ABILITIES_COUNT)
@@ -62,26 +67,36 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
             _currentIndex = ABILITIES_COUNT;
         }
 
-        switch (_currentIndex)
+        if (_isScroll)
         {
-            case 0: // カメラ切り替え
-                _cameraSwitcher.enabled = true;
-                NullificationTransparent();
-                NullificationClairvoyance();
-                UIColorChange();
-                break;
-            case 1: // 透明化
-                _transparent.enabled = true;
-                NullificationCameraSwitcher();
-                NullificationClairvoyance();
-                UIColorChange();
-                break;
-            case 2: // 透視
-                Debug.LogWarning("透視は未実装です。");
-                NullificationCameraSwitcher();
-                NullificationTransparent();
-                UIColorChange();
-                break;
+            switch (_currentIndex)
+            {
+                case 0: // カメラ切り替え
+
+                    _cameraSwitcher.enabled = true;
+                    NullificationTransparent();
+                    NullificationClairvoyance();
+                    UIDisplayChange();
+                    _isScroll = false;
+
+                    break;
+                case 1: // 透明化
+                    _transparent.CanInput = true;
+                    NullificationCameraSwitcher();
+                    NullificationClairvoyance();
+                    UIDisplayChange();
+                    _isScroll = false;
+                    break;
+                case 2: // 透視
+                    Debug.LogWarning("透視は未実装です。");
+                    NullificationCameraSwitcher();
+                    NullificationTransparent();
+                    UIDisplayChange();
+                    _isScroll = false;
+                    break;
+            }
+
+            _isScroll = false;
         }
     }
 
@@ -97,8 +112,8 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     /// <summary>Transparentの無効化</summary>
     private void NullificationTransparent()
     {
+        _transparent.CanInput = false;
         _transparent.ToFalse();
-        _transparent.enabled = false;
     }
 
     /// <summary>透視の無効化</summary>
@@ -107,7 +122,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     }
 
     /// <summary>能力のUIの色の変更を行います</summary>
-    private void UIColorChange()
+    private void UIDisplayChange()
     {
         for (int i = 0; i < _abilitiesUI.Length; i++)
         {
