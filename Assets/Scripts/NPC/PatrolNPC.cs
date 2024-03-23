@@ -2,43 +2,61 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// NPCクラスのサブクラス　テスト用
-/// パトロール・立ち作業
+/// NPCクラスのサブクラス　
+/// パトロール・立ち(座り)作業
 /// (パトロールのみもアリ)
+/// 作業中は当たり判定を無効にしている
 /// </summary>
 public class PatrolNPC : NPC
 {
     #region 変数
 
     // パトロール関係
-    [Space] [Header("===パトロール関係===")] [Header("移動速度"), SerializeField] [Tooltip("移動速度")]
-    float _speed = 1f;
+    [Space] [Header("===パトロール関係===")] [Header("移動速度")] [Tooltip("移動速度")]
+    [SerializeField] private float _speed = 1f;
 
-    [Tooltip("巡回ステート")] PatrolState _patrolState = default;
+    [Header("到達したとみなす距離　※推奨：2人1組の場合数字を大きく")] [Tooltip("到達したとみなす距離")]
+    [SerializeField] private float _distance = 0.05f;
 
-    [Header("経路となるオブジェクトの親オブジェクト"), SerializeField] [Tooltip("経路となるオブジェクトの親オブジェクト")]
-    GameObject _parentRoute = default;
+    [Tooltip("巡回ステート")] private PatrolState _patrolState = default;
 
+    [Header("経路となるオブジェクトの親オブジェクト")] [Tooltip("経路となるオブジェクトの親オブジェクト")]
+    [SerializeField] private GameObject _parentRoute = default;
 
-    [Tooltip("経路の位置情報")] Vector3[] _positions = default;
-    [Tooltip("到達した場所のインデックス番号")] int _reachIndexNum = default;
-    [Tooltip("めざす場所のインデックス番号")] int _indexNum = default;
+    [Tooltip("経路の位置情報")] private Vector3[] _positions = default;
+    [Tooltip("到達した場所のインデックス番号")] private int _reachIndexNum = default;
+    [Tooltip("めざす場所のインデックス番号")] private int _indexNum = default;
+    // [Tooltip("目的地")] private Vector3 _targetPosition = default;
 
-    [Header("各ポジションに到達したら、毎度その場で一時停止するか"), SerializeField] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
-    bool _isWait = default;
+    [Header("各ポジションに到達したら、毎度その場で一時停止するか")] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
+    [SerializeField] private bool _isWait = default;
 
-    // 立ち作業関係
-    [Space] [Header("===立ち作業関係===")] [Header("立ち作業の時間  ※巡回再開までにアイドル時間もかかる"), SerializeField] [Tooltip("立ち作業の時間")]
-    float _standingWorkTime = default;
+    // 作業関係
+    [Space] [Header("===作業関係===")] 
+    [Header("作業の時間  ※巡回再開までにアイドル時間もかかる")] [Tooltip("作業の時間")]
+    [SerializeField] private float _standingWorkTime = default;
 
-    [Tooltip("立ち作業ステート")] StandingWorkState _standingWorkState = default;
+    [Tooltip("作業ステート")] private StandingWorkState _standingWorkState = default;
+    [Tooltip("作業する場所：インデックス番号")] private int[] _standingWorkPositionIndexes = default;
+    [Header("作業する場所")] [SerializeField] private GameObject[] _standingWorkPositions = default;
 
-    [Tooltip("立ち作業する場所：インデックス番号")] int[] _standingWorkPositionIndexes = default;
-    [Header("立ち作業する場所"), SerializeField] GameObject[] _standingWorkPositions = default;
+    [Tooltip("当たり判定を無くす")] private Collider[] _colliders = default;
+
+    [Tooltip("ドアを開けるような動作をするステート")] private DoorOpenState _doorOpenState = default;
+
+    [Header("ドアが開き切るのを待つ時間"), Tooltip("ドアが開き切るのを待つ時間")] [SerializeField]
+    private float _waitTime = 1.5f;
 
     #endregion
 
     #region プロパティ
+
+    /// <summary> 到達したとみなす距離 </summary>
+    public float Distance
+    {
+        get => _distance;
+        // set => _distanse = value;
+    }
 
     /// <summary> 経路の位置情報 </summary>
     public Vector3[] Positions
@@ -53,7 +71,7 @@ public class PatrolNPC : NPC
         set => _indexNum = value;
     }
 
-    /// <summary> 立ち作業の時間 </summary>
+    /// <summary> 作業の時間 </summary>
     public float StandingWorkTime
     {
         get => _standingWorkTime;
@@ -64,6 +82,19 @@ public class PatrolNPC : NPC
     {
         get => _isWait;
         //set => _isWait = value;
+    }
+
+    /// <summary> 当たり判定を無くす </summary>
+    public Collider[] Colliders
+    {
+        get => _colliders;
+    }
+
+    /// <summary> ドアが開き切るのを待つ時間 </summary>
+    public float WaitTime
+    {
+        get => _waitTime;
+        // set => _waitTime = value;
     }
 
     #endregion
@@ -83,7 +114,7 @@ public class PatrolNPC : NPC
         }
 
         _standingWorkState = new StandingWorkState(this);
-        // 立ち作業の場所を入れる
+        // 作業の場所を入れる
         _standingWorkPositionIndexes = new int[_standingWorkPositions.Length];
         for (var i = 0; i < _standingWorkPositions.Length; i++)
         {
@@ -92,6 +123,9 @@ public class PatrolNPC : NPC
         }
 
         NpcStateMachine.ChangeState(_patrolState);
+
+        _colliders = GetComponentsInChildren<Collider>();
+        _doorOpenState = new DoorOpenState(this);
     }
 
     protected override void OnUpdate()
@@ -106,6 +140,16 @@ public class PatrolNPC : NPC
 
         _reachIndexNum = _indexNum - 1;
     }
+
+    // Todo: カードをかざす機能を作る まだ調整・修正要ると思われる
+    // protected override void TriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("CardTouchPoint"))
+    //     {
+    //         transform.LookAt(other.transform);
+    //         NpcStateMachine.ChangeState(_doorOpenState);
+    //     }
+    // }
 }
 
 #region ステート機能
@@ -124,7 +168,17 @@ public class PatrolState : StateBase
 
     public override void Enter()
     {
-        // TODO: 歩くアニメーション再生
+        // 歩くアニメーション再生
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetBool("Stand", true);
+            _npc.Anim.SetBool("Sit", false);
+            _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
 
         //有効化
         _npc.NavMeshAgent.isStopped = false;
@@ -136,7 +190,7 @@ public class PatrolState : StateBase
         _npc.NavMeshAgent.SetDestination(_patrolNpc.Positions[_patrolNpc.IndexNum]);
         float distance = (_npc.transform.position - _patrolNpc.Positions[_patrolNpc.IndexNum]).sqrMagnitude;
         // だいたい近づいたら到達と見做す
-        if (distance <= 1f)
+        if (distance <= _patrolNpc.Distance)
         {
             _patrolNpc.IndexNum++; // 次の目標地点を更新
             if (_patrolNpc.IsWait)
@@ -168,7 +222,7 @@ public class PatrolState : StateBase
             _npc.transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
         }
 
-        Debug.Log("Update: Patrol state");
+        // Debug.Log("Update: Patrol state");
     }
 
     public override void Exit()
@@ -181,12 +235,12 @@ public class PatrolState : StateBase
 
 
 /// <summary>
-/// 立ち作業する場所で留まる機能
+/// 作業する場所で留まる機能
 /// </summary>
 public class StandingWorkState : StateBase
 {
-    float _timer = default;
-    PatrolNPC _patrol;
+    private float _timer = default;
+    private PatrolNPC _patrol;
 
     public StandingWorkState(PatrolNPC owner) : base(owner)
     {
@@ -195,12 +249,41 @@ public class StandingWorkState : StateBase
 
     public override void Enter()
     {
-        // TODO: 立ち作業のアニメーション再生
+        // 当たり判定無効
+        foreach (var collider in _patrol.Colliders)
+        {
+            collider.enabled = false;
+        }
 
+        // 立ち・座り作業のアニメーション再生
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetFloat("Speed", 0);
+            if (_npc.IsStand)
+            {
+                // 立ち作業
+                _npc.Anim.Play("Standing Idle");
+                _npc.Anim.SetBool("Sit", false);
+                _npc.Anim.SetBool("Stand", true);
+            }
+            else
+            {
+                // 座り作業
+                _npc.Anim.Play("Desk Work");
+                _npc.Anim.SetBool("Stand", false);
+                _npc.Anim.SetBool("Sit", true);
+            }
+
+            _npc.Anim.SetBool("Work", true);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
         // Debug.Log("Enter: StandingWork state");
     }
 
-    // 立ち作業の時間を超えたら、立ち作業を終える
+    // 作業の時間を超えたら、作業を終える
     public override void Update()
     {
         _timer += Time.deltaTime;
@@ -209,13 +292,28 @@ public class StandingWorkState : StateBase
             Exit();
         }
 
-        Debug.Log("Update : StandingWork state");
+        // Debug.Log("Update : StandingWork state");
     }
 
     public override void Exit()
     {
+        // 当たり判定有効
+        foreach (var collider in _patrol.Colliders)
+        {
+            collider.enabled = true;
+        }
+
         _timer = 0f;
         _patrol.IsTimer = true;
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetBool("Work", false);
+            _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
         // Debug.Log("Exit : StandingWork state");
     }
 }
