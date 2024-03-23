@@ -77,7 +77,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
                 UIColorChange();
                 break;
             case 2: // 透視
-                Debug.LogWarning("透明化は未実装です。");
+                Debug.LogWarning("透視は未実装です。");
                 NullificationCameraSwitcher();
                 NullificationTransparent();
                 UIColorChange();
