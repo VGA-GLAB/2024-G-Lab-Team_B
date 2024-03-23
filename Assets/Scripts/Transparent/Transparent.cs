@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using DG.Tweening;
@@ -25,15 +26,20 @@ public class Transparent : MonoBehaviour
     [Header("レイヤーの名前：TransparentPlayer")] [Tooltip("レイヤーの名前：TransparentPlayer")]
     [SerializeField] private string _layerName = "TransparentPlayer";
 
-    [Header("テスト中か")] [Tooltip("テスト中か")]
-    [SerializeField] private bool _isTest = default;
-
     private string _defaultLayerName = default;
 
-    void Start()
+    private void Start()
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
         _defaultLayerName = LayerMask.LayerToName(gameObject.layer);
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            OnClick();
+        }
     }
 
     /// <summary>
