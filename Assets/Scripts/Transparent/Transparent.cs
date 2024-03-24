@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using DG.Tweening;
@@ -8,6 +9,8 @@ using DG.Tweening;
 /// </summary>
 public class Transparent : MonoBehaviour
 {
+    #region 変数
+
     [Header("透明化する対象")] [Tooltip("透明化する対象")]
     [SerializeField] private GameObject _target = default;
 
@@ -25,15 +28,32 @@ public class Transparent : MonoBehaviour
     [Header("レイヤーの名前：TransparentPlayer")] [Tooltip("レイヤーの名前：TransparentPlayer")]
     [SerializeField] private string _layerName = "TransparentPlayer";
 
-    [Header("テスト中か")] [Tooltip("テスト中か")]
-    [SerializeField] private bool _isTest = default;
-
     private string _defaultLayerName = default;
 
-    void Start()
+    [Header("キー入力ができるか")] [Tooltip("キー入力ができるか")]
+    [SerializeField] private bool _canInput = default;
+    
+    #endregion
+
+    /// <summary> キー入力ができるか </summary>
+    public bool CanInput
+    {
+        get => _canInput;
+        set => _canInput = value;
+    }
+    
+    private void Start()
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
         _defaultLayerName = LayerMask.LayerToName(gameObject.layer);
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Fire2") && CanInput)
+        {
+            OnClick();
+        }
     }
 
     /// <summary>

@@ -12,35 +12,44 @@ public class NPC : MonoBehaviour
 {
     #region"変数"
 
-    // [Header("アニメーター"), SerializeField] [Tooltip("アニメーター")]
-    // Animator _animator = default;
+    [Tooltip("アニメーター")] private Animator _anim = default;
 
-    [Tooltip("ステートマシン")] NPCStateMachine _nPCStateMachine = default;
+    [Tooltip("ステートマシン")] private NPCStateMachine _nPCStateMachine = default;
 
-    [Tooltip("アイドルステート")] IdleState _idleState = default;
-    [Tooltip("回避ステート")] AvoidState _avoidState = default;
+    [Tooltip("アイドルステート")] private IdleState _idleState = default;
+    [Tooltip("回避ステート")] private AvoidState _avoidState = default;
 
-    [Header("待機状態の継続時間"), SerializeField] [Tooltip("待機状態の継続時間")]
-    float _idleTime = 2f;
+    [Header("待機状態の継続時間")] [Tooltip("待機状態の継続時間")]
+    [SerializeField] private float _idleTime = 2f;
 
-    [Tooltip("（待機時間の）時間計算")] float _timer = 0f;
-    [Tooltip("（待機時間の）時間計算するか")] bool _isTimer = false;
+    [Tooltip("（待機時間の）時間計算")] private float _timer = 0f;
+    [Tooltip("（待機時間の）時間計算するか")] private bool _isTimer = false;
 
-    NavMeshAgent _navMeshAgent = default;
-    [Tooltip("回避先")] Vector3 _avoidPoint = default;
+    private NavMeshAgent _navMeshAgent = default;
+    [Tooltip("回避先")] private Vector3 _avoidPoint = default;
 
-    [Header("レイを出す始点"), SerializeField] [Tooltip("レイを出す始点")]
-    GameObject _startPoint = default;
+    [Header("立ちか座りか(待機と作業に影響)")] [Tooltip("立ちか座りか(待機と作業に影響)")]
+    [SerializeField] private bool _isStand = default;
 
-    [Header("レイの方向"), SerializeField] [Tooltip("レイの方向")]
-    Vector3 _direction = default;
+    [Header("レイを出す始点")] [Tooltip("レイを出す始点")]
+    [SerializeField] private GameObject _startPoint = default;
 
-    [Header("レイの長さ"), SerializeField] [Tooltip("レイの長さ")]
-    float _raycastLength = 2f;
+    [Header("レイの方向")] [Tooltip("レイの方向")]
+    [SerializeField] private Vector3 _direction = default;
+
+    [Header("レイの長さ")] [Tooltip("レイの長さ")]
+    [SerializeField] private float _raycastLength = 2f;
 
     #endregion
 
     #region"プロパティ"
+
+    /// <summary> アニメーター </summary>
+    public Animator Anim
+    {
+        get => _anim;
+        // set => _anim = value;
+    }
 
     /// <summary> ナビメッシュ コンポーネント </summary>
     public NavMeshAgent NavMeshAgent
@@ -59,6 +68,13 @@ public class NPC : MonoBehaviour
     {
         get => _avoidPoint;
         set => _avoidPoint = value;
+    }
+
+    /// <summary> 立ちか座りか </summary>
+    public bool IsStand
+    {
+        get => _isStand;
+        // set => _isStand = value;
     }
 
     /// <summary> （アイドル時間の）時間計算するか </summary>
@@ -85,6 +101,8 @@ public class NPC : MonoBehaviour
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _nPCStateMachine = new NPCStateMachine();
         _timer = 0f;
+        _anim = GetComponent<Animator>();
+        NpcStateMachine.ChangeState(_idleState);
 
         OnStart();
     }
@@ -164,6 +182,11 @@ public class NPC : MonoBehaviour
                 _nPCStateMachine.ChangeState(_avoidState);
             }
         }
+        TriggerEnter(other);
+    }
+
+    protected virtual void TriggerEnter(Collider other)
+    {
     }
 
     /// <summary>
@@ -179,11 +202,19 @@ public class NPC : MonoBehaviour
             // 無効化
             _navMeshAgent.isStopped = true;
             // よろけるアニメーション再生
+            if (_anim)
+            {
+                _anim.SetTrigger("Collision");
+            }
+            else
+            {
+                Debug.Log("アニメーターが設定されていません");
+            }
 
             var dir = other.transform.position - transform.position;
             var pos = transform.position;
             transform.position = pos - dir.normalized; // otherとは逆方向に移動
-
+            _isTimer = true;
             Debug.Log("よろける！！");
         }
     }
@@ -213,17 +244,44 @@ public class IdleState : StateBase
     public override void Enter()
     {
         // TODO: 待機アニメーション再生
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetBool(_npc.IsStand ? "Stand" : "Sit", true); // 立っている : 座っている
 
-        //Debug.Log("Enter: Idle state");
+            _npc.Anim.SetFloat("Speed", 0);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
+
+        // Debug.Log("Enter: Idle state");
     }
 
     public override void Update()
     {
-        //Debug.Log("Update: Idle state");
+        // Debug.Log("Update: Idle state");
     }
 
     public override void Exit()
     {
+        if (_npc.Anim)
+        {
+            if (_npc.IsStand)
+            {
+                _npc.Anim.SetBool("Stand", false);
+            }
+            else
+            {
+                _npc.Anim.SetBool("Sit", false);
+            }
+
+            _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
         //Debug.Log("Exit : Idle state");
     }
 }
@@ -241,6 +299,15 @@ public class AvoidState : StateBase
     public override void Enter()
     {
         // TODO: 歩くアニメーション再生
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
+            _npc.Anim.SetBool("Stand", true);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
 
         //有効化
         _npc.NavMeshAgent.isStopped = false;
@@ -262,6 +329,14 @@ public class AvoidState : StateBase
 
     public override void Exit()
     {
+        if (_npc.Anim)
+        {
+            _npc.Anim.SetBool("Stand", false);
+        }
+        else
+        {
+            Debug.LogWarning("アニメーターが設定されていません");
+        }
         //Debug.Log("Exit : Avoid state");
     }
 }
