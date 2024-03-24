@@ -116,7 +116,7 @@ public class FollowState : StateBase
     public override void Update()
     {
         followNPC.Follow();
-        Debug.Log("Update: Follow state");
+        // Debug.Log("Update: Follow state");
     }
 
     public override void Exit()
