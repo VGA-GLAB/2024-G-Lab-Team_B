@@ -14,20 +14,14 @@ public class PatrolNPC : NPC
     // パトロール関係
     [Space] [Header("===パトロール関係===")] [Header("移動速度")] [Tooltip("移動速度")]
     [SerializeField] private float _speed = 1f;
-
     [Header("到達したとみなす距離　※推奨：2人1組の場合数字を大きく")] [Tooltip("到達したとみなす距離")]
     [SerializeField] private float _distance = 0.05f;
-
     [Tooltip("巡回ステート")] private PatrolState _patrolState = default;
-
     [Header("経路となるオブジェクトの親オブジェクト")] [Tooltip("経路となるオブジェクトの親オブジェクト")]
     [SerializeField] private GameObject _parentRoute = default;
-
     [Tooltip("経路の位置情報")] private Vector3[] _positions = default;
     [Tooltip("到達した場所のインデックス番号")] private int _reachIndexNum = default;
     [Tooltip("めざす場所のインデックス番号")] private int _indexNum = default;
-    // [Tooltip("目的地")] private Vector3 _targetPosition = default;
-
     [Header("各ポジションに到達したら、毎度その場で一時停止するか")] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
     [SerializeField] private bool _isWait = default;
 
@@ -35,17 +29,13 @@ public class PatrolNPC : NPC
     [Space] [Header("===作業関係===")] 
     [Header("作業の時間  ※巡回再開までにアイドル時間もかかる")] [Tooltip("作業の時間")]
     [SerializeField] private float _standingWorkTime = default;
-
     [Tooltip("作業ステート")] private StandingWorkState _standingWorkState = default;
     [Tooltip("作業する場所：インデックス番号")] private int[] _standingWorkPositionIndexes = default;
     [Header("作業する場所")] [SerializeField] private GameObject[] _standingWorkPositions = default;
-
     [Tooltip("当たり判定を無くす")] private Collider[] _colliders = default;
-
-    [Tooltip("ドアを開けるような動作をするステート")] private DoorOpenState _doorOpenState = default;
-
-    [Header("ドアが開き切るのを待つ時間"), Tooltip("ドアが開き切るのを待つ時間")] [SerializeField]
-    private float _waitTime = 1.5f;
+    // [Tooltip("ドアを開けるような動作をするステート")] private DoorOpenState _doorOpenState = default;
+    // [Header("ドアが開き切るのを待つ時間"), Tooltip("ドアが開き切るのを待つ時間")]
+    // [SerializeField] private float _waitTime = 1.5f;
 
     #endregion
 
@@ -90,12 +80,12 @@ public class PatrolNPC : NPC
         get => _colliders;
     }
 
-    /// <summary> ドアが開き切るのを待つ時間 </summary>
-    public float WaitTime
-    {
-        get => _waitTime;
-        // set => _waitTime = value;
-    }
+    // /// <summary> ドアが開き切るのを待つ時間 </summary>
+    // public float WaitTime
+    // {
+    //     get => _waitTime;
+    //     // set => _waitTime = value;
+    // }
 
     #endregion
 
@@ -125,7 +115,7 @@ public class PatrolNPC : NPC
         NpcStateMachine.ChangeState(_patrolState);
 
         _colliders = GetComponentsInChildren<Collider>();
-        _doorOpenState = new DoorOpenState(this);
+        // _doorOpenState = new DoorOpenState(this);
     }
 
     protected override void OnUpdate()
