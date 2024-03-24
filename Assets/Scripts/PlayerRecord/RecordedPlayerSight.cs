@@ -45,7 +45,21 @@ public class RecordedPlayerSight : MonoBehaviour
 
     private void Update()
     {
+        HealPlayer();
         FindPlyer();
+    }
+
+    /// <summary>
+    /// 一定間隔で回復する
+    /// </summary>
+    private void HealPlayer()
+    {
+        _healTime += Time.deltaTime;
+        if (_healTime >= _healInterval)
+        {
+            _iDamage.SendDamage(-_healHP);
+            _healTime = 0;
+        }
     }
 
     /// <summary>
@@ -73,12 +87,6 @@ public class RecordedPlayerSight : MonoBehaviour
         } // 論理積（最後のフレームと現フレームで見える/見えないが切り替わった時）
         else
         {
-            _healTime += Time.deltaTime;
-            if (_healTime >= _healInterval)
-            {
-                _iDamage.SendDamage(-_healHP);
-                _healTime = 0;
-            }
             _isDamage = false;
             _visiblTime = 0f;
         }
