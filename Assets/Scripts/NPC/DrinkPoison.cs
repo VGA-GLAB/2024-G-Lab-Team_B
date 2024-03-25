@@ -6,7 +6,7 @@ using UnityEngine.AI;
 /// 毒を飲んで死亡するモーションをするオブジェクトを生成する
 /// ※飲んでから死ぬまでの流れは、生成したオブジェクトが行う
 /// </summary>
-public class DrinkPoison : MonoBehaviour
+public class DrinkPoison : MonoBehaviour, ICanDead
 {
     #region 変数
    

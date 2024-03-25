@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 /// IsDeadのフラグが偽なら、その場で待機する
 /// </summary>
-public class ProfessorDeadOrAlive : MonoBehaviour
+public class ProfessorDeadOrAlive : MonoBehaviour, ICanDead
 {
     [Header("死ぬか"), Tooltip("死ぬか")]
     [SerializeField] private bool _isDead = default; 
@@ -13,13 +13,14 @@ public class ProfessorDeadOrAlive : MonoBehaviour
     [Header("薬"), Tooltip("薬")]
     [SerializeField] private GameObject _medicine = default;
     private bool _canPlay = false;
-
+    
     /// <summary> 死ぬか </summary>
     public bool IsDead
     {
         get => _isDead;
         set => _isDead = value;
     }
+    
     /// <summary> 薬 </summary>
     public GameObject Medicine
     {
