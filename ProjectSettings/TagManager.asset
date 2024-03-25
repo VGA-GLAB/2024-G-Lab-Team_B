@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RecordedPlayer
   - CardTouchPoint
+  - Poison
   layers:
   - Default
   - TransparentFX

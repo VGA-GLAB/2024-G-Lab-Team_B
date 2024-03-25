@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PlayerDamageView : MonoBehaviour
+public class PlayerHPView : MonoBehaviour
 {
     [SerializeField, Header("ダメージ用のパネル")]
     private Image _damagePanel;
