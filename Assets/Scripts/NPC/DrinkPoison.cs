@@ -5,6 +5,7 @@ using UnityEngine.AI;
 /// 指定した残り時間になったときに、特定の行動をする
 /// 毒を飲んで死亡するモーションをするオブジェクトを生成する
 /// ※飲んでから死ぬまでの流れは、生成したオブジェクトが行う
+/// 0:散歩-A 1:散歩-B 2:教授室へ 3:毒接種 (4:死亡)
 /// </summary>
 public class DrinkPoison : MonoBehaviour, ICanDead
 {
