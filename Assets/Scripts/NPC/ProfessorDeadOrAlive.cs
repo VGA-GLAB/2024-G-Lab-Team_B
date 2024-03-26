@@ -1,36 +1,25 @@
 using UnityEngine;
 
 /// <summary>
+/// 薬を飲む　→　倒れるor待機
 /// IsDeadのフラグが偽なら、その場で待機する
 /// </summary>
-public class ProfessorDeadOrAlive : MonoBehaviour, ICanDead
+public class ProfessorDeadOrAlive : DeadOrAliveBase
 {
-    [Header("死ぬか"), Tooltip("死ぬか")]
-    [SerializeField] private bool _isDead = default; 
-    private Animator _animator = default;
-    [Header("何秒後に死ぬか"), Tooltip("何秒後に死ぬか")]
-    [SerializeField] private float _timeToDead = 10f;
     [Header("薬"), Tooltip("薬")]
     [SerializeField] private GameObject _medicine = default;
-    private bool _canPlay = false;
-    
-    /// <summary> 死ぬか </summary>
-    public bool IsDead
-    {
-        get => _isDead;
-        set => _isDead = value;
-    }
-    
+    [Header("数秒後に再生するステート名"), Tooltip("数秒後に再生するステート名")]
+    [SerializeField] private string _latePlayStateName = default;
+
     /// <summary> 薬 </summary>
     public GameObject Medicine
     {
         get => _medicine;
         set => _medicine = value;
     }
-    
-    void Start()
+
+    protected override void OnStart()
     {
-        _animator = GetComponent<Animator>();
         _canPlay = true;
         Vector3 targetPos = _medicine.transform.position;
         // ターゲットのY座標を自分と同じにすることで2次元に制限する。
@@ -38,28 +27,15 @@ public class ProfessorDeadOrAlive : MonoBehaviour, ICanDead
         transform.LookAt(targetPos);
         _medicine.SetActive(false);
     }
-
-    private void Update()
+    
+    protected override void OnUpdate()
     {
         if (_canPlay)
         {
             if (_isDead)
             {
-                PlayDeadAnim();
+                LatePlayAnim(_latePlayStateName);
             }
-        }
-    }
-
-    /// <summary>
-    /// 死亡モーションを再生する
-    /// </summary>
-    void PlayDeadAnim()
-    {
-        _timeToDead -= Time.deltaTime;
-        if (_timeToDead <= 0)
-        {
-            _animator.Play("Unwell"); // ふらつく → 倒れる
-            _canPlay = false;
         }
     }
 }

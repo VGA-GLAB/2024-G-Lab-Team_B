@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
 /// 指定した残り時間になったときに、特定の行動をする
@@ -7,69 +6,25 @@ using UnityEngine.AI;
 /// ※飲んでから死ぬまでの流れは、生成したオブジェクトが行う
 /// 0:散歩-A 1:散歩-B 2:教授室へ 3:毒接種 (4:死亡)
 /// </summary>
-public class DrinkPoison : MonoBehaviour, ICanDead
+public class DrinkPoison : VictimBase
 {
     #region 変数
    
-    [Header("残り時間を持つクラス"), Tooltip("残り時間を持つクラス")]
-    private CountDownTimer _countDownTimer = default;
-
-    [Header("毒を飲んで死亡するモーションをするキャラクター"), Tooltip("毒を飲んで死亡するモーションをするキャラクター")]
-    [SerializeField] private GameObject _deadCharaPrefab = default;
-
-    [Tooltip("生成したキャラ")]
-    private GameObject _character = default;
-
-    [Header("死ぬか"), Tooltip("死ぬか")]
-    [SerializeField] private bool _isDead = default;
-
-    [Header("0:散歩-A 1:散歩-B 2:教授室へ 3:毒接種 (4:死亡)")] [Header("各行動の開始時間(例：残り時間〇秒)"), Tooltip("各行動の開始時間")]
-    [SerializeField] private float[] _timeline = new float[5];
-
-    private NavMeshAgent _navMeshAgent = default;
-
-    [Header("PatrolNPC[0]:自由行動  [1]-[3]:(タイムラインの0-2にあたる)")]
-    [Header("時間に応じて変える行動パターン"), Tooltip("時間に応じて変える行動パターン")]
-    [SerializeField] private PatrolNPC[] _patrolNpcs = default;
-    
-    [Header("毒を飲む場所"), Tooltip("毒を飲む場所")]
-    [SerializeField] private GameObject _poisonPoint = default;
-    private ProfessorDeadOrAlive _professorDeadOrAlive = default;
     [Header("薬"), Tooltip("薬")]
     [SerializeField] private GameObject _medicine = default;
     private bool _canDrinkMedicine = default;
 
     #endregion
     
-    /// <summary> 死ぬか </summary>
-    public bool IsDead
+    protected override void OnStart()
     {
-        get => _isDead;
-        set => _isDead = value;
     }
-
-    void Start()
+    
+    protected override void OnUpdate()
     {
-        ChangeEnabledToFalse(0);
-        _patrolNpcs[0].enabled = true;
-        _navMeshAgent = GetComponent<NavMeshAgent>();
-        _countDownTimer = FindObjectOfType<CountDownTimer>();
-    }
-
-    void Update()
-    {
-        if (_countDownTimer.Timer > _timeline[0])
-        {
-            return;
-        }
-        if (_countDownTimer.Timer <= 0)
-        {
-            return;
-        }
-
         TimeLineMove();
     }
-
+    
     /// <summary>
     /// タイムラインに合わせて行動する
     /// </summary>
@@ -84,14 +39,13 @@ public class DrinkPoison : MonoBehaviour, ICanDead
             {
                 _character = Instantiate(_deadCharaPrefab, transform.position, transform.rotation);
             }
-            if (!_professorDeadOrAlive)
-            {
-                _professorDeadOrAlive = FindObjectOfType<ProfessorDeadOrAlive>();
-                // Todo: _isDeadフラグを適用する場所
-                _professorDeadOrAlive.IsDead = _isDead;
-                _professorDeadOrAlive.Medicine = _medicine;
-                gameObject.SetActive(false);
-            }
+            
+            // Todo: _isDeadフラグを適用する場所
+            ICanDead iCanDead = _character.transform.GetChild(0).GetComponent<ICanDead>();
+            iCanDead.IsDead = _isDead;
+            ProfessorDeadOrAlive professorDeadOrAlive = _character.transform.GetChild(0).GetComponent<ProfessorDeadOrAlive>();
+            professorDeadOrAlive.Medicine = _medicine;
+            gameObject.SetActive(false);
         }
         else if (remainingTime < _timeline[2])
         {
@@ -103,7 +57,7 @@ public class DrinkPoison : MonoBehaviour, ICanDead
                 _patrolNpcs[3].enabled = true;
             }
             // 毒のある場所に着いたら巡回を停止する
-            var distance = (transform.position - _poisonPoint.transform.position).sqrMagnitude;
+            var distance = (transform.position - _deadPoint.transform.position).sqrMagnitude;
             if (distance <= 0.2f)
             {
                 // 巡回を停止し、その場で待機
@@ -129,21 +83,6 @@ public class DrinkPoison : MonoBehaviour, ICanDead
             {
                 ChangeEnabledToFalse(1);
                 _patrolNpcs[1].enabled = true;
-            }
-        }
-    }
-
-    /// <summary>
-    /// 使わないPatrolNPCの機能を停止する
-    /// </summary>
-    /// <param name="num"></param>
-    void ChangeEnabledToFalse(int num)
-    {
-        for (int i = 0; i < _patrolNpcs.Length; i++)
-        {
-            if (i != num)
-            {
-                _patrolNpcs[i].enabled = false;
             }
         }
     }

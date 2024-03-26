@@ -739,7 +739,7 @@ MonoBehaviour:
   - {fileID: 7301411104598783738}
   - {fileID: 7301411104598783739}
   - {fileID: 7301411104598783736}
-  _poisonPoint: {fileID: 7301411105667429992}
+  _deadPoint: {fileID: 7301411105667429992}
   _medicine: {fileID: 0}
 --- !u!114 &7301411104598783738
 MonoBehaviour:

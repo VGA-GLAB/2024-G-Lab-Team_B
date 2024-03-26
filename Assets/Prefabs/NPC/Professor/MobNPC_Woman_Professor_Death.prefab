@@ -1892,10 +1892,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5c958397f21caa4ea5bcb4063cc9eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDead: 0
-  _timeToDead: 10
-  _canDrinkMedicine: 0
+  _isDead: 1
+  _timeToPlay: 10
   _medicine: {fileID: 0}
+  _latePlayStateName: Unwell
 --- !u!136 &689909925
 CapsuleCollider:
   m_ObjectHideFlags: 0
