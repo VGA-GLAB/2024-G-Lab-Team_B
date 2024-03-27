@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7509667819042515506}
   - component: {fileID: 7509667819042515532}
   - component: {fileID: 7509667819042515533}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Charactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,6 +240,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mob_Woman_Walking_0309
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b4587d9ea746b1147a8cbfe5c36c6b92,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4587d9ea746b1147a8cbfe5c36c6b92, type: 3}
