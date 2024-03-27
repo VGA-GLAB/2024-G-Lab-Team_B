@@ -178,39 +178,23 @@ public class NPC : MonoBehaviour
 
         // プレイヤーが透明化中なら即リターン
         if (other.gameObject.layer == LayerMask.NameToLayer("TransparentPlayer")){ return; }
-        
         // プレイヤーなら
         if (other.CompareTag("Player") || other.CompareTag("RecordedPlayer"))
         {
             // 壁越しの回避をさせない
-            string hitTagName = DetermineObstacle(other.gameObject);
-            if (hitTagName == "Player" || hitTagName == "RecordedPlayer")
+            var origin = transform.position;
+            if(Physics.Raycast(origin, other.transform.position - origin, out RaycastHit hit))
             {
-                _nPCStateMachine.ChangeState(_avoidState);
+                if(hit.collider == other)
+                {
+                    _nPCStateMachine.ChangeState(_avoidState);
+                }
             }
         }
     }
 
     protected virtual void TriggerEnter(Collider other)
     {
-    }
-
-    /// <summary>
-    /// プレイヤーとの間に障害物があるか
-    /// タグで見る
-    /// </summary>
-    /// <param name="go"></param>
-    /// <returns></returns>
-    string DetermineObstacle(GameObject go)
-    {
-        Ray ray = new Ray(transform.position, go.transform.position - transform.position);
-        RaycastHit hit;
-        string tagName = default;
-        if (Physics.Raycast(ray, out hit))
-        {
-            tagName = hit.collider.gameObject.tag;
-        }
-        return tagName;
     }
 
     /// <summary>
