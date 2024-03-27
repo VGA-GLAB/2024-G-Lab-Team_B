@@ -33,9 +33,6 @@ public class PatrolNPC : NPC
     [Tooltip("作業する場所：インデックス番号")] private int[] _standingWorkPositionIndexes = default;
     [Header("作業する場所")] [SerializeField] private GameObject[] _standingWorkPositions = default;
     [Tooltip("当たり判定を無くす")] private Collider[] _colliders = default;
-    // [Tooltip("ドアを開けるような動作をするステート")] private DoorOpenState _doorOpenState = default;
-    // [Header("ドアが開き切るのを待つ時間"), Tooltip("ドアが開き切るのを待つ時間")]
-    // [SerializeField] private float _waitTime = 1.5f;
 
     #endregion
 
@@ -80,13 +77,6 @@ public class PatrolNPC : NPC
         get => _colliders;
     }
 
-    // /// <summary> ドアが開き切るのを待つ時間 </summary>
-    // public float WaitTime
-    // {
-    //     get => _waitTime;
-    //     // set => _waitTime = value;
-    // }
-
     #endregion
 
     protected override void OnStart()
@@ -115,7 +105,6 @@ public class PatrolNPC : NPC
         NpcStateMachine.ChangeState(_patrolState);
 
         _colliders = GetComponentsInChildren<Collider>();
-        // _doorOpenState = new DoorOpenState(this);
     }
 
     protected override void OnUpdate()
@@ -130,16 +119,6 @@ public class PatrolNPC : NPC
 
         _reachIndexNum = _indexNum - 1;
     }
-
-    // Todo: カードをかざす機能を作る まだ調整・修正要ると思われる
-    // protected override void TriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("CardTouchPoint"))
-    //     {
-    //         transform.LookAt(other.transform);
-    //         NpcStateMachine.ChangeState(_doorOpenState);
-    //     }
-    // }
 }
 
 #region ステート機能

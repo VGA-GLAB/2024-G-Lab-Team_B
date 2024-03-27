@@ -174,19 +174,43 @@ public class NPC : MonoBehaviour
     /// <param name="other"></param>
     void OnTriggerEnter(Collider other)
     {
+        TriggerEnter(other);
+
+        // プレイヤーが透明化中なら即リターン
+        if (other.gameObject.layer == LayerMask.NameToLayer("TransparentPlayer")){ return; }
+        
+        // プレイヤーなら
         if (other.CompareTag("Player") || other.CompareTag("RecordedPlayer"))
         {
-            if (other.gameObject.layer != LayerMask.NameToLayer("TransparentPlayer"))
+            // 壁越しの回避をさせない
+            string hitTagName = DetermineObstacle(other.gameObject);
+            if (hitTagName == "Player" || hitTagName == "RecordedPlayer")
             {
-                //Debug.Log(other.gameObject.name + "のレイヤー番号 : " + other.gameObject.layer);
                 _nPCStateMachine.ChangeState(_avoidState);
             }
         }
-        TriggerEnter(other);
     }
 
     protected virtual void TriggerEnter(Collider other)
     {
+    }
+
+    /// <summary>
+    /// プレイヤーとの間に障害物があるか
+    /// タグで見る
+    /// </summary>
+    /// <param name="go"></param>
+    /// <returns></returns>
+    string DetermineObstacle(GameObject go)
+    {
+        Ray ray = new Ray(transform.position, go.transform.position - transform.position);
+        RaycastHit hit;
+        string tagName = default;
+        if (Physics.Raycast(ray, out hit))
+        {
+            tagName = hit.collider.gameObject.tag;
+        }
+        return tagName;
     }
 
     /// <summary>
@@ -243,7 +267,6 @@ public class IdleState : StateBase
 
     public override void Enter()
     {
-        // TODO: 待機アニメーション再生
         if (_npc.Anim)
         {
             _npc.Anim.SetBool(_npc.IsStand ? "Stand" : "Sit", true); // 立っている : 座っている
@@ -267,14 +290,14 @@ public class IdleState : StateBase
     {
         if (_npc.Anim)
         {
-            if (_npc.IsStand)
-            {
-                _npc.Anim.SetBool("Stand", false);
-            }
-            else
-            {
-                _npc.Anim.SetBool("Sit", false);
-            }
+            // if (_npc.IsStand)
+            // {
+            //     _npc.Anim.SetBool("Stand", false);
+            // }
+            // else
+            // {
+            //     _npc.Anim.SetBool("Sit", false);
+            // }
 
             _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
         }
@@ -329,14 +352,6 @@ public class AvoidState : StateBase
 
     public override void Exit()
     {
-        if (_npc.Anim)
-        {
-            _npc.Anim.SetBool("Stand", false);
-        }
-        else
-        {
-            Debug.LogWarning("アニメーターが設定されていません");
-        }
         //Debug.Log("Exit : Avoid state");
     }
 }
