@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 /// <summary>
 /// 被害者の基底クラス
+/// ※死亡場所に着く前に死亡時刻になると、その場で死亡する
 /// </summary>
 public class VictimBase : MonoBehaviour, ICanDead
 {

@@ -594,7 +594,8 @@ GameObject:
   - component: {fileID: 7301411104598783738}
   - component: {fileID: 7301411104598783739}
   - component: {fileID: 7301411104598783736}
-  m_Layer: 0
+  - component: {fileID: 1175232770268413988}
+  m_Layer: 2
   m_Name: Charactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -810,6 +811,19 @@ MonoBehaviour:
   _isWait: 0
   _standingWorkTime: 0
   _standingWorkPositions: []
+--- !u!114 &1175232770268413988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489000201558900216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b562f742dfad247ad622ca1b44e161, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isCardTouchPoint: 0
 --- !u!1 &8356051732208330727
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,6 +922,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mob_Woman_Walking_0309
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b4587d9ea746b1147a8cbfe5c36c6b92,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8416536936033435989, guid: b4587d9ea746b1147a8cbfe5c36c6b92,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c128bfaacbf75914eb9ea8bd1726949c, type: 2}
     m_RemovedComponents:
     - {fileID: 5866666021909216657, guid: b4587d9ea746b1147a8cbfe5c36c6b92, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b4587d9ea746b1147a8cbfe5c36c6b92, type: 3}
