@@ -15,7 +15,7 @@ public class PlayerMoveController : MonoBehaviour
     private CharacterController _controller;
     private CameraSwitcher _cameraSwitcher;
     private float _moveVelocityY; // 重力の代わり
-    private bool _isCruch = false;
+    private bool _isCrouch = false;
 
     void Start()
     {
@@ -77,22 +77,25 @@ public class PlayerMoveController : MonoBehaviour
 
         _controller.Move((dir.normalized + Vector3.up * _moveVelocityY) * (speed * Time.deltaTime));
 
-        Cruch();
+        Crouch();
     }
 
-    private void Cruch()
+    /// <summary>
+    /// スペースを押すとしゃがむ
+    /// </summary>
+    private void Crouch()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Space))
         {
-            if (_isCruch)
+            if (_isCrouch)
             {
-                _isCruch = false;
+                _isCrouch = false;
             }
             else
             {
-                _isCruch = true;
+                _isCrouch = true;
             }
-            _animator.SetBool("Crouch", _isCruch);
+            _animator.SetBool("Crouch", _isCrouch);
         }
     }
 
