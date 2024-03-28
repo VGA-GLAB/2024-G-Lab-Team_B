@@ -45,7 +45,7 @@ public class Transparent : MonoBehaviour
     private void Start()
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
-        _defaultLayerName = LayerMask.LayerToName(gameObject.layer);
+        _defaultLayerName = LayerMask.LayerToName(_target.gameObject.layer);
     }
 
     private void Update()
@@ -102,7 +102,7 @@ public class Transparent : MonoBehaviour
                 Material material = _renderers[i].material;
                 if (isFlag)
                 {
-                    gameObject.layer = LayerMask.NameToLayer(_layerName);
+                    _target.gameObject.layer = LayerMask.NameToLayer(_layerName);
 
                     // 透明にする処理
                     material.SetOverrideTag("RenderType", "Transparent");
@@ -134,7 +134,7 @@ public class Transparent : MonoBehaviour
                         material.renderQueue = (int)RenderQueue.Geometry;
 
                         renderer.shadowCastingMode = ShadowCastingMode.On;
-                        gameObject.layer = LayerMask.NameToLayer(_defaultLayerName);
+                        _target.gameObject.layer = LayerMask.NameToLayer(_defaultLayerName);
                     });
                 }
             }
