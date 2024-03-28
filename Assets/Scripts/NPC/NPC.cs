@@ -185,7 +185,7 @@ public class NPC : MonoBehaviour
             var origin = transform.position;
             if(Physics.Raycast(origin, other.transform.position - origin, out RaycastHit hit))
             {
-                if(hit.collider == other)
+                if(hit.collider.gameObject == other.gameObject)
                 {
                     _nPCStateMachine.ChangeState(_avoidState);
                 }
@@ -254,7 +254,6 @@ public class IdleState : StateBase
         if (_npc.Anim)
         {
             _npc.Anim.SetBool(_npc.IsStand ? "Stand" : "Sit", true); // 立っている : 座っている
-
             _npc.Anim.SetFloat("Speed", 0);
         }
         else
@@ -315,7 +314,7 @@ public class AvoidState : StateBase
         {
             Debug.LogWarning("アニメーターが設定されていません");
         }
-
+        
         //有効化
         _npc.NavMeshAgent.isStopped = false;
         // 回避先をめざして移動
@@ -331,7 +330,7 @@ public class AvoidState : StateBase
             _npc.IsTimer = true;
         }
 
-        //Debug.Log("Update : Avoid state");
+        // Debug.Log("Update : Avoid state");
     }
 
     public override void Exit()
