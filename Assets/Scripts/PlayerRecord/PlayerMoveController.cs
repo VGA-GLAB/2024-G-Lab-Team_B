@@ -4,14 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMoveController : MonoBehaviour
 {
-    [SerializeField, Header("歩く時の移動速度")] private　float _walkSpeed = 3f;
+    [SerializeField, Header("歩く時の移動速度")] private float _walkSpeed = 3f;
     [SerializeField, Header("走る時の移動速度")] private float _runSpeed = 6f;
-    [SerializeField, Header("回転速度")] private　float _rotarionSpeed = 3f;
+    [SerializeField, Header("回転速度")] private float _rotarionSpeed = 3f;
+
+    [SerializeField]
+    private Animator _animator;
 
     //private Rigidbody _rigidbody;
-    private　CharacterController _controller;
+    private CharacterController _controller;
     private CameraSwitcher _cameraSwitcher;
     private float _moveVelocityY; // 重力の代わり
+    private bool _isCruch = false;
 
     void Start()
     {
@@ -28,17 +32,26 @@ public class PlayerMoveController : MonoBehaviour
         Vector3 dir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
         dir = Camera.main.transform.TransformDirection(dir);
         dir.y = 0;
-
         // 移動の入力がない時は回転させない。入力がある時はその方向にキャラクターを向ける。
-        if (dir != Vector3.zero && !_cameraSwitcher.IsFirstPerson)
+        if (dir != Vector3.zero)
         {
-            this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
+            _animator.SetFloat("Speed", 1);
+            if (!_cameraSwitcher.IsFirstPerson)
+            {
+                this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
+            }
         }
-        else if (_cameraSwitcher.IsFirstPerson)
+        else
+        {
+            _animator.SetFloat("Speed", 0);
+        }
+
+        if (_cameraSwitcher.IsFirstPerson)
         {
             // 一人称時に自身の向きをカメラの向きに合わせる
-            this.transform.forward = Camera.main.transform.forward;
+            transform.forward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
         }
+
 
         // 地上にいる場合
         if (_controller.isGrounded)
@@ -54,6 +67,7 @@ public class PlayerMoveController : MonoBehaviour
         // ダッシュ時の処理
         if (Input.GetKey(KeyCode.LeftShift))
         {
+            _animator.SetFloat("Speed", 2);
             speed = _runSpeed;
         }
         else
@@ -62,6 +76,24 @@ public class PlayerMoveController : MonoBehaviour
         }
 
         _controller.Move((dir.normalized + Vector3.up * _moveVelocityY) * (speed * Time.deltaTime));
+
+        Cruch();
+    }
+
+    private void Cruch()
+    {
+        if (Input.GetKey(KeyCode.Q))
+        {
+            if (_isCruch)
+            {
+                _isCruch = false;
+            }
+            else
+            {
+                _isCruch = true;
+            }
+            _animator.SetBool("Crouch", _isCruch);
+        }
     }
 
 

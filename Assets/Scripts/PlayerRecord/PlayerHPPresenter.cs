@@ -11,6 +11,7 @@ public class PlayerHPPresenter : MonoBehaviour
 
     private void Start()
     {
+        //ヒットポイントが変更されたら通知される
         _playerHP.HitPoint.Skip(1).Subscribe(x => _hpView.UpdatePanelAlpha(_playerHP.MaxHitPoint - x)).AddTo(this);
     }
 }
