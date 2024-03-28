@@ -37,11 +37,10 @@ public class FollowNPC : NPC
 
     public void Follow()
     {
-        _right = _targetNpcTransform.localPosition +
+        _right = _targetNpcTransform.position + 
                  _targetNpcTransform.TransformDirection(new Vector3(_distance, 0, 0));
-        _left = _targetNpcTransform.localPosition +
+        _left = _targetNpcTransform.position + 
                 _targetNpcTransform.TransformDirection(new Vector3(-_distance, 0, 0));
-
         var pos = transform.position;
         var distanceToRight = Vector3.Distance(pos, _right);
         var distanceToLeft = Vector3.Distance(pos, _left);

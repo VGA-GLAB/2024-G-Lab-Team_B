@@ -218,7 +218,8 @@ public class NPC : MonoBehaviour
             {
                 Debug.Log("アニメーターが設定されていません");
             }
-
+            // よろけたアニメーションのままの移動をさせない
+            _navMeshAgent.isStopped = true;
             var dir = other.transform.position - transform.position;
             var pos = transform.position;
             transform.position = pos - dir.normalized; // otherとは逆方向に移動
