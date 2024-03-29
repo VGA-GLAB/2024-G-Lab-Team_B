@@ -9,7 +9,7 @@ public class CardKey : ItemBase
         ChildType = ItemType.Cardkey;
     }
 
-    public override void UseItem()
+    public override void UseItem(GameObject obj)
     {
         Debug.Log("カードキーを使用");
     }

@@ -12,7 +12,7 @@ public abstract class ItemBase : MonoBehaviour
     /// <summary>
     /// アイテムを使用したときの処理を書く
     /// </summary>
-    public abstract void UseItem();
+    public abstract void UseItem(GameObject obj);
 
     /// <summary>
     /// アイテムタイプをセットする

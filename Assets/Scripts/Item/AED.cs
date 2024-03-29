@@ -9,8 +9,9 @@ public class AED : ItemBase
         ChildType = ItemType.AED;
     }
 
-    public override void UseItem()
+    public override void UseItem(GameObject obj)
     {
+        obj.GetComponent<ICanDead>().IsDead = false;
         Debug.Log("AEDを使用");
     }
 }
