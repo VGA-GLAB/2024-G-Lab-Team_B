@@ -258,3 +258,5 @@ MonoBehaviour:
   _targetLayerMask:
     serializedVersion: 2
     m_Bits: 65
+  _damageDealt: 20
+  _damageInterval: 5
