@@ -22,7 +22,11 @@ public class PlayerItemController : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 GetItem(hit);
-                UseSelectItem(hit, "Poison", ItemType.Drug);
+                if (_inventory?.Count > 0)
+                {
+                    UseDrug(hit);
+                    UseAED(hit);
+                }
             }
         }
         ChangeSelectedItem();
@@ -74,16 +78,25 @@ public class PlayerItemController : MonoBehaviour
     }
 
     /// <summary>
-    /// 選択しているアイテムを使用する
+    /// 薬を使用する
     /// </summary>
-    public void UseSelectItem(RaycastHit hit, string tag, ItemType itemType)
+    private void UseDrug(RaycastHit hit)
     {
-        if (_inventory?.Count > 0)
+        if (hit.collider.tag == "Poison" && _inventory[_selectItemIndex.Value].ItemType == ItemType.Drug)
         {
-            if (hit.collider.tag == tag && _inventory[_selectItemIndex.Value].ItemType == itemType)
-            {
-                _inventory[_selectItemIndex.Value].UseItem();
-            }
+            _inventory[_selectItemIndex.Value].UseItem(hit.collider.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// AEDを使用する
+    /// </summary>
+    private void UseAED(RaycastHit hit)
+    {
+        if(hit.collider.TryGetComponent<ICanDead>(out ICanDead dead) && !dead.IsDead
+            && _inventory[_selectItemIndex.Value].ItemType == ItemType.AED)
+        {
+            _inventory[_selectItemIndex.Value].UseItem(hit.collider.gameObject);
         }
     }
 }

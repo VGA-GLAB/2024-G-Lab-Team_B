@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class Drug : ItemBase
 {
-    [SerializeField, Header("Poisonタグのついたオブジェクト")]
-    private GameObject _poison;
 
     public override void SetItemType()
     {
         ChildType = ItemType.Drug;
     }
 
-    public override void UseItem()
+    public override void UseItem(GameObject obj)
     {
-        _poison.tag = "Untagged";//仮
+        obj.tag = "Untagged";//仮
         Debug.Log("薬を使用");
     }
 }
