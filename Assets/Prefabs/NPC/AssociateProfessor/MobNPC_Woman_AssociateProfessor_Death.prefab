@@ -67,8 +67,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 013f0c5b9b5be8945abae176889a88d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDead: 0
-  _timeToPlay: 7
+  _isDead: 1
+  _timeToPlay: 5
   _latePlayStateName: Resurrection
 --- !u!1 &706471256823479154
 GameObject:

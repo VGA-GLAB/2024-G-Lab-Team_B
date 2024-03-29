@@ -1,6 +1,6 @@
 /// <summary>
 /// 心配停止で死亡する准教授を生成する
-/// IsDeadフラグ次第で死亡する
+/// ここでは死亡フラグを変更できない
 /// 0:階段 1:踊り場 2:倒れる（生成）
 /// </summary>
 public class CardioPulmonaryArrest : VictimBase
@@ -29,13 +29,6 @@ public class CardioPulmonaryArrest : VictimBase
             }
             if (_character)
             {
-                // Todo: _isDeadフラグを適用する場所
-                ICanDead iCanDead = _character.transform.GetChild(0).GetComponent<ICanDead>();
-                if (iCanDead != _character.transform.GetChild(0).GetComponent<ICanDead>())
-                {
-                    return;
-                }
-                iCanDead.IsDead = _isDead;
                 gameObject.SetActive(false);
             }
         }

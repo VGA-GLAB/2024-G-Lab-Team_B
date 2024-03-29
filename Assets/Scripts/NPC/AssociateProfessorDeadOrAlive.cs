@@ -2,8 +2,7 @@ using UnityEngine;
 /// <summary>
 /// 死亡モーションをする
 /// IsDeadが偽になると、立ち上がる
-/// ※倒れるまではIsDeadの真偽に関係なく実行される
-/// IsDeadの影響が出るのは、倒れてからになる
+/// 倒れてから残り時間10秒になる前までは、死亡フラグを偽にできる
 /// </summary>
 public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
 {
@@ -11,9 +10,12 @@ public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
     [SerializeField] private string _latePlayStateName = default;
     [Header("秒数カウント開始"), Tooltip("秒数カウント開始")]
     private bool _isCount = default;
+    [Header("残り時間を持つクラス"), Tooltip("残り時間を持つクラス")]
+    protected CountDownTimer _countDownTimer = default;
     
     protected override void OnStart()
     {
+        _countDownTimer = FindObjectOfType<CountDownTimer>();
         _canPlay = true;
         _animator.Play("Unwell"); // 倒れるまでは共通
         _isCount = false;
@@ -21,14 +23,6 @@ public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
     
     protected override void OnUpdate()
     {
-        if (!IsDead)
-        {
-            if (_canPlay)
-            {
-                _animator.SetTrigger("ElectricShock"); // AED
-                _canPlay = false;
-            }
-        }
 
         if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Laying Seizure"))
         {
@@ -40,6 +34,18 @@ public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
         {
             LatePlayAnim(_latePlayStateName);
             _isCount = false;
+        }
+        
+        // 残り時間が１０秒をきったら、フラグの干渉をできなくする
+        if(_countDownTimer.Timer <= 10f){return;}
+        
+        if (!IsDead)
+        {
+            if (_canPlay)
+            {
+                _animator.SetTrigger("ElectricShock"); // AED
+                _canPlay = false;
+            }
         }
     }
 }

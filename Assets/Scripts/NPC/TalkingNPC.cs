@@ -56,7 +56,7 @@ public class TalkingState : StateBase
 
     public override void Update()
     {
-        Debug.Log("Update: Talking state");
+        // Debug.Log("Update: Talking state");
     }
 
     public override void Exit()

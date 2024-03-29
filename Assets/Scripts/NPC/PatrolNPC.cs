@@ -82,7 +82,6 @@ public class PatrolNPC : NPC
     protected override void OnStart()
     {
         _patrolState = new PatrolState(this);
-        NavMeshAgent.speed = _speed;
         _reachIndexNum = -1;
         _indexNum = 0; // 最初の目標地点
         // 経路を取得
@@ -105,6 +104,15 @@ public class PatrolNPC : NPC
         NpcStateMachine.ChangeState(_patrolState);
 
         _colliders = GetComponentsInChildren<Collider>();
+    }
+
+    /// <summary>
+    /// PatrolNPCが複数付いている場合、
+    /// 各PatrolNPCの速度を反映させるために、OnEnableで設定する必要がある
+    /// </summary>
+    private void OnEnable()
+    {
+        if(NavMeshAgent) NavMeshAgent.speed = _speed;
     }
 
     protected override void OnUpdate()

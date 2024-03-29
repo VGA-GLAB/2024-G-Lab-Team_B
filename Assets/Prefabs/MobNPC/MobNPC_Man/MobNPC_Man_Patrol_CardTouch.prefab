@@ -36,6 +36,7 @@ Transform:
   m_Children:
   - {fileID: 8047819211123743819}
   - {fileID: 890871303812969858}
+  - {fileID: 7348977546067263843}
   m_Father: {fileID: 723625577117708934}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,6 +109,7 @@ MonoBehaviour:
   _startPoint: {fileID: 782634772411930220}
   _direction: {x: 1, y: 0, z: 0.5}
   _raycastLength: 1.5
+  _rayOrigin: {fileID: 4412614334648458541}
   _speed: 1
   _distance: 0.05
   _parentRoute: {fileID: 723625577584994909}
@@ -306,6 +308,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 723625577584994908}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4412614334648458541
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7348977546067263843}
+  m_Layer: 0
+  m_Name: RayOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7348977546067263843
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412614334648458541}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 723625575891999676}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &9219802351425222035
 PrefabInstance:
