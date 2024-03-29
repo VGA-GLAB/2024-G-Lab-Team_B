@@ -31,6 +31,29 @@ public class SceneLoader : MonoBehaviour
     [Header("進捗率を表示するテキスト")] public Text _progressText;
 
     // --------------------------------------------------
+    // シングルトン
+
+    // シングルトンインスタンス
+    private static SceneLoader instance;
+
+    // シングルトンインスタンスを取得
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            // このオブジェクトをシーン遷移時に破棄しない
+            DontDestroyOnLoad(gameObject); 
+        }
+        else if (instance != this)
+        {
+            // 重複インスタンスの削除
+            Destroy(gameObject); 
+        }
+    }
+
+    // --------------------------------------------------
+
 
 
     // --------------------------------------------------
@@ -85,18 +108,18 @@ public class SceneLoader : MonoBehaviour
     IEnumerator FadeAndLoadScene(string sceneName)
     {
         // 画面を暗くするフェードアウト
-        yield return StartCoroutine(Fade(1f, 0f)); 
+        yield return StartCoroutine(Fade(0f, 1f)); 
         // 指定されたシーンをロード
         SceneManager.LoadScene(sceneName); 
         // 画面を明るくするフェードイン
-        yield return StartCoroutine(Fade(0f, 1f)); 
+        yield return StartCoroutine(Fade(1f, 0f)); 
     }
 
     // フェード、ローディング画面表示、非同期ロードを組み合わせたコルーチン
     IEnumerator FadeAndLoadSceneAsync(string sceneName)
     {
         // 画面を暗くするフェードアウト
-        yield return StartCoroutine(Fade(1f, 0f));
+        yield return StartCoroutine(Fade(0f, 1f));
         // ローディング画面を表示
         _loadingScreen.SetActive(true);
         // シーンを非同期でロード
@@ -104,7 +127,7 @@ public class SceneLoader : MonoBehaviour
         // ローディング画面を非表示にする
         _loadingScreen.SetActive(false);
         // 画面を明るくするフェードイン
-        yield return StartCoroutine(Fade(0f, 1f)); 
+        yield return StartCoroutine(Fade(1f, 0f)); 
     }
 
     // 非同期でシーンをロードするコルーチン
