@@ -40,6 +40,9 @@ public class NPC : MonoBehaviour
     [Header("レイの長さ")] [Tooltip("レイの長さ")]
     [SerializeField] private float _raycastLength = 2f;
 
+    [Header("レイを出す始点(壁越しさせない用)")] [Tooltip("レイを出す始点(壁越しさせない用)")]
+    [SerializeField] private GameObject _rayOrigin = default;
+
     #endregion
 
     #region"プロパティ"
@@ -182,7 +185,8 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("RecordedPlayer"))
         {
             // 壁越しの回避をさせない
-            var origin = transform.position;
+            // var origin = transform.position;
+            var origin = _rayOrigin.transform.position;
             if(Physics.Raycast(origin, other.transform.position - origin, out RaycastHit hit))
             {
                 if(hit.collider.gameObject == other.gameObject)
@@ -224,7 +228,7 @@ public class NPC : MonoBehaviour
             var pos = transform.position;
             transform.position = pos - dir.normalized; // otherとは逆方向に移動
             _isTimer = true;
-            Debug.Log("よろける！！");
+            // Debug.Log("よろける！！");
         }
     }
 
