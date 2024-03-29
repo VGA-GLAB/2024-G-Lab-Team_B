@@ -93,7 +93,7 @@ public class PlayerItemController : MonoBehaviour
     /// </summary>
     private void UseAED(RaycastHit hit)
     {
-        if(hit.collider.TryGetComponent<ICanDead>(out ICanDead dead) && !dead.IsDead
+        if(hit.collider.TryGetComponent<ICanDead>(out ICanDead dead)
             && _inventory[_selectItemIndex.Value].ItemType == ItemType.AED)
         {
             _inventory[_selectItemIndex.Value].UseItem(hit.collider.gameObject);
