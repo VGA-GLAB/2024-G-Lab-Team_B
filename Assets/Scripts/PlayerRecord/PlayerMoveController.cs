@@ -36,6 +36,7 @@ public class PlayerMoveController : MonoBehaviour
         if (dir != Vector3.zero)
         {
             _animator.SetFloat("Speed", 1);
+            
             if (!_cameraSwitcher.IsFirstPerson)
             {
                 this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
@@ -50,8 +51,9 @@ public class PlayerMoveController : MonoBehaviour
         {
             // 一人称時に自身の向きをカメラの向きに合わせる
             transform.forward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
-        }
+            //this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
 
+        }
 
         // 地上にいる場合
         if (_controller.isGrounded)
