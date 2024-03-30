@@ -16,12 +16,6 @@ public class RecordedPlayerSight : MonoBehaviour
     [SerializeField, Header("発見時のダメージ数")]
     private int _damageDealt = 20;
 
-    [SerializeField, Header("自然回復する値")]
-    private int _healHP = 1;
-
-    [SerializeField, Header("自然回復のインターバル")]
-    private float _healInterval = 1f;
-
     [SerializeField, Header("ダメージのインターバル")]
     private float _damageInterval = 1f;
 
@@ -30,36 +24,17 @@ public class RecordedPlayerSight : MonoBehaviour
     private IDamage _iDamage;
     private bool _isVisible = true; // 発見フラグ
     private float _visiblTime = 0f; // 見つけている時間
-    private float _healTime = 0f;
     private bool _isDamage = false;
 
     private void Start()
     {
-        //TODO:違うテキストが呼ばれることがある
-        //TODO:複数人分の判定の表示に対応しないといけない
-        // 発見テキストの検索
-        _visibleMessage = FindFirstObjectByType<Text>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _iDamage = _player.GetComponent<IDamage>();
     }
 
     private void Update()
     {
-        HealPlayer();
         FindPlyer();
-    }
-
-    /// <summary>
-    /// 一定間隔で回復する
-    /// </summary>
-    private void HealPlayer()
-    {
-        _healTime += Time.deltaTime;
-        if (_healTime >= _healInterval)
-        {
-            _iDamage.SendDamage(-_healHP);
-            _healTime = 0;
-        }
     }
 
     /// <summary>

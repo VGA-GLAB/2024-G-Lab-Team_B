@@ -36,6 +36,7 @@ public class PlayerMoveController : MonoBehaviour
         if (dir != Vector3.zero)
         {
             _animator.SetFloat("Speed", 1);
+            
             if (!_cameraSwitcher.IsFirstPerson)
             {
                 this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
@@ -52,7 +53,6 @@ public class PlayerMoveController : MonoBehaviour
             transform.forward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
         }
 
-
         // 地上にいる場合
         if (_controller.isGrounded)
         {
@@ -65,7 +65,7 @@ public class PlayerMoveController : MonoBehaviour
         float speed = 0;
 
         // ダッシュ時の処理
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && dir != Vector3.zero)
         {
             _animator.SetFloat("Speed", 2);
             speed = _runSpeed;

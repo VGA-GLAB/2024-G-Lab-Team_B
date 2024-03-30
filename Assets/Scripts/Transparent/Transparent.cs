@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using DG.Tweening;
+using Cysharp.Threading;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 /// <summary>
 /// プレイヤーの透明度を変更する
@@ -32,6 +35,16 @@ public class Transparent : MonoBehaviour
 
     [Header("キー入力ができるか")] [Tooltip("キー入力ができるか")]
     [SerializeField] private bool _canInput = default;
+
+    [SerializeField, Header("ダメージのインターバル")]
+    private float _damageInterval = 1f;
+
+    [SerializeField, Header("ダメージ数")]
+    private int _damageDealt = 5;
+
+    private IDamage _damage;
+    private bool _isDamageInterval = false;
+    private CancellationToken _token;
     
     #endregion
 
@@ -45,7 +58,9 @@ public class Transparent : MonoBehaviour
     private void Start()
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
+        _damage = _target.GetComponent<IDamage>();
         _defaultLayerName = LayerMask.LayerToName(_target.gameObject.layer);
+        _token = this.GetCancellationTokenOnDestroy();
     }
 
     private void Update()
@@ -53,7 +68,28 @@ public class Transparent : MonoBehaviour
         if (Input.GetButtonDown("Fire2") && CanInput)
         {
             OnClick();
+
+            if(_isTransparent)
+            {
+                _damage.SendDamage(_damageDealt);//初回ダメージ
+            }
         }
+
+        if(_isTransparent && !_isDamageInterval)
+        {
+            AbilityDamage().Forget();
+        }
+    }
+
+    /// <summary>
+    /// 能力使用時一定間隔でダメージをくらう
+    /// </summary>
+    private async UniTask AbilityDamage()
+    {
+        _isDamageInterval = true;
+        await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken : _token);
+        _damage.SendDamage(_damageDealt);
+        _isDamageInterval = false;
     }
 
     /// <summary>

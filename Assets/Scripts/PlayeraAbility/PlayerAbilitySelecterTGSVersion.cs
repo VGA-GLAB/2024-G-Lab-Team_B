@@ -104,8 +104,8 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     private void NullificationCameraSwitcher()
     {
         _cameraSwitcher.IsFirstPerson = true;
-        _cameraSwitcher.FirstPersonPriority = 1;
-        _cameraSwitcher.ThirdPersonPriority = 0;
+        _cameraSwitcher.FirstPerson.Priority = 1;
+        _cameraSwitcher.ThirdPerson.Priority = 0;
         _cameraSwitcher.enabled = false;
     }
 
