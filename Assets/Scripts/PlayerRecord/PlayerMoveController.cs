@@ -51,8 +51,6 @@ public class PlayerMoveController : MonoBehaviour
         {
             // 一人称時に自身の向きをカメラの向きに合わせる
             transform.forward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
-            //this.transform.forward = Vector3.Lerp(this.transform.forward, dir, Time.deltaTime * _rotarionSpeed);
-
         }
 
         // 地上にいる場合
@@ -67,7 +65,7 @@ public class PlayerMoveController : MonoBehaviour
         float speed = 0;
 
         // ダッシュ時の処理
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && dir != Vector3.zero)
         {
             _animator.SetFloat("Speed", 2);
             speed = _runSpeed;
