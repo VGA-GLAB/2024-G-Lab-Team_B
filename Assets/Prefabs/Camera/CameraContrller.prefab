@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25212bc1e99dbdc4cb5c5a0e326b671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstPerson: {fileID: 0}
-  thirdPerson: {fileID: 0}
-  IsFirstPerson: 0
+  _firstPerson: {fileID: 0}
+  _thirdPerson: {fileID: 0}
+  _damageInterval: 1
+  _damageDealt: 2
