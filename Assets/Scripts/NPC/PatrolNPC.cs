@@ -100,7 +100,7 @@ public class PatrolNPC : NPC
             var positionIndex = _standingWorkPositions[i];
             _standingWorkPositionIndexes[i] = positionIndex.transform.GetSiblingIndex();
         }
-
+        NavMeshAgent.speed = _speed;
         NpcStateMachine.ChangeState(_patrolState);
 
         _colliders = GetComponentsInChildren<Collider>();

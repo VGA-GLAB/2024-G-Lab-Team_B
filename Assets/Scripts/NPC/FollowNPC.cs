@@ -1,7 +1,8 @@
 using UnityEngine;
 
 /// <summary>
-/// 一定距離離れたら待つ
+/// 一定距離離れたら速度を上げる
+/// 相方が停止しているとき、待機アニメーションをさせる
 /// </summary>
 public class FollowNPC : NPC
 {
@@ -20,7 +21,46 @@ public class FollowNPC : NPC
     [SerializeField] private float _defaultSpeed = 1f;
     [Tooltip("距離を出すための対象の位置")] private Vector3 _targetPos = default;
     [Tooltip("追尾ステート")] private FollowState _followState = default;
+    
+    #endregion
 
+    #region プロパティ
+
+    /// <summary> 相方 </summary>
+    public Transform TargetNpcTransform
+    {
+        get => _targetNpcTransform;
+        // set => _targetNpcTransform = value;
+    }
+
+    /// <summary> 横並びになる距離 </summary>
+    public float Distance
+    {
+        get => _distance;
+        // set => _distance = value;
+    }
+    
+    /// <summary> 距離を出すための対象の位置 </summary>
+    public Vector3 TargetPos
+    {
+        get => _targetPos;
+        set => _targetPos = value;
+    }
+    
+    /// <summary> 付いていく対象の右側の位置 </summary>
+    public Vector3 Right
+    {
+        get => _right;
+        set => _right = value;
+    }
+    
+    /// <summary> 付いていく対象の左側の位置 </summary>
+    public Vector3 Left
+    {
+        get => _left;
+        set => _left = value;
+    }
+    
     #endregion
 
     protected override void OnStart()
@@ -32,43 +72,23 @@ public class FollowNPC : NPC
 
     protected override void OnUpdate()
     {
-        ToDefaultState(_followState);
-    }
-
-    public void Follow()
-    {
-        _right = _targetNpcTransform.position + 
-                 _targetNpcTransform.TransformDirection(new Vector3(_distance, 0, 0));
-        _left = _targetNpcTransform.position + 
-                _targetNpcTransform.TransformDirection(new Vector3(-_distance, 0, 0));
-        var pos = transform.position;
-        var distanceToRight = Vector3.Distance(pos, _right);
-        var distanceToLeft = Vector3.Distance(pos, _left);
-
-        // より近い方に向かう
-        if (distanceToRight < distanceToLeft)
-        {
-            // _rightがより近い場合の処理
-            _targetPos = _right;
-        }
-        else
-        {
-            // _leftがより近い場合の処理
-            _targetPos = _left;
-        }
-
         // 一定距離離れていたら速度を上げる
-        var d = Vector3.Distance(pos, _targetPos);
-        if (d >= _distance + 0.5f)
+        var d = Vector3.Distance(transform.position, _targetPos);
+        NavMeshAgent.speed = d >= 0.5f ? _speed : _defaultSpeed;
+        // 到達したら待機アニメーションにする
+        if (NavMeshAgent.remainingDistance <= 0.1f)
         {
-            NavMeshAgent.speed = _speed;
+            NavMeshAgent.isStopped = true;
+            Anim.SetFloat("Speed", 0);
         }
         else
         {
-            NavMeshAgent.speed = _defaultSpeed;
+            Anim.SetFloat("Speed", NavMeshAgent.speed, 1f,Time.deltaTime);
+            NavMeshAgent.isStopped = false;
         }
-
         NavMeshAgent.SetDestination(_targetPos);
+        
+        ToDefaultState(_followState);
     }
 
     /// <summary>
@@ -103,24 +123,31 @@ public class FollowState : StateBase
         {
             _npc.Anim.SetBool("Stand", true);
             _npc.Anim.SetBool("Sit", false);
-            _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
         }
         else
         {
             Debug.LogWarning("アニメーターが設定されていません");
         }
-        //Debug.Log("Enter: Follow state");
+        // Debug.Log("Enter: Follow state");
     }
 
     public override void Update()
     {
-        followNPC.Follow();
+        followNPC.Right = followNPC.TargetNpcTransform.position + 
+                          followNPC.TargetNpcTransform.TransformDirection(new Vector3(followNPC.Distance, 0, 0.3f));
+        followNPC.Left = followNPC.TargetNpcTransform.position + 
+                          followNPC.TargetNpcTransform.TransformDirection(new Vector3(-followNPC.Distance, 0, 0.3f));
+        var pos = followNPC.transform.position;
+        var distanceToRight = Vector3.Distance(pos, followNPC.Right);
+        var distanceToLeft = Vector3.Distance(pos, followNPC.Left);
+        // より近い方に向かう
+        followNPC.TargetPos = distanceToRight < distanceToLeft ? followNPC.Right : followNPC.Left;
         // Debug.Log("Update: Follow state");
     }
 
     public override void Exit()
     {
-        //Debug.Log("Exit: Follow state");
+        // Debug.Log("Exit: Follow state");
     }
 }
 
