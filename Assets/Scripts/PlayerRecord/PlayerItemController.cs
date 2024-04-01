@@ -4,6 +4,9 @@ using UniRx;
 
 public class PlayerItemController : MonoBehaviour
 {
+    [SerializeField, Header("アイテムの取得、使用ができる距離")]
+    private float _maxDistance = 5f;
+
     private List<ItemBase> _inventory = new List<ItemBase>(); // プレイヤーのインベントリ
 
     private ReactiveProperty<int> _selectItemIndex = new(); // 選択されたアイテム
@@ -19,7 +22,7 @@ public class PlayerItemController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
 
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, _maxDistance))
             {
                 GetItem(hit);
                 if (_inventory?.Count > 0)
