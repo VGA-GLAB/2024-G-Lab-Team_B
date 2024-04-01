@@ -12,54 +12,39 @@ public class SceneLoader : MonoBehaviour
 
     // フェード用の画像コンポーネント
     // シーン遷移時のフェードイン・アウトに使用します
-    [Header("フェード用のImage")] public Image _fadeImage;
+    [SerializeField]
+    [Header("フェード用のImage")] private Image _fadeImage;
 
     // フェードにかかる時間（秒）
     // フェードイン・アウトの速さを調整します
-    [Header("フェードにかかる時間")] public float _fadeDuration = 1f;
+    [SerializeField]
+    [Header("フェードにかかる時間")] private float _fadeDuration = 1f;
 
     // ローディング画面のUI。
     // 非同期でシーンをロードする際に表示します
-    [Header("ローディング画面のUI")] public GameObject _loadingScreen;
+    [SerializeField]
+    [Header("ローディング画面のUI")] private GameObject _loadingScreen;
 
     // ローディング進捗を表示するスライダー
     // ロードの進行度を視覚的に示します
-    [Header("進捗を表示するスライダー")] public Slider _progressBar;
+    [SerializeField]
+    [Header("進捗を表示するスライダー")] private Slider _progressBar;
 
     // ローディング進捗率を表示するテキスト
     // ロードの進行度を数値で示します
-    [Header("進捗率を表示するテキスト")] public Text _progressText;
-
-    // --------------------------------------------------
-    // シングルトン
-
-    // シングルトンインスタンス
-    private static SceneLoader instance;
-
-    // シングルトンインスタンスを取得
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            // このオブジェクトをシーン遷移時に破棄しない
-            DontDestroyOnLoad(gameObject); 
-        }
-        else if (instance != this)
-        {
-            // 重複インスタンスの削除
-            Destroy(gameObject); 
-        }
-    }
-
-    // --------------------------------------------------
-
+    [SerializeField]
+    [Header("進捗率を表示するテキスト")] private Text _progressText;
 
 
     // --------------------------------------------------
     // 関数宣言
 
-
+    // シーンがロードされた時点で自動的にフェードインを行う
+    void Start()
+    {
+        // フェードインを実行
+        StartCoroutine(Fade(1f, 0f));
+    }
     // -----------------------
     // 外部から呼び出す関数
 
@@ -111,9 +96,10 @@ public class SceneLoader : MonoBehaviour
         yield return StartCoroutine(Fade(0f, 1f)); 
         // 指定されたシーンをロード
         SceneManager.LoadScene(sceneName); 
-        // 画面を明るくするフェードイン
-        yield return StartCoroutine(Fade(1f, 0f)); 
     }
+
+
+    //-----------------------
 
     // フェード、ローディング画面表示、非同期ロードを組み合わせたコルーチン
     IEnumerator FadeAndLoadSceneAsync(string sceneName)
