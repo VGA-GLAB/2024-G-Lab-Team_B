@@ -35,6 +35,15 @@ public class SceneLoader : MonoBehaviour
     [SerializeField]
     [Header("進捗率を表示するテキスト")] private Text _progressText;
 
+    // クレジット画面のシーン名(クレジット画面をタイトルとは別途用意する場合)
+    // クレジット画面への遷移に使用します
+    [SerializeField]
+    [Header("クレジットシーン名")] private string creditsSceneName;
+
+    // クレジット画面のUI(タイトルと共通画面の場合)
+    // クレジットボタンを押した際に表示するUI（※UIイラストは一枚と仮定）
+    [SerializeField]
+    [Header("クレジットシーンUI")] private GameObject creditsUI;
 
     // --------------------------------------------------
     // 関数宣言
@@ -45,6 +54,7 @@ public class SceneLoader : MonoBehaviour
         // フェードインを実行
         StartCoroutine(Fade(1f, 0f));
     }
+
     // -----------------------
     // 外部から呼び出す関数
 
@@ -60,6 +70,33 @@ public class SceneLoader : MonoBehaviour
     public void LoadSceneFadeAndAsync(string sceneName)
     {
         StartCoroutine(FadeAndLoadSceneAsync(sceneName));
+    }
+
+    // クレジット画面への遷移を処理する関数
+    public void LoadCreditsScene()
+    {
+        // クレジット画面へのフェードイン・アウト遷移を開始
+        StartCoroutine(FadeAndLoadScene(creditsSceneName));
+    }
+
+    // クレジットUIを表示する
+    public void ShowCredits()
+    {
+        if (creditsUI != null)
+        {
+            // UIをアクティブ化（表示）
+            creditsUI.SetActive(true); 
+        }
+    }
+
+    // クレジットUIを非表示にする（戻るボタン等で呼び出す）
+    public void HideCredits()
+    {
+        if (creditsUI != null)
+        {
+            // UIを非アクティブ化（非表示）
+            creditsUI.SetActive(false); 
+        }
     }
 
     // -----------------------
@@ -85,8 +122,6 @@ public class SceneLoader : MonoBehaviour
             
             yield return null;
         }
-
-        _fadeImage.color = new Color(color.r, color.g, color.b, endAlpha);
     }
 
     // フェードとシーンロードを組み合わせたコルーチン
@@ -112,8 +147,6 @@ public class SceneLoader : MonoBehaviour
         yield return StartCoroutine(LoadSceneAsyncRoutine(sceneName));
         // ローディング画面を非表示にする
         _loadingScreen.SetActive(false);
-        // 画面を明るくするフェードイン
-        yield return StartCoroutine(Fade(1f, 0f)); 
     }
 
     // 非同期でシーンをロードするコルーチン
