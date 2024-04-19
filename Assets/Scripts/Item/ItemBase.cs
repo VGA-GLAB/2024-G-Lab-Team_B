@@ -1,11 +1,16 @@
 ﻿using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class ItemBase : MonoBehaviour
 {
     private Renderer _itemRenderer;
 
+    private bool _isSelect = false;
+
     protected ItemType ChildType = ItemType.None;
+
+    public bool IsSelect { get => _isSelect; set => _isSelect = value; }
 
     public ItemType ItemType => ChildType;
 
@@ -23,15 +28,5 @@ public abstract class ItemBase : MonoBehaviour
     {
         _itemRenderer = GetComponent<Renderer>();
         SetItemType();
-    }
-
-    private void OnMouseEnter()
-    {
-        _itemRenderer.material.color = Color.red;
-    }
-
-    private void OnMouseExit()
-    {
-        _itemRenderer.material.color = Color.white;
     }
 }

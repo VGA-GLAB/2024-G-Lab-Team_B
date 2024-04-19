@@ -17,5 +17,9 @@ public class ItemView : MonoBehaviour
         {
             _itemText.text = inventory[index].ToString();
         }
+        else
+        {
+            _itemText.text = string.Empty;
+        }
     }
 }
