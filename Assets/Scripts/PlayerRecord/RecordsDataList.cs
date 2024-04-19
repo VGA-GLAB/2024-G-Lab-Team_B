@@ -5,7 +5,14 @@ using System.Linq;
 [System.Serializable]
 public struct RecordsDataList
 {
-    public List<RecordsData> DataList; // データリスト
+    /// <summary>プレイヤーの記録のリスト</summary>
+    public List<RecordsData> DataList;
+
+    /// <summary>教授の死亡フラグ</summary>
+    public bool ProfessorDeadFlag;
+
+    /// <summary>准教授の死亡フラグ</summary>
+    public bool AssociateProfessorDeadFlag;
 
     /// <summary>IDでプレイヤーの記録を取得します</summary>
     public List<Record> GetRecords(int id) => DataList.Find(data => id == data.Id).Records.ToList();
@@ -33,10 +40,10 @@ public struct RecordsDataList
         {
             DataList = new List<RecordsData>();
         }
-        
+
         // 既に存在しているorListの中身が無ければ追加しない
         if (ContainsID(id) || records.Count <= 0) return;
-        
+
         var data = new RecordsData(id, records);
         DataList.Add(data);
     }

@@ -39,6 +39,8 @@ public class RecordsDataSaver : MonoBehaviour
         PlayerMoveRecorder recorder = FindFirstObjectByType<PlayerMoveRecorder>();
         recorder.AddRecord();
         RecordsDataList data = recorder.GetRecordsDataList;
+        data.ProfessorDeadFlag = FindFirstObjectByType<ProfessorDeadOrAlive>().IsDead;
+        data.AssociateProfessorDeadFlag = FindFirstObjectByType<AssociateProfessorDeadOrAlive>().IsDead;
         
         // JSON形式に変換して保存
         string jsonString = JsonUtility.ToJson(data);
