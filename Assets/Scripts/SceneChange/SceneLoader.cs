@@ -38,12 +38,12 @@ public class SceneLoader : MonoBehaviour
     // クレジット画面のシーン名(クレジット画面をタイトルとは別途用意する場合)
     // クレジット画面への遷移に使用します
     [SerializeField]
-    [Header("クレジットシーン名")] private string creditsSceneName;
+    [Header("クレジットシーン名")] private string _creditsSceneName;
 
     // クレジット画面のUI(タイトルと共通画面の場合)
     // クレジットボタンを押した際に表示するUI（※UIイラストは一枚と仮定）
     [SerializeField]
-    [Header("クレジットシーンUI")] private GameObject creditsUI;
+    [Header("クレジットシーンUI")] private GameObject _creditsUI;
 
     // --------------------------------------------------
     // 関数宣言
@@ -76,26 +76,26 @@ public class SceneLoader : MonoBehaviour
     public void LoadCreditsScene()
     {
         // クレジット画面へのフェードイン・アウト遷移を開始
-        StartCoroutine(FadeAndLoadScene(creditsSceneName));
+        StartCoroutine(FadeAndLoadScene(_creditsSceneName));
     }
 
     // クレジットUIを表示する
     public void ShowCredits()
     {
-        if (creditsUI != null)
+        if (_creditsUI != null)
         {
             // UIをアクティブ化（表示）
-            creditsUI.SetActive(true); 
+            _creditsUI.SetActive(true); 
         }
     }
 
     // クレジットUIを非表示にする（戻るボタン等で呼び出す）
     public void HideCredits()
     {
-        if (creditsUI != null)
+        if (_creditsUI != null)
         {
             // UIを非アクティブ化（非表示）
-            creditsUI.SetActive(false); 
+            _creditsUI.SetActive(false); 
         }
     }
 
