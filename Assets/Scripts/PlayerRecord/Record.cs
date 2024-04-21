@@ -9,14 +9,18 @@ public struct Record
     public Quaternion PlayerRotation;
     public Quaternion CameraRotation;
     public float RecordTime;
+    // public bool IsUsedTransparentAbility;
+    // public bool IsUsedClairvoyanceAbility;
 
     public Record(Vector3 playerPosition, Vector3 cameraPosition, Quaternion playerRotation, Quaternion cameraRotation,
-        float recordTime)
+        float recordTime/*, bool isUsedTransparentAbility, bool isUsedClairvoyanceAbility*/)
     {
         PlayerPosition = playerPosition;
         CameraPosition = cameraPosition;
         PlayerRotation = playerRotation;
         CameraRotation = cameraRotation;
         RecordTime = recordTime;
+        //IsUsedTransparentAbility = isUsedTransparentAbility;
+        //IsUsedClairvoyanceAbility = isUsedClairvoyanceAbility;
     }
 }

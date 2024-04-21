@@ -16,6 +16,12 @@ public struct RecordsDataList
 
     /// <summary>IDでプレイヤーの記録を取得します</summary>
     public List<Record> GetRecords(int id) => DataList.Find(data => id == data.Id).Records.ToList();
+    
+    //item Transform
+    
+    //item SetActive
+    
+    //player motion parameter
 
     /// <summary>プレイヤーの記録をIDとともに保持する構造体</summary>
     [System.Serializable]
