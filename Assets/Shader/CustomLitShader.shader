@@ -3,7 +3,7 @@ Shader "Custom/CustomLitShader"
     Properties
     {
         _BaseMap ("Base Texture", 2D) = "white" {}
-        _BaseColor ("Example Colour", Color) = (0, 0.66, 0.73, 1)
+        _BaseColor ("Color", Color) = (0, 0.66, 0.73, 1)
         _DitherLevel("DitherLevel", Range(0, 16)) = 0
         _Smoothness ("Smoothness", Float) = 0.5
 
@@ -16,7 +16,7 @@ Shader "Custom/CustomLitShader"
 
         [Toggle(_EMISSION)] _EnableEmission("Enable Emission", Float) = 0.0
         _EmissionMap ("Emission Texture", 2D) = "white" {}
-        [HDR] _EmissionColor ("Emission Colour", Color) = (0, 0, 0, 0)
+        [HDR] _EmissionColor ("Emission Color", Color) = (0, 0, 0, 0)
 
         [Toggle(_OutLineColor_ON)] _EnableOutLine("Enable OutLine", Float) = 0.0
         _OutLineColor ("OutLineColor", Color) = (0, 0, 0, 1)
