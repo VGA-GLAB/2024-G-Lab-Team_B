@@ -3603,6 +3603,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: AlphaScene
       objectReference: {fileID: 0}
+    - target: {fileID: 3176683191637683532, guid: a2234a3f26b183d419044c013da6c074,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3235129678463537891, guid: a2234a3f26b183d419044c013da6c074,
         type: 3}
       propertyPath: m_Pivot.x
@@ -4751,7 +4756,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016730117}
-  m_LocalRotation: {x: -0.06267458, y: 0.023445917, z: -0.011641422, w: 0.9976907}
+  m_LocalRotation: {x: -0.06267458, y: 0.0234459, z: -0.011641415, w: 0.9976907}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
