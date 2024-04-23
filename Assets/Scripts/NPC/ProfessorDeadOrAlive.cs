@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 
 /// <summary>
-/// 薬を飲む　→　倒れるor待機
+/// 薬を飲む　→　倒れるor伸び
 /// IsDeadのフラグが偽なら、その場で待機する
 /// </summary>
 public class ProfessorDeadOrAlive : DeadOrAliveBase
@@ -10,6 +11,8 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
     [SerializeField] private GameObject _medicine = default;
     [Header("数秒後に再生するステート名"), Tooltip("数秒後に再生するステート名")]
     [SerializeField] private string _latePlayStateName = default;
+    [Header("死亡回避後のアニメーション"), Tooltip("死亡回避後のアニメーション")]
+    [SerializeField] private string _deathAvoidance = default;
 
     /// <summary> 薬 </summary>
     public GameObject Medicine
@@ -34,8 +37,27 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
         {
             if (_isDead)
             {
-                LatePlayAnim(_latePlayStateName);
+                if (_deathAvoidance == null) 
+                    Debug.LogWarning("再生するアニメーションのステート名を設定してください。");
+                else LatePlayAnim(_latePlayStateName);
+            }
+            else
+            {
+                // 死亡回避
+                if (_deathAvoidance == null) 
+                    Debug.LogWarning("死亡回避した後に、再生するアニメーションのステート名を設定してください。");
+                else
+                {
+                    LatePlayAnim(_deathAvoidance);
+                    // // Todo: 遷移のパラメータが確定したら以下を使用する
+                    // StartCoroutine(LateTransition());
+                }
             }
         }
+    }
+
+    protected override void Transition()
+    {
+        // _animator.SetBool("nobi", true);
     }
 }
