@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 
@@ -112,7 +113,15 @@ public class PatrolNPC : NPC
     /// </summary>
     private void OnEnable()
     {
-        if(NavMeshAgent) NavMeshAgent.speed = _speed;
+        if (NavMeshAgent)
+        {
+            NavMeshAgent.speed = _speed;
+        }
+    }
+
+    private void OnDisable()
+    {
+        NpcStateMachine.ChangeState(_patrolState);
     }
 
     protected override void OnUpdate()
