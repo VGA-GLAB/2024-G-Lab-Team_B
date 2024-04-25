@@ -49,13 +49,6 @@ public class DrinkPoison : VictimBase
         }
         else if (remainingTime < _timeline[2])
         {
-            // Todo: 外部から_isDeadフラグを切り替える場合、この時点で決定しておく必要がある (Poisonタグを使わない場合)
-            // ３. 薬を飲むために、教授部屋に戻る。
-            if (_patrolNpcs[3].enabled != true)
-            {
-                ChangeEnabledToFalse(3);
-                _patrolNpcs[3].enabled = true;
-            }
             // 毒のある場所に着いたら巡回を停止する
             var distance = (transform.position - _deadPoint.transform.position).sqrMagnitude;
             if (distance <= 0.2f)
@@ -65,6 +58,15 @@ public class DrinkPoison : VictimBase
                 _patrolNpcs[3].Anim.SetFloat("Speed", 0);
                 ChangeEnabledToFalse(100);
                 _canDrinkMedicine = true; // 薬のタグ判定を許可
+            }
+            else
+            {
+                // ３. 薬を飲むために、教授部屋に戻る。
+                if (_patrolNpcs[3].enabled != true)
+                {
+                    ChangeEnabledToFalse(3);
+                    _patrolNpcs[3].enabled = true;
+                }
             }
         }
         else if (remainingTime < _timeline[1])

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 /// <summary>
 /// 死亡モーションをするオブジェクトの基底クラス
@@ -12,6 +13,10 @@ public class DeadOrAliveBase : MonoBehaviour, ICanDead
     [Header("何秒後に再生するか"), Tooltip("何秒後に再生するか")]
     [SerializeField] protected float _timeToPlay = 10f;
     protected bool _canPlay = false;
+    [Header("何秒後に遷移させるか"), Tooltip("何秒後に再生するか")]
+    [SerializeField] protected float _timeToTrainsition = 10f;
+    private WaitForSeconds _wfs = default;
+
 
     #endregion
     
@@ -28,6 +33,7 @@ public class DeadOrAliveBase : MonoBehaviour, ICanDead
     void Start()
     {
         _animator = GetComponent<Animator>();
+        _wfs = new WaitForSeconds(_timeToTrainsition);
         OnStart();
     }
 
@@ -48,4 +54,15 @@ public class DeadOrAliveBase : MonoBehaviour, ICanDead
             _canPlay = false;
         }
     }
+    
+    /// <summary>
+    /// 数秒後にアニメーション遷移させる
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator LateTransition()
+    {
+        yield return _wfs;
+        Transition();
+    }
+    protected virtual void Transition(){}
 }
