@@ -3,170 +3,115 @@ using UnityEngine.UI;
 
 public class AbilityMenu : MonoBehaviour
 {
-    // 最初のメニューのUI
     [SerializeField]
-    [Header("最初のメニューの能力画像")] private Image _abilityUI;
-
+    [Header("最初のメニューの能力ボタン")] private Button _abilityMenuButton;
     [SerializeField]
-    [Header("最初のメニューのアイテム画像")] private Image _itemUI;
-
-
-    // 能力メニューのUI
-    [SerializeField]
-    [Header("能力のメニュー画像①")] private Image _ability_1;
+    [Header("最初のメニューのアイテムボタン")] private Button _itemMenuButton;
 
     [SerializeField]
-    [Header("能力のメニュー画像②")] private Image _ability_2;
+    [Header("能力のメニューボタン①")] private Button _ability1Button;
+    [SerializeField]
+    [Header("能力のメニューボタン②")] private Button _ability2Button;
+    [SerializeField]
+    [Header("能力のメニューボタン③")] private Button _ability3Button;
 
     [SerializeField]
-    [Header("能力のメニュー画像③")] private Image _ability_3;
-
-
-    // アイテムメニューのUI
-    [SerializeField]
-    [Header("アイテムのメニュー画像①")] private Image _item_1;
-
-    [SerializeField]
-    [Header("アイテムのメニュー画像②")] private Image _item_2;
-
+    [Header("アイテムのメニューボタン")] private Button _itemButton;
 
     // メニューの状態を表す列挙型
-    enum MenuState { _firstMenu, _abilityMenu, _itemMenu };
-    // 現在のメニュー状態
+    enum MenuState { FirstMenu, AbilityMenu, ItemMenu }
+    // 現在のメニューの状態
     private MenuState _currentMenuState;
-
 
     void Start()
     {
+        // ボタンのリスナーを設定
+        SetupListeners();
+        // 最初のメニューを表示
         FirstMenu();
     }
 
     void Update()
     {
-        // 左クリックで選択したUIを切り替える
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit _hit;
-
-            Ray _ray
-                = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(_ray, out _hit))
-            {
-                // 能力メニューのUIを表示する
-                AbilityMenuUI(_hit);
-
-                // アイテムメニューのUIを表示する
-                ItemMenuUI(_hit);
-            }
-        }
-
         // ホイールクリックでメニューを閉じる
         if (Input.GetMouseButtonDown(2))
         {
             CloseMenu();
         }
-    }
 
-    // 最初のメニュー状態を表示する
-    public void FirstMenu()
-    {
-        // 初期状態で最初のUIのみを表示する
-        _abilityUI.enabled = true;
-        _itemUI.enabled = false;
-
-        // 能力メニューのUIを非表示にする
-        _ability_1.enabled = false;
-        _ability_2.enabled = false;
-        _ability_3.enabled = false;
-
-        // アイテムメニューのUIを非表示にする
-        _item_1.enabled = false;
-        _item_2.enabled = false;
-
-        // 初期状態は最初のメニュー画面
-        _currentMenuState = MenuState._firstMenu;
-
-        // 右クリックでメニューを閉じる
+        // 右クリックで前のメニューに戻るか、メニューを閉じる
         if (Input.GetMouseButtonDown(1))
         {
-            CloseMenu();
+            if (_currentMenuState == MenuState.FirstMenu)
+            {
+                // メニューを閉じる
+                CloseMenu();
+            }
+            else
+            {
+                // 最初のメニューに戻る
+                FirstMenu();
+            }
         }
     }
 
-    // 能力メニューのUIを表示する
-    public void AbilityMenuUI(RaycastHit hit)
+    // ボタンのリスナーを設定
+    void SetupListeners()
     {
-        if (hit.collider.gameObject == _abilityUI)
-        {
-            _abilityUI.enabled = false;
-            _itemUI.enabled = false;
-            _ability_1.enabled = true;
-            _ability_2.enabled = true;
-            _ability_3.enabled = true;
-
-            _currentMenuState = MenuState._abilityMenu;
-        }
-
-        // 右クリックで1つ前のメニューに戻る
-        if (Input.GetMouseButtonDown(1))
-        {
-            BackMenu();
-        }
+        _abilityMenuButton.onClick.AddListener(() => ChangeMenuState(MenuState.AbilityMenu));
+        _itemMenuButton.onClick.AddListener(() => ChangeMenuState(MenuState.ItemMenu));
     }
 
-    // アイテムメニューのUIを表示する
-    public void ItemMenuUI(RaycastHit hit)
+    // 最初のメニューを表示
+    void FirstMenu()
     {
-        if (hit.collider.gameObject == _itemUI)
-        {
-            _abilityUI.enabled = false;
-            _itemUI.enabled = false;
-            _item_1.enabled = true;
-            _item_2.enabled = true;
-
-            _currentMenuState = MenuState._itemMenu;
-        }
-
-        // 右クリックで1つ前のメニューに戻る
-        if (Input.GetMouseButtonDown(1))
-        {
-            BackMenu();
-        }
+        // メニューの表示を切り替え
+        ToggleMenu(showFirst: true, showAbilities: false, showItems: false);
+        // 現在のメニューの状態を更新
+        _currentMenuState = MenuState.FirstMenu;
     }
 
-    // 1つ前のメニューに戻る
-    public void BackMenu()
+    // メニューの状態を変更
+    void ChangeMenuState(MenuState newState)
     {
-        switch (_currentMenuState)
+        switch (newState)
         {
-            case MenuState._abilityMenu:
+            // 能力メニューを表示
+            case MenuState.AbilityMenu:
 
-                _abilityUI.enabled = true;
-                _ability_1.enabled = false;
-                _ability_2.enabled = false;
-                _ability_3.enabled = false;
-
-                _currentMenuState = MenuState._firstMenu;
+                // メニューの表示を切り替え
+                ToggleMenu(showFirst: false, showAbilities: true, showItems: false);
 
                 break;
 
-            case MenuState._itemMenu:
+            // アイテムメニューを表示
+            case MenuState.ItemMenu:
 
-                _itemUI.enabled = true;
-                _item_1.enabled = false;
-                _item_2.enabled = false;
-
-                _currentMenuState = MenuState._firstMenu;
+                // メニューの表示を切り替え
+                ToggleMenu(showFirst: false, showAbilities: false, showItems: true);
 
                 break;
         }
+
+        // 現在のメニューの状態を更新
+        _currentMenuState = newState;
     }
 
-    //メニュー画面を終了する
+    // メニューの表示を切り替え
+    void ToggleMenu(bool showFirst, bool showAbilities, bool showItems)
+    {
+        _abilityMenuButton.gameObject.SetActive(showFirst);
+        _itemMenuButton.gameObject.SetActive(showFirst);
+
+        _ability1Button.gameObject.SetActive(showAbilities);
+        _ability2Button.gameObject.SetActive(showAbilities);
+        _ability3Button.gameObject.SetActive(showAbilities);
+
+        _itemButton.gameObject.SetActive(showItems);
+    }
+
     void CloseMenu()
     {
-        // メニュー画面を非表示にする
         gameObject.SetActive(false);
     }
 }
