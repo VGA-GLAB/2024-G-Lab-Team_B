@@ -27,10 +27,22 @@ public class NPCStateMachine
 public abstract class StateBase
 {
     [Tooltip("このステートマシンを使用するインスタンスを保持")] protected NPC _npc;
+    [Tooltip("このステートマシンを使用するインスタンスを保持")] protected PoliceOfficer _policeOfficer;
+    [Tooltip("このステートマシンを使用するインスタンスを保持")] protected CleaningRobot _cleaningRobot;
 
     public StateBase(NPC npc)
     {
         this._npc = npc;
+    }
+    
+    public StateBase(PoliceOfficer policeOfficer)
+    {
+        this._policeOfficer = policeOfficer;
+    }
+    
+    public StateBase(CleaningRobot cleaningRobot)
+    {
+        this._cleaningRobot = cleaningRobot;
     }
 
     public abstract void Enter();

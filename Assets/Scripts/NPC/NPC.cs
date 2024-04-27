@@ -86,7 +86,7 @@ public class NPC : MonoBehaviour
         get => _isTimer;
         set => _isTimer = value;
     }
-
+    
     #endregion
 
     protected virtual void OnStart()
@@ -309,7 +309,6 @@ public class AvoidState : StateBase
 
     public override void Enter()
     {
-        // TODO: 歩くアニメーション再生
         if (_npc.Anim)
         {
             _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
