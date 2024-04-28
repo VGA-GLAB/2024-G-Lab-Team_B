@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using static CriAudioManager;
 
 public class PlayerItemController : MonoBehaviour
 {
@@ -47,7 +48,8 @@ public class PlayerItemController : MonoBehaviour
         {
             AddItem(item);
             item.gameObject.SetActive(false);
-            if(_inventory.Count == 1)
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Get_01");
+            if (_inventory.Count == 1)
             {
                 _selectItemIndex.Value = 0;
             }
@@ -89,6 +91,7 @@ public class PlayerItemController : MonoBehaviour
         _inventory[_selectItemIndex.Value].transform.position = hit.point;
         _inventory[_selectItemIndex.Value].gameObject.SetActive(true);
         _inventory.RemoveAt(_selectItemIndex.Value);//インベントリから削除
+        //CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");
 
         if (_selectItemIndex.Value >= _inventory.Count)
         {
