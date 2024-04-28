@@ -2,9 +2,8 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using DG.Tweening;
-using Cysharp.Threading;
-using Cysharp.Threading.Tasks;
-using System.Threading;
+using UniRx;
+using static CriAudioManager;
 
 /// <summary>
 /// プレイヤーの透明度を変更する
@@ -36,16 +35,12 @@ public class Transparent : MonoBehaviour
     [Header("キー入力ができるか")] [Tooltip("キー入力ができるか")]
     [SerializeField] private bool _canInput = default;
 
-    [SerializeField, Header("ダメージのインターバル")]
-    private float _damageInterval = 1f;
+    [SerializeField]
+    private float _timeLimit = 10f;
 
-    [SerializeField, Header("ダメージ数")]
-    private int _damageDealt = 5;
+    private float _timer = 0f;
 
-    private IDamage _damage;
-    private bool _isDamageInterval = false;
-    private CancellationToken _token;
-    
+    private Subject<Unit> _limit = new();
     #endregion
 
     /// <summary> キー入力ができるか </summary>
@@ -58,39 +53,35 @@ public class Transparent : MonoBehaviour
     private void Start()
     {
         _renderers = _target.GetComponentsInChildren<Renderer>();
-        _damage = _target.GetComponent<IDamage>();
         _defaultLayerName = LayerMask.LayerToName(_target.gameObject.layer);
-        _token = this.GetCancellationTokenOnDestroy();
+
+        _limit.FirstOrDefault().Subscribe(_ => 
+        {
+            ChangeAlpha(false);
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Cancellation_01");
+        }).AddTo(this);
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire2") && CanInput)
+        if (_isTransparent)
         {
-            OnClick();
+            _timer += Time.deltaTime;
+        }
 
-            if(_isTransparent)
+        if (_timer <= _timeLimit)
+        {
+            if(Input.GetButtonDown("Fire2") && CanInput)
             {
-                _damage.SendDamage(_damageDealt);//初回ダメージ
+                OnClick();
             }
         }
-
-        if(_isTransparent && !_isDamageInterval)
+        else
         {
-            AbilityDamage().Forget();
+            _limit.OnNext(Unit.Default);//タイムリミットにより強制解除
         }
     }
 
-    /// <summary>
-    /// 能力使用時一定間隔でダメージをくらう
-    /// </summary>
-    private async UniTask AbilityDamage()
-    {
-        _isDamageInterval = true;
-        await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken : _token);
-        _damage.SendDamage(_damageDealt);
-        _isDamageInterval = false;
-    }
 
     /// <summary>
     /// 呼ぶたびにフラグが切り替わる
@@ -100,6 +91,15 @@ public class Transparent : MonoBehaviour
     {
         _isTransparent = !_isTransparent;
         ChangeAlpha(_isTransparent);
+
+        if(_isTransparent)
+        {
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Use_03");
+        }
+        else
+        {
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Cancellation_01");
+        }
     }
 
     /// <summary>
