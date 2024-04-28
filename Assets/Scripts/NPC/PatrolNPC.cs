@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class PatrolNPC : NPC
     [Tooltip("到達した場所のインデックス番号")] private int _reachIndexNum = default;
     [Tooltip("めざす場所のインデックス番号")] private int _indexNum = default;
     [Header("各ポジションに到達したら、毎度その場で一時停止するか")] [Tooltip("各ポジションに到達したら、毎度その場で一時停止するか")]
-    [SerializeField] private bool _isWait = default;
+    [SerializeField] private bool _isWaitEveryTime = default;
 
     // 作業関係
     [Space] [Header("===作業関係===")] 
@@ -66,10 +65,10 @@ public class PatrolNPC : NPC
     }
 
     /// <summary> 各ポジションに到達したら、毎度その場で一時停止するか </summary>
-    public bool IsWait
+    public bool IsWaitEveryTime
     {
-        get => _isWait;
-        //set => _isWait = value;
+        get => _isWaitEveryTime;
+        //set => _isWaitEveryTime = value;
     }
 
     /// <summary> 当たり判定を無くす </summary>
@@ -179,7 +178,7 @@ public class PatrolState : StateBase
         if (distance <= _patrolNpc.Distance)
         {
             _patrolNpc.IndexNum++; // 次の目標地点を更新
-            if (_patrolNpc.IsWait)
+            if (_patrolNpc.IsWaitEveryTime)
             {
                 _npc.IsTimer = true;
             }
