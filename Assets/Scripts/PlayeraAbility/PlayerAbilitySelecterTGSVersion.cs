@@ -18,6 +18,8 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     private ReactiveProperty<int> _currentIndex = new(); // 現在の能力の番号
     private bool _isScroll;
 
+    public IReactiveProperty<int> CurrentIndex => _currentIndex;
+
     private void Start()
     {
         _cameraSwitcher = FindFirstObjectByType<CameraSwitcher>();
@@ -33,8 +35,13 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         }
 
         UIDisplayChange();
-        _currentIndex.Skip(1).Subscribe(_ => CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Change_01")).
-            AddTo(this);
+        _currentIndex.Skip(1).Subscribe(_ =>
+        {
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Change_01");
+
+            if (_currentIndex.Value < 0) { _currentIndex.Value = ABILITIES_COUNT; }
+            else if (_currentIndex.Value > ABILITIES_COUNT) { _currentIndex.Value = 0; }
+        }).AddTo(this);
     }
 
     private void Update()
@@ -59,16 +66,6 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         {
             _currentIndex.Value--;
             _isScroll = true;
-        }
-
-        if (_currentIndex.Value > ABILITIES_COUNT)
-        {
-            _currentIndex.Value = 0;
-        }
-
-        if (_currentIndex.Value < 0)
-        {
-            _currentIndex.Value = ABILITIES_COUNT;
         }
 
         if (_isScroll)
