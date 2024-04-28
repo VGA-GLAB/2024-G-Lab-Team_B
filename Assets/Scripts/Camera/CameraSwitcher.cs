@@ -35,6 +35,8 @@ public class CameraSwitcher : MonoBehaviour
     {
         _damage = FindObjectOfType<PlayerHPController>().GetComponent<IDamage>();
         _token = this.GetCancellationTokenOnDestroy();
+
+        CinemachineFreeLook _thirdPerson = _firstPerson as CinemachineFreeLook;
     }
 
     private void Update()
@@ -63,14 +65,20 @@ public class CameraSwitcher : MonoBehaviour
     /// </summary>
     private void CameraChange()
     {
+        
+
         if (Input.GetButtonDown("Fire2"))
         {
+            
+
             if (_isFirstPerson)
             {
                 //三人称にする（Priorityの値が大きいほうが優先される）
                 _firstPerson.Priority = 0;
                 _thirdPerson.Priority = 1;
                 _isFirstPerson = false;
+
+                
             }
             else
             {
@@ -78,6 +86,8 @@ public class CameraSwitcher : MonoBehaviour
                 _firstPerson.Priority = 1;
                 _thirdPerson.Priority = 0;
                 _isFirstPerson = true;
+
+                _thirdPerson.ChangeToFreeLook(_firstPerson);
             }
         }
     }
