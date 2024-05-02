@@ -8,6 +8,7 @@ public class PlayerMoveRecorder : MonoBehaviour
     [SerializeField, Header("記録時間")] private float _recordTimeLimit = 300f;
     [SerializeField, Header("読み込むデータののID")] private int _id;
 
+    private PlayerAbilitySelecterTGSVersion _abilitySelector = default;
     private List<Record> _playerRecords = new List<Record>(); // プレイヤーの行動の記録
     private RecordsDataList _recordsDataList = new RecordsDataList(); // プレイヤーの記録をIDとともに保持します
     private int _flameCount; // フレームのカウントをする
@@ -26,14 +27,14 @@ public class PlayerMoveRecorder : MonoBehaviour
     /// <summary>記録中フラグを設定します</summary>
     public void SetIsRecording(bool flag) => _isRecording = flag;
 
-    // private void Start()
-    // {
-    //     _isRecording = true;
-    // }
+    private void Start()
+    {
+        _abilitySelector = FindObjectOfType<PlayerAbilitySelecterTGSVersion>();
+    }
 
     private void FixedUpdate()
     {
-        // 時間経過で記録終了　
+        // 時間経過で記録終了
         if (_currentTime >= _recordTimeLimit)
         {
             _isRecording = false;
@@ -56,8 +57,9 @@ public class PlayerMoveRecorder : MonoBehaviour
         if (_flameCount % 2 == 0)
         {
             Camera camera = Camera.main;
-            var record = new Record(_player.transform.position, camera.transform.position, _player.transform.rotation,
-                camera.transform.rotation, _currentTime);
+            var record = new Record(
+                _player.transform.position, camera.transform.position, _player.transform.rotation,
+                camera.transform.rotation, _currentTime, _abilitySelector.CurrentIndex.Value);
             _playerRecords.Add(record);
         }
 
