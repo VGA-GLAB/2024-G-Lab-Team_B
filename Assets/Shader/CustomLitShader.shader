@@ -18,7 +18,7 @@ Shader "Custom/CustomLitShader"
         _EmissionMap ("Emission Texture", 2D) = "white" {}
         [HDR] _EmissionColor ("Emission Color", Color) = (0, 0, 0, 0)
 
-        [Toggle(_OutLineColor_ON)] _EnableOutLine("Enable OutLine", Float) = 0.0
+        [Toggle(_OUTLINE)] _EnableOutLine("Enable OutLine", Float) = 0.0
         _OutLineColor ("OutLineColor", Color) = (0, 0, 0, 1)
         _OutlineWidth ("OutlineWidth", Range(0, 100)) = 0
     }
@@ -93,6 +93,7 @@ Shader "Custom/CustomLitShader"
             // Includes
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
+            //#include "OutLine.hlsl"
 
             struct Attributes
             {
@@ -149,96 +150,96 @@ Shader "Custom/CustomLitShader"
 			}
             #endif
 
-            Varyings vert(Attributes IN)
+            Varyings vert(Attributes input)
             {
-                Varyings OUT;
+                Varyings output;
 
-                VertexPositionInputs positionInputs = GetVertexPositionInputs(IN.positionOS.xyz);
-                OUT.positionCS = positionInputs.positionCS;
-                OUT.uv = TRANSFORM_TEX(IN.uv, _BaseMap);
-                OUT.color = IN.color;
+                VertexPositionInputs positionInputs = GetVertexPositionInputs(input.positionOS.xyz);
+                output.positionCS = positionInputs.positionCS;
+                output.uv = TRANSFORM_TEX(input.uv, _BaseMap);
+                output.color = input.color;
 
                 #ifdef REQUIRES_WORLD_SPACE_POS_INTERPOLATOR
-                OUT.positionWS = positionInputs.positionWS;
+                output.positionWS = positionInputs.positionWS;
                 #endif
 
-                OUT.positionSS = ComputeScreenPos(OUT.positionCS);
+                output.positionSS = ComputeScreenPos(output.positionCS);
 
-                OUT.viewDirWS = GetWorldSpaceViewDir(positionInputs.positionWS);
+                output.viewDirWS = GetWorldSpaceViewDir(positionInputs.positionWS);
 
-                VertexNormalInputs normalInputs = GetVertexNormalInputs(IN.normalOS, IN.tangentOS);
-                OUT.normalWS = normalInputs.normalWS;
+                VertexNormalInputs normalInputs = GetVertexNormalInputs(input.normalOS, input.tangentOS);
+                output.normalWS = normalInputs.normalWS;
                 #ifdef _NORMALMAP
-					real sign = IN.tangentOS.w * GetOddNegativeScale();
-					OUT.tangentWS = half4(normalInputs.tangentWS.xyz, sign);
+					real sign = input.tangentOS.w * GetOddNegativeScale();
+					output.tangentWS = half4(normalInputs.tangentWS.xyz, sign);
                 #endif
 
                 half3 vertexLight = VertexLighting(positionInputs.positionWS, normalInputs.normalWS);
                 half fogFactor = ComputeFogFactor(positionInputs.positionCS.z);
 
-                OUT.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
+                output.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
 
                 OUTPUT_LIGHTMAP_UV(IN.lightmapUV, unity_LightmapST, OUT.lightmapUV);
-                OUTPUT_SH(OUT.normalWS.xyz, OUT.vertexSH);
+                OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
 
                 #ifdef REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR
-					OUT.shadowCoord = GetShadowCoord(positionInputs);
+					output.shadowCoord = GetShadowCoord(positionInputs);
                 #endif
 
-                return OUT;
+                return output;
             }
 
-            InputData InitializeInputData(Varyings IN, half3 normalTS)
+            InputData InitializeInputData(Varyings input, half3 normalTS)
             {
                 InputData inputData = (InputData)0;
 
                 #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
-                inputData.positionWS = IN.positionWS;
+                inputData.positionWS = input.positionWS;
                 #endif
 
-                half3 viewDirWS = SafeNormalize(IN.viewDirWS);
+                half3 viewDirWS = SafeNormalize(input.viewDirWS);
                 #ifdef _NORMALMAP
-					float sgn = IN.tangentWS.w; // +1 または -1 のいずれかでなければなりません。
-					float3 bitangent = sgn * cross(IN.normalWS.xyz, IN.tangentWS.xyz);
-					inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(IN.tangentWS.xyz, bitangent.xyz, IN.normalWS.xyz));
+					float sgn = input.tangentWS.w; // +1 または -1 のいずれかでなければなりません。
+					float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+					inputData.normalWS = TransformTangentToWorld(normalTS, half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz));
                 #else
-                inputData.normalWS = IN.normalWS;
+                inputData.normalWS = input.normalWS;
                 #endif
 
                 inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
                 inputData.viewDirectionWS = viewDirWS;
 
                 #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-					inputData.shadowCoord = IN.shadowCoord;
+					inputData.shadowCoord = input.shadowCoord;
                 #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
 					inputData.shadowCoord = TransformWorldToShadowCoord(inputData.positionWS);
                 #else
                 inputData.shadowCoord = float4(0, 0, 0, 0);
                 #endif
 
-                inputData.fogCoord = IN.fogFactorAndVertexLight.x;
-                inputData.vertexLighting = IN.fogFactorAndVertexLight.yzw;
-                inputData.bakedGI = SAMPLE_GI(IN.lightmapUV, IN.vertexSH, inputData.normalWS);
+                inputData.fogCoord = input.fogFactorAndVertexLight.x;
+                inputData.vertexLighting = input.fogFactorAndVertexLight.yzw;
+                inputData.bakedGI = SAMPLE_GI(IN.lightmapUV, input.vertexSH, inputData.normalWS);
                 return inputData;
             }
 
-            SurfaceData InitializeSurfaceData(Varyings IN)
+            SurfaceData InitializeSurfaceData(Varyings input)
             {
                 SurfaceData surfaceData = (SurfaceData)0;
                 // 注意: SurfaceData surfaceData を使用するだけです。ここでは設定しません。
                 // ただし、戻る前に構造体のすべての値が設定されていることを確認する必要があります。
                 // SurfaceData に 0 をキャストすることで、すべての内容が自動的に 0 に設定されます。
 
-                half4 albedoAlpha = SampleAlbedoAlpha(IN.uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
+                half4 albedoAlpha = SampleAlbedoAlpha(input.uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
                 surfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
-                surfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb * IN.color.rgb;
+                surfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb * input.color.rgb;
 
                 // 簡単にするために、メタリック/スペキュラー マップまたはオクルージョン マップはサポートしていません。
                 // その例については、https://github.com/Unity-Technologies/Graphics/blob/master/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl を参照してください。
 
                 surfaceData.smoothness = 0.5;
-                surfaceData.normalTS = SampleNormal(IN.uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
-                surfaceData.emission = SampleEmission(IN.uv, _EmissionColor.rgb,
+                surfaceData.normalTS = SampleNormal(input.uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
+                surfaceData.emission = SampleEmission(input.uv, _EmissionColor.rgb,
                                                       TEXTURE2D_ARGS(_EmissionMap, sampler_EmissionMap));
 
                 surfaceData.occlusion = 1;
@@ -256,10 +257,10 @@ Shader "Custom/CustomLitShader"
             };
             static const int PATTERN_ROW_SIZE = 4;
 
-            half4 frag(Varyings IN) : SV_Target
+            half4 frag(Varyings input) : SV_Target
             {
-                SurfaceData surfaceData = InitializeSurfaceData(IN);
-                InputData inputData = InitializeInputData(IN, surfaceData.normalTS);
+                SurfaceData surfaceData = InitializeSurfaceData(input);
+                InputData inputData = InitializeInputData(input, surfaceData.normalTS);
 
                 // URP v10+ バージョンでは、これを使用できます。
                 // half4 color = UniversalFragmentPBR(inputData, surfaceData);
@@ -283,7 +284,7 @@ Shader "Custom/CustomLitShader"
                 color.a = saturate(color.a);
 
                 // スクリーン座標
-                float2 screenPos = IN.positionSS.xy / IN.positionSS.w;
+                float2 screenPos = input.positionSS.xy / input.positionSS.w;
                 // 画面サイズを乗算して、ピクセル単位に
                 float2 screenPosInPixel = screenPos.xy * _ScreenParams.xy;
 
@@ -421,7 +422,7 @@ Shader "Custom/CustomLitShader"
             #pragma vertex vert
             #pragma fragment frag
 
-            #pragma shader_feature _OutLineColor_ON
+            #pragma shader_feature _OUTLINE
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
@@ -455,6 +456,7 @@ Shader "Custom/CustomLitShader"
             Varyings vert(Attributes v)
             {
                 Varyings OUT;
+                //#ifdef _OUTLINE
 
                 VertexNormalInputs vertexNormalInput = GetVertexNormalInputs(v.normalOS, v.tangentOS);
 
@@ -466,13 +468,14 @@ Shader "Custom/CustomLitShader"
 
                 OUT.positionSS = ComputeScreenPos(OUT.positionCS);
 
+                //#endif
                 return OUT;
             }
 
             half4 frag(Varyings IN): SV_Target
             {
-                //#ifdef _EnableOutLine_ON
                 float4 col = _OutLineColor;
+
 
                 // スクリーン座標
                 float2 screenPos = IN.positionSS.xy / IN.positionSS.w;
@@ -485,17 +488,15 @@ Shader "Custom/CustomLitShader"
                 float dither = pattern[ditherUV_x, ditherUV_y];
 
                 // 閾値が0以下なら描画しない
+                #ifdef _OUTLINE
                 clip(dither - _DitherLevel);
                 return col;
-                // #else
-                // const float r = (_BaseMap_ST.r * _BaseColor).x;
-                // clip(r - 0.5);
-                // return 1;
-                // #endif
+                #else
+                clip(dither - 16);
+                return 0;
+                #endif
             }
             ENDHLSL
         }
     }
-
-
 }
