@@ -113,7 +113,7 @@ MonoBehaviour:
   _speed: 1
   _distance: 0.05
   _parentRoute: {fileID: 2419237457831419966}
-  _isWait: 0
+  _isWaitEveryTime: 0
   _standingWorkTime: 800
   _standingWorkPositions:
   - {fileID: 3857954718937172929}
@@ -127,7 +127,7 @@ Animator:
   m_GameObject: {fileID: 2419237456171061726}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 601a3a89aebce64498b13759946493b5, type: 3}
-  m_Controller: {fileID: 9100000, guid: 00fdcbe84a55bfc43816a5d327cbe627, type: 2}
+  m_Controller: {fileID: 9100000, guid: 09754795b1b92704599c6ffa94b36d5d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
