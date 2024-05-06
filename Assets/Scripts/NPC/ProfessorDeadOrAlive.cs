@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 /// <summary>
@@ -13,6 +12,8 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
     [SerializeField] private string _latePlayStateName = default;
     [Header("死亡回避後のアニメーション"), Tooltip("死亡回避後のアニメーション")]
     [SerializeField] private string _deathAvoidance = default;
+    private Vector3 _targetPos = default;
+    private bool _canRotate = false;
 
     /// <summary> 薬 </summary>
     public GameObject Medicine
@@ -24,11 +25,12 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
     protected override void OnStart()
     {
         _canPlay = true;
-        Vector3 targetPos = _medicine.transform.position;
+        _targetPos = _medicine.transform.position;
         // ターゲットのY座標を自分と同じにすることで2次元に制限する。
-        targetPos.y = transform.position.y;
-        transform.LookAt(targetPos);
+        _targetPos.y = transform.position.y;
+        transform.LookAt(_targetPos);
         _medicine.SetActive(false);
+        _animator.Play("TakeMedicine");
     }
     
     protected override void OnUpdate()
@@ -39,7 +41,11 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
             {
                 if (_deathAvoidance == null) 
                     Debug.LogWarning("再生するアニメーションのステート名を設定してください。");
-                else LatePlayAnim(_latePlayStateName);
+                else
+                {
+                    LatePlayAnim(_latePlayStateName);
+                    if(_canRotate) Rotate();
+                }
             }
             else
             {
@@ -50,14 +56,39 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
                 {
                     LatePlayAnim(_deathAvoidance);
                     // // Todo: 遷移のパラメータが確定したら以下を使用する
-                    // StartCoroutine(LateTransition());
+                    // StartCoroutine(LateTransition(_deathAvoidance));
                 }
             }
         }
     }
 
-    protected override void Transition()
+    /// <summary>
+    /// 回転
+    /// </summary>
+    void Rotate()
     {
-        // _animator.SetBool("nobi", true);
+        var to = _targetPos - transform.position;
+        float angle = Vector3.SignedAngle(transform.forward, -to, Vector3.up);
+        // 角度が35゜を越えていたら
+        if (Mathf.Abs(angle) > 35)
+        {
+            float rotMax = 200f * Time.deltaTime;
+            float rot = Mathf.Min(Mathf.Abs(angle), rotMax);
+            transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
+        }
+        else _canRotate = false;
     }
+
+    /// <summary>
+    /// 薬を飲むアニメーションクリップで呼ぶ
+    /// </summary>
+    public void ChangeRotateFlag()
+    {
+        _canRotate = true;
+    }
+
+    // protected override void Transition()
+    // {
+    //     _animator.SetBool(name, true);
+    // }
 }
