@@ -17,14 +17,14 @@ public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
     {
         _countDownTimer = FindObjectOfType<CountDownTimer>();
         _canPlay = true;
-        _animator.Play("Unwell"); // 倒れるまでは共通
+        _animator.Play("UnwellAndDie"); // 倒れるまでは共通
         _isCount = false;
     }
     
     protected override void OnUpdate()
     {
 
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Laying Seizure"))
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("AED"))
         {
             _isCount = true;
         }
