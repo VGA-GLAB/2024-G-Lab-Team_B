@@ -15,6 +15,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
 
     private CameraSwitcher _cameraSwitcher;
     private Transparent _transparent;
+    private XRayVision _xRayVision;
     private ReactiveProperty<int> _currentIndex = new(); // 現在の能力の番号
     private bool _isScroll;
 
@@ -24,9 +25,9 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     {
         _cameraSwitcher = FindFirstObjectByType<CameraSwitcher>();
         _transparent = FindFirstObjectByType<Transparent>();
-        // 透視 = FindFirstObjectByType<透視>();
+        _xRayVision = FindFirstObjectByType<XRayVision>();
 
-        if (_cameraSwitcher == null || _transparent == null /*|| 透視 == null*/)
+        if (_cameraSwitcher == null || _transparent == null || _xRayVision == null)
         {
 #if UNITY_EDITOR
             Debug.LogError("アタッチされていない能力があります。");
@@ -46,7 +47,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
 
     private void Update()
     {
-        if (_cameraSwitcher == null || _transparent == null /*|| 透視 == null*/)
+        if (_cameraSwitcher == null || _transparent == null || _xRayVision == null)
         {
 #if UNITY_EDITOR
             Debug.LogError("アタッチされていない能力があります。");
@@ -89,7 +90,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
                     _isScroll = false;
                     break;
                 case 2: // 透視
-                    Debug.LogWarning("透視は未実装です。");
+                    _xRayVision.SetAvility = true;
                     NullificationCameraSwitcher();
                     NullificationTransparent();
                     UIDisplayChange();
@@ -120,6 +121,8 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     /// <summary>透視の無効化</summary>
     private void NullificationClairvoyance()
     {
+        _xRayVision.SetAvility = false;
+        _xRayVision.IsXRayVision = false;
     }
 
     /// <summary>能力のUIの色の変更を行います</summary>
