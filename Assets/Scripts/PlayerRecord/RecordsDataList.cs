@@ -1,57 +1,51 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using UnityEngine;
 
 /// <summary>RecordsDataリストを保持する構造体</summary>
-[System.Serializable]
+[Serializable]
 public struct RecordsDataList
 {
-    public List<RecordsData> DataList; // データリスト
+    /// <summary>プレイヤーの記録のリスト</summary>
+    public Dictionary<int, List<Record>> RecordDatas;
+
+    /// <summary>教授の死亡フラグ</summary>
+    public bool ProfessorDeadFlag;
+
+    /// <summary>准教授の死亡フラグ</summary>
+    public bool AssociateProfessorDeadFlag;
 
     /// <summary>IDでプレイヤーの記録を取得します</summary>
-    public List<Record> GetRecords(int id) => DataList.Find(data => id == data.Id).Records.ToList();
+    public List<Record> GetRecords(int id) => RecordDatas[id];
 
-    /// <summary>プレイヤーの記録をIDとともに保持する構造体</summary>
-    [System.Serializable]
-    public struct RecordsData
-    {
-        public int Id;
-        public Record[] Records;
-
-        public RecordsData(int id, List<Record> records)
-        {
-            Id = id;
-            Records = records.ToArray();
-        }
-    }
+    //player motion parameter
+    public List<string> PlayerMotionName;
 
     /// <summary>IDとプレイヤーの記録を追加します</summary>
     public void AddRecordsData(int id, List<Record> records)
     {
         //TODO:追加の条件や上書きの処理を考えないといけない
         // DataListが無ければ新しく作ります
-        if (DataList == null)
+        RecordDatas ??= new();
+
+        //if (records.Count <= 0) { return; }
+        if (ContainsID(id)) { RecordDatas[id] = records; }
+        else
         {
-            DataList = new List<RecordsData>();
+#if UNITY_EDITOR
+            Debug.Log("no recorded data");
+#endif
+            RecordDatas.Add(id, records);
         }
-        
-        // 既に存在しているorListの中身が無ければ追加しない
-        if (ContainsID(id) || records.Count <= 0) return;
-        
-        var data = new RecordsData(id, records);
-        DataList.Add(data);
     }
 
     /// <summary>リストに同じIDがいるかどうかを判定します</summary>
     public bool ContainsID(int id)
     {
-        foreach (var data in DataList)
+        foreach (var dataID in RecordDatas.Keys)
         {
-            if (id == data.Id)
-            {
-                return true;
-            }
+            if (id == dataID) { return true; }
         }
-
         return false;
     }
 }

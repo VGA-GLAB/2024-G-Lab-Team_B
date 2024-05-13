@@ -1,4 +1,6 @@
 using UnityEngine;
+using UniRx;
+using static CriAudioManager;
 
 /// <summary>プレイヤーの能力の切り替えを行います(TGS版)</summary>
 public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
@@ -13,8 +15,10 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
 
     private CameraSwitcher _cameraSwitcher;
     private Transparent _transparent;
-    private int _currentIndex; // 現在の能力の番号
+    private ReactiveProperty<int> _currentIndex = new(); // 現在の能力の番号
     private bool _isScroll;
+
+    public IReactiveProperty<int> CurrentIndex => _currentIndex;
 
     private void Start()
     {
@@ -31,6 +35,13 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         }
 
         UIDisplayChange();
+        _currentIndex.Skip(1).Subscribe(_ =>
+        {
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Change_01");
+
+            if (_currentIndex.Value < 0) { _currentIndex.Value = ABILITIES_COUNT; }
+            else if (_currentIndex.Value > ABILITIES_COUNT) { _currentIndex.Value = 0; }
+        }).AddTo(this);
     }
 
     private void Update()
@@ -48,28 +59,18 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
 
         if (scroll > 0)
         {
-            _currentIndex++;
+            _currentIndex.Value++;
             _isScroll = true;
         }
         else if (scroll < 0)
         {
-            _currentIndex--;
+            _currentIndex.Value--;
             _isScroll = true;
-        }
-
-        if (_currentIndex > ABILITIES_COUNT)
-        {
-            _currentIndex = 0;
-        }
-
-        if (_currentIndex < 0)
-        {
-            _currentIndex = ABILITIES_COUNT;
         }
 
         if (_isScroll)
         {
-            switch (_currentIndex)
+            switch (_currentIndex.Value)
             {
                 case 0: // カメラ切り替え
 
@@ -126,7 +127,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     {
         for (int i = 0; i < _abilitiesUI.Length; i++)
         {
-            if (i == _currentIndex)
+            if (i == _currentIndex.Value)
             {
                 // 選択している能力を表示
                 _abilitiesUI[i].alpha = 1;
