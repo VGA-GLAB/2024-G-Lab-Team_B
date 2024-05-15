@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
@@ -43,6 +44,11 @@ public class NPC : MonoBehaviour
     [Header("レイを出す始点(壁越しさせない用)")] [Tooltip("レイを出す始点(壁越しさせない用)")]
     [SerializeField] private GameObject _rayOrigin = default;
 
+    [Tooltip("コルーチンでの待ち時間")] private float _waitTime = default;
+    private WaitForSeconds _wfs = default;
+    private GameObject _lookAtTarget = default;
+    private bool _canLookAt = default;
+    
     #endregion
 
     #region"プロパティ"
@@ -106,6 +112,9 @@ public class NPC : MonoBehaviour
         _timer = 0f;
         _anim = GetComponent<Animator>();
         NpcStateMachine.ChangeState(_idleState);
+        _waitTime = 2f;
+        _wfs = new WaitForSeconds(_waitTime);
+        _canLookAt = false;
 
         OnStart();
     }
@@ -127,6 +136,12 @@ public class NPC : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Stagger();
+        }
+
+        if (_canLookAt)
+        {
+            _navMeshAgent.isStopped = true;
+            LookAtPlayer();
         }
 
         OnUpdate();
@@ -185,7 +200,6 @@ public class NPC : MonoBehaviour
         if (other.CompareTag("Player") || other.CompareTag("RecordedPlayer"))
         {
             // 壁越しの回避をさせない
-            // var origin = transform.position;
             var origin = _rayOrigin.transform.position;
             if(Physics.Raycast(origin, other.transform.position - origin, out RaycastHit hit))
             {
@@ -222,12 +236,11 @@ public class NPC : MonoBehaviour
             {
                 Debug.Log("アニメーターが設定されていません");
             }
-            // よろけたアニメーションのままの移動をさせない
-            _navMeshAgent.isStopped = true;
             var dir = other.transform.position - transform.position;
             var pos = transform.position;
             transform.position = pos - dir.normalized; // otherとは逆方向に移動
             _isTimer = true;
+            _lookAtTarget = other.gameObject;
             // Debug.Log("よろける！！");
         }
     }
@@ -238,7 +251,43 @@ public class NPC : MonoBehaviour
     /// </summary>
     public void Stagger()
     {
+        _navMeshAgent.isStopped = true;
+        _canLookAt = true;
+        _anim.ResetTrigger("Collision");
+        StartCoroutine(AvoidStateCoroutine());
+    }
+    
+    IEnumerator AvoidStateCoroutine()
+    {
+        _nPCStateMachine.ChangeState(_idleState);
+        yield return _wfs;
+        _lookAtTarget = null;
+        _canLookAt = false;
+        _navMeshAgent.isStopped = false;
         _nPCStateMachine.ChangeState(_avoidState);
+    }
+
+    /// <summary>
+    /// ぶつかったプレイヤーを見る
+    /// </summary>
+    void LookAtPlayer()
+    {
+        if(_lookAtTarget == null) return;
+        var pos = _lookAtTarget.transform.position;
+        var to = pos - transform.position;
+        float angle = Vector3.SignedAngle(transform.forward, to, Vector3.up);
+        // 角度が5゜を越えていたら
+        if (Mathf.Abs(angle) > 5)
+        {
+            _anim.SetFloat("Speed", 2f);
+            float rotMax = 100f * Time.deltaTime;
+            float rot = Mathf.Min(Mathf.Abs(angle), rotMax);
+            transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
+        }
+        else
+        {
+            _canLookAt = false;
+        }
     }
 }
 
@@ -278,15 +327,6 @@ public class IdleState : StateBase
     {
         if (_npc.Anim)
         {
-            // if (_npc.IsStand)
-            // {
-            //     _npc.Anim.SetBool("Stand", false);
-            // }
-            // else
-            // {
-            //     _npc.Anim.SetBool("Sit", false);
-            // }
-
             _npc.Anim.SetFloat("Speed", _npc.NavMeshAgent.speed);
         }
         else
@@ -329,7 +369,7 @@ public class AvoidState : StateBase
     public override void Update()
     {
         // 回避先に着いたらアイドルステートへ
-        if (_npc.NavMeshAgent.remainingDistance == 0.0f)
+        if (_npc.NavMeshAgent.remainingDistance <= 0.5f)
         {
             _npc.IsTimer = true;
         }

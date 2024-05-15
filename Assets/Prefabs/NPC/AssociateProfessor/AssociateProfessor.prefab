@@ -560,7 +560,7 @@ MonoBehaviour:
   _raycastLength: 1.5
   _rayOrigin: {fileID: 2280060814938277088}
   _speed: 2
-  _distance: 0.05
+  _distance: 0.1
   _parentRoute: {fileID: 3686631542770807785}
   _isWaitEveryTime: 0
   _standingWorkTime: 0
