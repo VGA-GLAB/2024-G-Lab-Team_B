@@ -722,7 +722,7 @@ MonoBehaviour:
   _raycastLength: 1.5
   _rayOrigin: {fileID: 5899791303875969351}
   _speed: 3
-  _distance: 0.05
+  _distance: 0.1
   _parentRoute: {fileID: 7489000201135721496}
   _isWaitEveryTime: 0
   _standingWorkTime: 0

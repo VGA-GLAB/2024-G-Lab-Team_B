@@ -95,11 +95,11 @@ public class XRayVision : MonoBehaviour
 
 
         // テスト用:能力選択(左クリック)
-        if (Input.GetButtonDown("Fire1"))
-        {
-            SetAvility = !SetAvility;
-            IsXRayVision = false;
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    SetAvility = !SetAvility;
+        //    IsXRayVision = false;
+        //}
     }
 
     /// <summary>

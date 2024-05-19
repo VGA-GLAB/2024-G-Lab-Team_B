@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 /// NPCクラスのサブクラス　
@@ -15,7 +16,7 @@ public class PatrolNPC : NPC
     [Space] [Header("===パトロール関係===")] [Header("移動速度")] [Tooltip("移動速度")]
     [SerializeField] private float _speed = 1f;
     [Header("到達したとみなす距離　※推奨：2人1組の場合数字を大きく")] [Tooltip("到達したとみなす距離")]
-    [SerializeField] private float _distance = 0.05f;
+    [SerializeField] private float _distance = 0.1f;
     [Tooltip("巡回ステート")] private PatrolState _patrolState = default;
     [Header("経路となるオブジェクトの親オブジェクト")] [Tooltip("経路となるオブジェクトの親オブジェクト")]
     [SerializeField] private GameObject _parentRoute = default;
@@ -166,7 +167,8 @@ public class PatrolState : StateBase
         }
 
         //有効化
-        _npc.NavMeshAgent.isStopped = false;
+        if(_npc.NavMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
+            _npc.NavMeshAgent.isStopped = false;
         //Debug.Log("Enter: Patrol state");
     }
 
@@ -213,7 +215,8 @@ public class PatrolState : StateBase
     public override void Exit()
     {
         //無効化
-        _npc.NavMeshAgent.isStopped = true;
+        if(_npc.NavMeshAgent.pathStatus != NavMeshPathStatus.PathInvalid)
+            _npc.NavMeshAgent.isStopped = true;
         //Debug.Log("Exit: Patrol state");
     }
 }

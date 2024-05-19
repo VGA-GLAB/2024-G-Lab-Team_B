@@ -203,9 +203,9 @@ MonoBehaviour:
   _raycastLength: 1.5
   _rayOrigin: {fileID: 1844239178927109172}
   _speed: 1
-  _distance: 0.05
+  _distance: 0.1
   _parentRoute: {fileID: 7059675342152012124}
-  _isWait: 0
+  _isWaitEveryTime: 0
   _standingWorkTime: 0
   _standingWorkPositions: []
 --- !u!95 &1750365987587351724
