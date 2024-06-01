@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1761234348696449488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7884373121520946444}
+  m_Layer: 0
+  m_Name: ExitPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7884373121520946444
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761234348696449488}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 7.1219997, y: 0.46000004, z: -16.239403}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7489000201473873091}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5899791303875969351
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +635,7 @@ Transform:
   - {fileID: 7301411104738953407}
   - {fileID: 7301411105064821569}
   - {fileID: 7301411105483937830}
+  - {fileID: 7884373121520946444}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -626,6 +658,8 @@ GameObject:
   - component: {fileID: 7301411104598783739}
   - component: {fileID: 7301411104598783736}
   - component: {fileID: 1175232770268413988}
+  - component: {fileID: 6073825239578230888}
+  - component: {fileID: 5568751167264975622}
   m_Layer: 2
   m_Name: Charactor
   m_TagString: Untagged
@@ -716,6 +750,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleTime: 2
+  _timer: 0
+  _isTimer: 0
   _isStand: 1
   _startPoint: {fileID: 7437951572504113193}
   _direction: {x: 1, y: 0, z: 0.5}
@@ -764,10 +800,10 @@ MonoBehaviour:
     type: 3}
   _isDead: 1
   _timeline:
-  - 100
-  - 80
-  - 60
-  - 40
+  - 120
+  - 90
+  - 30
+  - 15
   _patrolNpcs:
   - {fileID: 7489000201558900218}
   - {fileID: 7301411104598783738}
@@ -788,6 +824,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleTime: 2
+  _timer: 0
+  _isTimer: 0
   _isStand: 1
   _startPoint: {fileID: 7437951572504113193}
   _direction: {x: 1, y: 0, z: 0.5}
@@ -812,6 +850,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleTime: 2
+  _timer: 0
+  _isTimer: 0
   _isStand: 1
   _startPoint: {fileID: 7437951572504113193}
   _direction: {x: 1, y: 0, z: 0.5}
@@ -836,6 +876,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _idleTime: 2
+  _timer: 0
+  _isTimer: 0
   _isStand: 1
   _startPoint: {fileID: 7437951572504113193}
   _direction: {x: 1, y: 0, z: 0.5}
@@ -860,6 +902,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCardTouchPoint: 0
+  _waitTime: 6
+--- !u!114 &6073825239578230888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489000201558900216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ae2ea55706eed4697bf3320cea7d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5568751167264975622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7489000201558900216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53d70b178f9654dbadb4c689dff7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _insidePoint: {fileID: 0}
+  _exitPosition: {fileID: 1761234348696449488}
 --- !u!1 &8356051732208330727
 GameObject:
   m_ObjectHideFlags: 0
@@ -976,7 +1045,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3737728873595083894}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.4
   m_Height: 1.8
   m_Direction: 1

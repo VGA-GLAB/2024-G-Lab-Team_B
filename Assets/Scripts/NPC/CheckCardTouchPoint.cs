@@ -9,38 +9,64 @@ using UnityEngine;
 /// 機能する条件(2)：タグがCardTouchPointである
 /// </summary>
 public class CheckCardTouchPoint : MonoBehaviour
-{
+{ 
     private PatrolNPC _patrolNpc = default;
     [Header("カードをかざすポイントを見つけたか"), Tooltip("カードをかざすポイントを見つけたか")]
     [SerializeField] private bool _isCardTouchPoint = default;
+    [Header("かざすアニメーションが終わるまでの待機時間"), Tooltip("かざすアニメーションが終わるまでの待機時間")]
+    [SerializeField] private float _waitTime = 7f;
+    private float _timer = default; 
+    private PatrolNPC[] _patrolNpcs = default; 
 
     private void Start()
     {
-        _patrolNpc = GetComponent<PatrolNPC>();
         _isCardTouchPoint = false;
+        _patrolNpcs = GetComponents<PatrolNPC>();
     }
 
     void Update()
     {
-        if (_patrolNpc.NavMeshAgent.remainingDistance <= 0.05f && _isCardTouchPoint)
+        if(!_isCardTouchPoint) return;
+        if (_isCardTouchPoint && _patrolNpc.NavMeshAgent.remainingDistance <= 0.05f)
         {
             _patrolNpc.NavMeshAgent.isStopped = true;
-            _patrolNpc.Anim.SetTrigger("Open"); 
-            _isCardTouchPoint = false;
-            _patrolNpc.enabled = true;
-            _patrolNpc.IsTimer = true; // _patrolNpcで設定されたIdle時間だけ待機する
-            // Debug.Log("カードをかざす！！");
+            _patrolNpc.Anim.SetFloat("Speed", 0);
+            _patrolNpc.enabled = false;
         }
+        
+        if(_patrolNpc == null) return;
+        if (_timer >= _waitTime)
+        {
+            _patrolNpc.enabled = true;
+            _isCardTouchPoint = false;
+            _patrolNpc = null;
+            _timer = 0f;
+        }
+
+        _timer += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("CardTouchPoint"))
         {
-            _patrolNpc.enabled = false;
-            _patrolNpc.NavMeshAgent.SetDestination(other.transform.position);
+            _patrolNpc = GetActivePatrolNpc();
             _isCardTouchPoint = true;
-            // Debug.Log("発見");
+            _patrolNpc.IsTimer = true;
+            _patrolNpc.Anim.SetTrigger("Open");
         }
+    }
+
+    /// <summary>
+    /// アクティブなPatrolNpcだけ取得
+    /// </summary>
+    PatrolNPC GetActivePatrolNpc()
+    {
+        foreach (var item in _patrolNpcs)
+        {
+            if (item.enabled) return item;
+        }
+        Debug.Log("アクティブなPatrolNPCがありません。");
+        return null;
     }
 }

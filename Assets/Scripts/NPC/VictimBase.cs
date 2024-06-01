@@ -32,6 +32,12 @@ public class VictimBase : MonoBehaviour, ICanDead
         get => _isDead;
         set => _isDead = value;
     }
+    
+    /// <summary> タイムライン </summary>
+    public float[] Timeline { get => _timeline; }
+    
+    /// <summary> 死亡キャラのプレハブ </summary>
+    public GameObject DeadCharaPrefab { get => _deadCharaPrefab; }
 
     protected virtual void OnStart() {}
     protected virtual void OnUpdate() {}
@@ -62,7 +68,7 @@ public class VictimBase : MonoBehaviour, ICanDead
     /// 使わないPatrolNPCの機能を停止する
     /// </summary>
     /// <param name="num"></param>
-    protected void ChangeEnabledToFalse(int num)
+    public void ChangeEnabledToFalse(int num)
     {
         for (int i = 0; i < _patrolNpcs.Length; i++)
         {
