@@ -6,12 +6,12 @@ using UnityEngine.SceneManagement;
 /// <summary>ゲームの状況を管理します</summary>
 public class GameStateManager : MonoBehaviour
 {
-    [SerializeField, Header("事件番号")] private int _caseNumber;
-    [SerializeField, Header("事件解決フラグ")] private int _flagCount = 3;
+    [SerializeField, Header("事件解決フラグ")] private bool[] _caseFlags;
+    [SerializeField, Header("事件解決フラグ数")] private int _caseFlagsCount;
 
     private SceneChangeUtility _sceneChangeUtility;
     private CancellationTokenSource _cancellationTokenSource;
-    private static bool[] _caseFlags;
+    private int _caseNumber;
 
     /// <summary>事件番号を取得します</summary>
     public int CaseNumber => _caseNumber;
@@ -22,7 +22,7 @@ public class GameStateManager : MonoBehaviour
     /// <summary>初期化を行います</summary>
     public void Initialize()
     {
-        _caseFlags = new bool[_flagCount];
+        _caseFlags = new bool[_caseFlagsCount];
         _sceneChangeUtility = new SceneChangeUtility();
         _cancellationTokenSource = new CancellationTokenSource();
     }
@@ -33,7 +33,7 @@ public class GameStateManager : MonoBehaviour
         _cancellationTokenSource.Cancel();
         await _sceneChangeUtility.SceneChangeAsync("CaseFileScene");
         _cancellationTokenSource = new CancellationTokenSource();
-        
+
 #if UNITY_EDITOR
         Debug.Log($"次の事件へ");
 #endif
@@ -45,7 +45,7 @@ public class GameStateManager : MonoBehaviour
         _cancellationTokenSource.Cancel();
         await _sceneChangeUtility.SceneChangeAsync("ResultScene");
         _cancellationTokenSource = new CancellationTokenSource();
-        
+
 #if UNITY_EDITOR
         Debug.Log($"リザルトシーンへ");
 #endif
@@ -57,18 +57,17 @@ public class GameStateManager : MonoBehaviour
         _cancellationTokenSource.Cancel();
         await _sceneChangeUtility.SceneChangeAsync(SceneManager.GetActiveScene().name);
         _cancellationTokenSource = new CancellationTokenSource();
-        
+
 #if UNITY_EDITOR
         Debug.Log($"事件失敗");
 #endif
     }
 
-    public void FlagFire(int flagNumber)
+    /// <summary>事件の成功フラグをセットします</summary>
+    /// <param name="flagNumber">事件番号</param>
+    /// <param name="isSuccess">事件解決の可否</param>
+    public void SetCaseFlag(int flagNumber, bool isSuccess)
     {
-        _caseFlags[flagNumber] = true;
-
-#if UNITY_EDITOR
-        Debug.Log($"事件{flagNumber}解決");
-#endif
+        _caseFlags[flagNumber] = isSuccess;
     }
 }
