@@ -19,6 +19,14 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
     /// <summary>事件番号をセットします</summary>
     public void SetCaseNumber(int number) => _caseNumber = number;
 
+    /// <summary>事件解決フラグを取得します</summary>
+    public bool[] CaseFlags => _caseFlags;
+
+    /// <summary>事件解決フラグをセットします</summary>
+    /// <param name="flagNumber">事件番号</param>
+    /// <param name="isSuccess">事件解決の可否</param>
+    public void SetCaseFlag(int flagNumber, bool isSuccess) => _caseFlags[flagNumber] = isSuccess;
+
     /// <summary>初期化を行います</summary>
     public void Initialize()
     {
@@ -61,13 +69,5 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
 #if UNITY_EDITOR
         Debug.Log($"事件失敗");
 #endif
-    }
-
-    /// <summary>事件の成功フラグをセットします</summary>
-    /// <param name="flagNumber">事件番号</param>
-    /// <param name="isSuccess">事件解決の可否</param>
-    public void SetCaseFlag(int flagNumber, bool isSuccess)
-    {
-        _caseFlags[flagNumber] = isSuccess;
     }
 }
