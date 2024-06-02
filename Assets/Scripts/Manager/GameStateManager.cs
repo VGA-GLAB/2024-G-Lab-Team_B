@@ -36,7 +36,7 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
     }
 
     /// <summary>次の事件に進む時の処理を行います</summary>
-    public async UniTask NextCase()
+    public async UniTaskVoid NextCase()
     {
         _cancellationTokenSource.Cancel();
         await _sceneChangeUtility.SceneChangeAsync("CaseFileScene");
@@ -48,7 +48,7 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
     }
 
     /// <summary>リザルトシーンに進むときの処理を行います</summary>
-    public async UniTask Result()
+    public async UniTaskVoid Result()
     {
         _cancellationTokenSource.Cancel();
         await _sceneChangeUtility.SceneChangeAsync("ResultScene");
@@ -60,7 +60,7 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
     }
 
     /// <summary>事件失敗時の処理を行います</summary>
-    public async UniTask Fail()
+    public async UniTaskVoid Fail()
     {
         _cancellationTokenSource.Cancel();
         await _sceneChangeUtility.SceneChangeAsync(SceneManager.GetActiveScene().name);
