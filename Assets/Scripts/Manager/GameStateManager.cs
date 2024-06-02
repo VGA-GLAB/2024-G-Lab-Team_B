@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class GameStateManager : SingletonMonoBehavior<GameStateManager>
 {
     [SerializeField, Header("事件解決フラグ")] private bool[] _caseFlags;
-    [SerializeField, Header("事件解決フラグ数")] private int _caseFlagsCount;
+    [SerializeField, Header("事件解決フラグ数")] private int _caseFlagsCount = 3;
 
     private SceneChangeUtility _sceneChangeUtility;
     private CancellationTokenSource _cancellationTokenSource;
