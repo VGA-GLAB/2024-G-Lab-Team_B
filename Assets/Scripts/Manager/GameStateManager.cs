@@ -11,7 +11,7 @@ public class GameStateManager : MonoBehaviour
 
     private SceneChangeUtility _sceneChangeUtility;
     private CancellationTokenSource _cancellationTokenSource;
-    private static bool[] _flags;
+    private static bool[] _caseFlags;
 
     /// <summary>事件番号を取得します</summary>
     public int CaseNumber => _caseNumber;
@@ -19,13 +19,15 @@ public class GameStateManager : MonoBehaviour
     /// <summary>事件番号をセットします</summary>
     public void SetCaseNumber(int number) => _caseNumber = number;
 
+    /// <summary>初期化を行います</summary>
     public void Initialize()
     {
-        _flags = new bool[_flagCount];
+        _caseFlags = new bool[_flagCount];
         _sceneChangeUtility = new SceneChangeUtility();
         _cancellationTokenSource = new CancellationTokenSource();
     }
 
+    /// <summary>次の事件に進む時の処理を行います</summary>
     public async UniTask NextCase()
     {
         _cancellationTokenSource.Cancel();
@@ -33,10 +35,11 @@ public class GameStateManager : MonoBehaviour
         _cancellationTokenSource = new CancellationTokenSource();
         
 #if UNITY_EDITOR
-        Debug.Log($"事件解決");
+        Debug.Log($"次の事件へ");
 #endif
     }
 
+    /// <summary>リザルトシーンに進むときの処理を行います</summary>
     public async UniTask Result()
     {
         _cancellationTokenSource.Cancel();
@@ -44,10 +47,11 @@ public class GameStateManager : MonoBehaviour
         _cancellationTokenSource = new CancellationTokenSource();
         
 #if UNITY_EDITOR
-        Debug.Log($"全事件解決");
+        Debug.Log($"リザルトシーンへ");
 #endif
     }
 
+    /// <summary>事件失敗時の処理を行います</summary>
     public async UniTask Fail()
     {
         _cancellationTokenSource.Cancel();
@@ -61,7 +65,7 @@ public class GameStateManager : MonoBehaviour
 
     public void FlagFire(int flagNumber)
     {
-        _flags[flagNumber] = true;
+        _caseFlags[flagNumber] = true;
 
 #if UNITY_EDITOR
         Debug.Log($"事件{flagNumber}解決");
