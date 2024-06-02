@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>ゲームの状況を管理します</summary>
-public class GameStateManager : MonoBehaviour
+public class GameStateManager : SingletonMonoBehavior<GameStateManager>
 {
     [SerializeField, Header("事件解決フラグ")] private bool[] _caseFlags;
     [SerializeField, Header("事件解決フラグ数")] private int _caseFlagsCount;
