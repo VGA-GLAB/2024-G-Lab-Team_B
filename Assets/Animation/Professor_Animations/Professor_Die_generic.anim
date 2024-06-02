@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Professor_Die_generic
+  m_Name: Professor_Die_Generic
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -5595,8 +5595,7 @@ AnimationClip:
         time: 5.166667
         value: {x: 7.791681e-16, y: 8.682319e-14, z: -2.0131618e-15, w: 1}
         inSlope: {x: -6.247587e-10, y: -0.00000006961727, z: 0.0000000016142095, w: 0}
-        outSlope: {x: -6.247587e-10, y: -0.00000006961727, z: 0.0000000016142095,
-          w: 0}
+        outSlope: {x: -6.247587e-10, y: -0.00000006961727, z: 0.0000000016142095, w: 0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
