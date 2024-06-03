@@ -4,29 +4,29 @@ using UnityEngine.AI;
 /// <summary>
 /// 名誉教授の部屋で名誉教授がプレイヤーを発見したら、ステージを退場する。
 /// ※フラグを記録する際にアクティブ状態でなければならない(RecordsDataSaver)。(死亡プレハブ)
-/// 死亡キャラが生成させるまでは巡回などを制限するし、見えないところに置いておく。
+/// 死亡キャラが生成させるまでは巡回などを制限し、見えないところに置いておく。
 /// </summary>
 public class Witness : MonoBehaviour
 {
     #region 変数
     
-    private NavMeshAgent _navMeshAgent = default;
     [Header("名誉教授室の中にある方のOffMeshLinkポイント")] [Tooltip("名誉教授室の中にある方のOffMeshLinkポイント")]
     [SerializeField] private GameObject _insidePoint = default;
     [Tooltip("名誉教授室の内か")] private bool _isInside = default;
-
-    private bool _toTargetPosition = default;
-    [Header("退場するために向かう場所")] [Tooltip("退場するために向かう場所")] 
+    [Header("退場するために向かう場所"), Tooltip("退場するために向かう場所")] 
     [SerializeField] private GameObject _exitPosition = default;
+    [Tooltip("移動速度"), SerializeField] private float _speed = 3f;
+    private NavMeshAgent _navMeshAgent = default;
+    private bool _toTargetPosition = default;
     private Vector3 _exitPos = default;
-    [Tooltip("発見されたか")] private bool _isWitness = default;
     private DrinkPoison _drinkPoison = default;
     private float _time = default;
     private CountDownTimer _countDownTimer = default;
     private ProfessorDeadOrAlive _professorDeadOrAlive = default;
     private GameObject _deadChara = default;
     private Animator _animator = default;
-    [Tooltip("移動速度")] [SerializeField] private float _speed = 3f;
+    private bool _isWitness = default;
+    
     #endregion
     
     void Start()

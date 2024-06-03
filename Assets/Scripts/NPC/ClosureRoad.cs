@@ -7,22 +7,21 @@ using UnityEngine;
 /// </summary>
 public class ClosureRoad : MonoBehaviour
 {
-    [Header("通行止めをするオブジェクト")] [Tooltip("通行止めをするオブジェクト")]
+    [Header("通行止めをするオブジェクト"), Tooltip("通行止めをするオブジェクト")]
     [SerializeField] private GameObject[] _objects = default;
-    [Header("カードキー入手後、移動を開始するまでの時間")] [Tooltip("カードキー入手後、移動を開始するまでの時間")]
+    [Header("カードキー入手後、移動を開始するまでの時間"), Tooltip("カードキー入手後、移動を開始するまでの時間")]
     [SerializeField] private float _startTimeForMove = 5f;
+    [Tooltip("カードキーオブジェクト"), SerializeField] private GameObject _cardkey = default;
     private float _timer = default;
-    [Tooltip("カードキーオブジェクト")] private GameObject _cardkey = default;
     private PoliceOfficer _policeOfficer = default;
-    [Tooltip("行き止まり中")] private bool _isClosure = default;
+    private bool _isClosure = default;
     
     void Start()
     {
         if(_objects.Length == 0) 
             Debug.LogWarning("「通行止めをするオブジェクト」を指定してください");
-        _cardkey = GameObject.Find("Cardkey");
         if(_cardkey == null) 
-            Debug.LogWarning("「Cardkey」オブジェクトが見つかりませんでした。");
+            Debug.LogWarning("「Cardkey」オブジェクトがアサインされていません。");
         _policeOfficer = GetComponent<PoliceOfficer>();
         _isClosure = true;
         _policeOfficer.IsTimer = true;
