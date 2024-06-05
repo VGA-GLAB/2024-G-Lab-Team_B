@@ -25,11 +25,15 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
     protected override void OnStart()
     {
         _canPlay = true;
-        _targetPos = _medicine.transform.position;
-        // ターゲットのY座標を自分と同じにすることで2次元に制限する。
-        _targetPos.y = transform.position.y;
-        transform.LookAt(_targetPos);
-        _medicine.SetActive(false);
+        if (_medicine != null)
+        {
+            _targetPos = _medicine.transform.position;
+            // ターゲットのY座標を自分と同じにすることで2次元に制限する。
+            _targetPos.y = transform.position.y;
+            transform.LookAt(_targetPos);
+            _medicine.SetActive(false);
+        }
+
         _animator.Play("TakeMedicine");
     }
     

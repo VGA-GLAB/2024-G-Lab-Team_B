@@ -464,6 +464,7 @@ GameObject:
   - component: {fileID: 3686631544365220367}
   - component: {fileID: 3572514958290667787}
   - component: {fileID: 3572514958290667786}
+  - component: {fileID: 4406639399763507402}
   m_Layer: 2
   m_Name: Charactor
   m_TagString: Untagged
@@ -602,9 +603,9 @@ MonoBehaviour:
     type: 3}
   _isDead: 1
   _timeline:
-  - 80
-  - 60
-  - 40
+  - 120
+  - 100
+  - 90
   _patrolNpcs:
   - {fileID: 3686631544365220363}
   - {fileID: 3572514958290667787}
@@ -658,6 +659,18 @@ MonoBehaviour:
   _isWaitEveryTime: 0
   _standingWorkTime: 0
   _standingWorkPositions: []
+--- !u!114 &4406639399763507402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3686631544365220361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ae2ea55706eed4697bf3320cea7d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3746753367665725400
 GameObject:
   m_ObjectHideFlags: 0
@@ -696,6 +709,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3686631544365220360}
     m_Modifications:
+    - target: {fileID: 2793398991954471961, guid: b2595ec013a62aa4f91954cd90a66580,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5156883765317221334, guid: b2595ec013a62aa4f91954cd90a66580,
         type: 3}
       propertyPath: m_RootOrder
