@@ -11,6 +11,7 @@ public class AutoDoor : MonoBehaviour
     [SerializeField, Header("扉を閉める時間")]　private float _closeTimer = 5f;
 
     private IDoor _door;　//Interface
+    private Coroutine _closeDoorCoroutine;
 
     public bool IsOpen { get; private set; } = true;　//Enemyはモーション再生後この判定をTrueにする
 
@@ -25,9 +26,11 @@ public class AutoDoor : MonoBehaviour
         {
             //侵入を判定
             var currentPlayerInRange = Physics.CheckSphere(transform.position, _detectionRadius, _LayerMask);
-            
+
             if (currentPlayerInRange)
+            {
                 OpenDoor();
+            }
         }
     }
 
@@ -41,9 +44,20 @@ public class AutoDoor : MonoBehaviour
     /// <summary>指定の秒数たったら扉を閉める</summary>
     private IEnumerator CloseDoorAfterDelay()
     {
+        var currentPlayerInRange = Physics.CheckSphere(transform.position, _detectionRadius, _LayerMask);
         IsOpen = false;
+        //指定された秒数待機
         yield return new WaitForSeconds(_closeTimer);
-        _door.CloseDoor();
+        
+        if (currentPlayerInRange == false)
+        {
+            _door.CloseDoor();
+        }
+        else
+        {
+            //範囲内に侵入者がいれば扉を閉めない
+            _closeDoorCoroutine = StartCoroutine(CloseDoorAfterDelay());
+        }
     }
 
     //侵入判定Debug用のGizmo
