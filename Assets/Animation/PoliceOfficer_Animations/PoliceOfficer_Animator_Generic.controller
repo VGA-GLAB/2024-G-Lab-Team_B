@@ -59,7 +59,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 138b1503ac7ef2840b26a94e41f02f35, type: 2}
+    m_Motion: {fileID: 7400000, guid: 72257b3c7f3a42f4a892c889d7c94531, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -67,7 +67,7 @@ BlendTree:
     m_DirectBlendParameter: Speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 79e72d30a2d27714d9430cafb47d47de, type: 2}
+    m_Motion: {fileID: 7400000, guid: 37d0c7ffc68d18440aea72d375bc8be9, type: 2}
     m_Threshold: 3
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -243,7 +243,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PoliceOfficer_Animator
+  m_Name: PoliceOfficer_Animator_Generic
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Stand
@@ -363,7 +363,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b27982e8eee71aa4d9f74bb050dcc973, type: 2}
+  m_Motion: {fileID: 7400000, guid: 63b79bf021b65bc4f81102f96b54c77d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -391,7 +391,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5448b19c7b08aa848967b84018b1a8c2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 165152a5587314a4b918e72e1b899717, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
