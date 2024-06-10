@@ -31,6 +31,7 @@ public class PlayerItemController : MonoBehaviour
                 if (_inventory?.Count > 0 && !SelectUseItem(hit) && !hit.collider.TryGetComponent<ItemBase>(out ItemBase item))
                 {
                     DropItem(hit);
+                    CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");
                 }
                 GetItem(hit);
             }
@@ -62,6 +63,7 @@ public class PlayerItemController : MonoBehaviour
     private void AddItem(ItemBase item)
     {
         _inventory.Add(item);
+        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");
     }
 
     /// <summary>
