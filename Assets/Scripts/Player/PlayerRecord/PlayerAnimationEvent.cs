@@ -14,4 +14,9 @@ public class PlayerAnimationEvent : MonoBehaviour
     {
         CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Player_Run_01");
     }
+
+    private void OnCrouchSound()
+    {
+        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Player_Crouch_01");
+    }
 }

@@ -61,11 +61,13 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         if (scroll > 0)
         {
             _currentIndex.Value++;
+            CriAudioManager.Instance.StopLoopSE();
             _isScroll = true;
         }
         else if (scroll < 0)
         {
             _currentIndex.Value--;
+            CriAudioManager.Instance.StopLoopSE();
             _isScroll = true;
         }
 
