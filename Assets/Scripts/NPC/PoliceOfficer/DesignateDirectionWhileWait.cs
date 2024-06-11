@@ -11,8 +11,8 @@ public class DesignateDirectionWhileWait : MonoBehaviour
     [Header("向きを指定したい待機地点"), SerializeField] private GameObject[] _targetPoints = default;
     [Header("向き"), SerializeField] private Vector3[] _directions = default;
     [SerializeField] private int _indexNum = default;
-    
-    void Start()
+
+    private void Start()
     {
         _policeOfficer = GetComponent<PoliceOfficer>();
         _indexNum = -1;
@@ -20,10 +20,10 @@ public class DesignateDirectionWhileWait : MonoBehaviour
             Debug.LogError("「方向指定をする待機地点」と「向き」の要素数が一致していません。");
     }
 
-    void Update()
+    private void Update()
     {
         if(_policeOfficer.Anim.GetFloat("Speed") > 0) return; // 移動していたとき
-        for (int i = 0; i < _targetPoints.Length; i++)
+        for (var i = 0; i < _targetPoints.Length; i++)
         {
             var dis = (_targetPoints[i].transform.position - transform.position).sqrMagnitude;
             if (dis <= _distance)
@@ -39,7 +39,7 @@ public class DesignateDirectionWhileWait : MonoBehaviour
     /// 回転
     /// </summary>
     /// <param name="num"></param>
-    void Rotate(int num)
+    private void Rotate(int num)
     {
         if(num < 0) return;
         var to = _directions[num];

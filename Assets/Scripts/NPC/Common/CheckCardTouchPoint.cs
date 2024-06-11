@@ -25,7 +25,7 @@ public class CheckCardTouchPoint : MonoBehaviour
         _patrolNpcs = GetComponents<PatrolNPC>();
     }
 
-    void Update()
+    private void Update()
     {
         if(!_isCardTouchPoint) return;
         if (_isCardTouchPoint && _patrolNpc.NavMeshAgent.remainingDistance <= 0.05f)
@@ -61,7 +61,7 @@ public class CheckCardTouchPoint : MonoBehaviour
     /// <summary>
     /// アクティブなPatrolNpcだけ取得
     /// </summary>
-    PatrolNPC GetActivePatrolNpc()
+    private PatrolNPC GetActivePatrolNpc()
     {
         foreach (var item in _patrolNpcs)
         {

@@ -9,14 +9,13 @@ public class DeadOrAliveBase : MonoBehaviour, ICanDead
 
     [Header("死ぬか"), Tooltip("死ぬか")]
     [SerializeField] protected bool _isDead = default; 
-    protected Animator _animator = default;
     [Header("何秒後に再生するか"), Tooltip("何秒後に再生するか")]
     [SerializeField] protected float _timeToPlay = 10f;
-    protected bool _canPlay = false;
     [Header("何秒後に遷移させるか"), Tooltip("何秒後に再生するか")]
-    [SerializeField] protected float _timeToTrainsition = 10f;
+    [SerializeField] protected float _timeToTransition = 10f;
+    protected Animator _animator = default;
+    protected bool _canPlay = false;
     private WaitForSeconds _wfs = default;
-
 
     #endregion
     
@@ -29,15 +28,15 @@ public class DeadOrAliveBase : MonoBehaviour, ICanDead
     
     protected virtual void OnStart(){}
     protected virtual void OnUpdate(){}
-    
-    void Start()
+
+    private void Start()
     {
         _animator = GetComponent<Animator>();
-        _wfs = new WaitForSeconds(_timeToTrainsition);
+        _wfs = new WaitForSeconds(_timeToTransition);
         OnStart();
     }
 
-    void Update()
+    private void Update()
     {
         OnUpdate();
     }

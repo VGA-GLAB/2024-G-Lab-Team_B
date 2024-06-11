@@ -34,33 +34,32 @@ public class PoliceCheckup : PoliceOfficer
     [Header("職質終了後のインターバル")][Tooltip("職質終了後のインターバル")] 
     [SerializeField] private float _interval = 10f;
     private float _intervalTimer = default;
-    [Tooltip("インターバルの計算をするか")]
-    private bool _isInterval = default;
-    [Header("追跡するか")] private bool _isTrack = default;
-    [Header("職質するか")] private bool _isCheckup = default;
+    [Tooltip("インターバルの計算をするか")] private bool _isInterval = default;
+    [Tooltip("追跡するか")] private bool _isTrack = default;
+    [Tooltip("職質するか")] private bool _isCheckup = default;
     
     #endregion
 
     #region プロパティ
 
     /// <summary> 走る速度 </summary>
-    public float RunningSpeed { get => _runningSpeed; }
-    
+    public float RunningSpeed => _runningSpeed;
+
     /// <summary> 追いかけ始める距離 </summary>
-    public float TrackingStartDistance { get => _trackingStartDistance; }
-    
+    public float TrackingStartDistance => _trackingStartDistance;
+
     /// <summary> 職質を開始する距離 </summary>
-    public float CheckupStartDistance { get => _checkupStartDistance; }
-    
+    public float CheckupStartDistance => _checkupStartDistance;
+
     /// <summary> 職質を継続する時間 </summary>
-    public float CheckupTime { get => _checkupTime; }
-    
+    public float CheckupTime => _checkupTime;
+
     /// <summary> 計測用 </summary>
     public float CheckupTimer { get => _checkupTimer; set => _checkupTimer = value; }
     
     /// <summary> 追跡対象 </summary>
-    public GameObject Target { get => _target; /*set => _target = value;*/ }
-    
+    public GameObject Target => _target;
+
     /// <summary> 追跡と職質ができるか </summary>
     public bool CanTrackingAndCheckup { get => _canTrackingAndCheckup; set => _canTrackingAndCheckup = value; }
     
@@ -68,8 +67,8 @@ public class PoliceCheckup : PoliceOfficer
     public bool IsInterval { get => _isInterval; set => _isInterval = value; }
     
     /// <summary> 追跡するか </summary>
-    public bool IsTrack { get => _isTrack; /*set => _isTrack = value;*/ }
-    
+    public bool IsTrack => _isTrack;
+
     /// <summary> 職質するか </summary>
     public bool IsCheckup { get => _isCheckup; set => _isCheckup = value; }
     
@@ -175,7 +174,7 @@ public class PoliceCheckup : PoliceOfficer
     /// <summary>
     /// 距離に応じて追跡・職質のフラグを切り替える
     /// </summary>
-    void CheckDistance()
+    private void CheckDistance()
     {
         float distance = (transform.position 
                           - Target.transform.position).sqrMagnitude;
@@ -289,7 +288,7 @@ public class PoliceOfficerCheckupState : StateBase
     /// <summary>
     /// 追跡
     /// </summary>
-    void Tracking()
+    private void Tracking()
     {
         if (_policeCheckup.Target == null)
         {
@@ -321,7 +320,7 @@ public class PoliceOfficerCheckupState : StateBase
     /// プレイヤーの行動制限をする
     /// ・アイテム ・ムーブ
     /// </summary>
-    void CheckUp()
+    private void CheckUp()
     {
         if (_policeCheckup.CheckupTimer > _policeCheckup.CheckupTime)
         {

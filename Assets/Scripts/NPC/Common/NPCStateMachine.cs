@@ -5,7 +5,7 @@
 /// </summary>
 public class NPCStateMachine
 {
-    StateBase _currentState;
+    private StateBase _currentState;
 
     public void ChangeState(StateBase newState)
     {
@@ -30,17 +30,17 @@ public abstract class StateBase
     [Tooltip("このステートマシンを使用するインスタンスを保持")] protected PoliceOfficer _policeOfficer;
     [Tooltip("このステートマシンを使用するインスタンスを保持")] protected CleaningRobot _cleaningRobot;
 
-    public StateBase(NPC npc)
+    protected StateBase(NPC npc)
     {
         this._npc = npc;
     }
-    
-    public StateBase(PoliceOfficer policeOfficer)
+
+    protected StateBase(PoliceOfficer policeOfficer)
     {
         this._policeOfficer = policeOfficer;
     }
-    
-    public StateBase(CleaningRobot cleaningRobot)
+
+    protected StateBase(CleaningRobot cleaningRobot)
     {
         this._cleaningRobot = cleaningRobot;
     }

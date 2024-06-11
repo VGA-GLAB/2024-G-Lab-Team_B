@@ -12,11 +12,11 @@ public class PoliceOfficer : MonoBehaviour
 {
     #region"変数"
     
-    [Tooltip("アニメーター")] private Animator _anim = default;
+    private Animator _anim = default;
     private NavMeshAgent _navMeshAgent = default;
-    [Tooltip("ステートマシン")] private NPCStateMachine _nPCStateMachine = default;
-    [Tooltip("アイドルステート")] private PoliceOfficerIdleState _policeOfficerIdleState = default;
-    [Tooltip("巡回ステート")] private PoliceOfficerPatrolState _policeOfficerPatrolState = default;
+    private NPCStateMachine _nPCStateMachine = default;
+    private PoliceOfficerIdleState _policeOfficerIdleState = default;
+    private PoliceOfficerPatrolState _policeOfficerPatrolState = default;
     
     [Header("移動速度"), Tooltip("移動速度")]
     [SerializeField] private float _speed = 1f;
@@ -30,38 +30,38 @@ public class PoliceOfficer : MonoBehaviour
     
     [Header("各ポジションで毎度待機するか(IdleTimeに依存)")] [Tooltip("各ポジションで毎度待機するか")]
     [SerializeField] private bool _isWaitEveryTime = default;
-    [Tooltip("（待機時間の）時間計算するか")] private bool _isTimer = false; 
-    [Tooltip("（待機時間の）時間計算")] private float _timer = 0f;
     [Header("待機状態の継続時間")] [Tooltip("待機状態の継続時間")]
     [SerializeField] private float _idleTime = 2f; 
-    private float _defaultIdleTime = default;
-    [Tooltip("待機地点：インデックス番号")] private int[] _waitPositionIndexes = default;
     [Space(25)] [Header("※以下ふたつの配列の要素数を一致させてください")]
     [Header("待機地点"), SerializeField] private GameObject[] _waitPositions = default;
     [Header("待機時間"), SerializeField] private float[] _idleTimes = default;
+    [Tooltip("（待機時間の）時間計算するか")] private bool _isTimer = false; 
+    [Tooltip("（待機時間の）時間計算")] private float _timer = 0f;
+    [Tooltip("待機地点：インデックス番号")] private int[] _waitPositionIndexes = default;
+    private float _defaultIdleTime = default;
     
     #endregion
     
     #region プロパティ
     
     /// <summary> アニメーター </summary>
-    public Animator Anim { get => _anim; }
-    
+    public Animator Anim => _anim;
+
     /// <summary> ナビメッシュ コンポーネント </summary>
-    public NavMeshAgent NavMeshAgent { get => _navMeshAgent; }
-    
+    public NavMeshAgent NavMeshAgent => _navMeshAgent;
+
     /// <summary> ステートマシン </summary>
-    public NPCStateMachine NpcStateMachine { get => _nPCStateMachine; }
-    
+    protected NPCStateMachine NpcStateMachine => _nPCStateMachine;
+
     /// <summary> 移動速度 </summary>
-    public float Speed { get => _speed; }
-    
+    public float Speed => _speed;
+
     /// <summary> 到達したとみなす距離 </summary>
-    public float Distance { get => _distance; }
-    
+    public float Distance => _distance;
+
     /// <summary> 経路の位置情報 </summary>
-    public Vector3[] Positions { get => _positions; }
-    
+    public Vector3[] Positions => _positions;
+
     /// <summary> めざす場所のインデックス番号 </summary>
     public int IndexNum { get => _indexNum; set => _indexNum = value; }
     
@@ -78,11 +78,11 @@ public class PoliceOfficer : MonoBehaviour
     public float DefaultIdleTime { get => _defaultIdleTime; set => _defaultIdleTime = value; }
     
     /// <summary> 待機時間 </summary>
-    public float[] IdleTimes { get => _idleTimes; }
-    
+    public float[] IdleTimes => _idleTimes;
+
     /// <summary> 待機地点 </summary>
-    public GameObject[] WaitPositions { get => _waitPositions; }
-    
+    public GameObject[] WaitPositions => _waitPositions;
+
     #endregion
     
     protected virtual void OnStart()
@@ -92,8 +92,8 @@ public class PoliceOfficer : MonoBehaviour
     protected virtual void OnUpdate()
     {
     }
-    
-    void Start()
+
+    private void Start()
     {
         _policeOfficerIdleState = new PoliceOfficerIdleState(this);
         _policeOfficerPatrolState = new PoliceOfficerPatrolState(this);
@@ -129,7 +129,7 @@ public class PoliceOfficer : MonoBehaviour
         OnStart();
     }
 
-    void Update()
+    private void Update()
     {
         // 更新 
         _nPCStateMachine.Update();
@@ -154,7 +154,7 @@ public class PoliceOfficer : MonoBehaviour
     /// <summary>
     /// アイドルステート後にデフォルトのステートに戻す
     /// </summary>
-    protected void ToDefaultState(StateBase stateBase)
+    private void ToDefaultState(StateBase stateBase)
     {
         if (_timer > _idleTime)
         {

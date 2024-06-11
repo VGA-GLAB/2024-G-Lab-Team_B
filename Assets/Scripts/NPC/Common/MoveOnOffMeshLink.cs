@@ -9,7 +9,7 @@ public class MoveOnOffMeshLink : MonoBehaviour
     private NavMeshAgent _navMeshAgent = default; 
     [Tooltip("始点に到達したか")] private bool _reachStartPos = default;
 
-    void Start()
+    private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         // リンク上を自動で渡らせない
@@ -17,7 +17,7 @@ public class MoveOnOffMeshLink : MonoBehaviour
             _navMeshAgent.autoTraverseOffMeshLink = false;
     }
 
-    void Update()
+    private void Update()
     {
         if (!_navMeshAgent.isOnOffMeshLink) return; // リンク未到達ならリターン
         if (!_navMeshAgent.isStopped) _navMeshAgent.isStopped = true;
@@ -39,7 +39,7 @@ public class MoveOnOffMeshLink : MonoBehaviour
     /// 始点から移動するように修正する必要があった。）
     /// </summary>
     /// <param name="pos"></param>
-    void ToStartPos(Vector3 pos)
+    private void ToStartPos(Vector3 pos)
     {
         pos.y = transform.position.y;
         transform.position = Vector3.MoveTowards(transform.position, pos, 
@@ -52,7 +52,7 @@ public class MoveOnOffMeshLink : MonoBehaviour
         Rotate(pos);
     }
 
-    void ToEndPos(Vector3 pos)
+    private void ToEndPos(Vector3 pos)
     {
         pos.y = transform.position.y;
         transform.position = Vector3.MoveTowards(transform.position, pos, 
@@ -67,15 +67,15 @@ public class MoveOnOffMeshLink : MonoBehaviour
         Rotate(pos);
     }
 
-    void Rotate(Vector3 pos)
+    private void Rotate(Vector3 pos)
     {
         var to = pos - transform.position;
-        float angle = Vector3.SignedAngle(transform.forward, to, Vector3.up);
+        var angle = Vector3.SignedAngle(transform.forward, to, Vector3.up);
         // 角度が5゜を越えていたら
         if (Mathf.Abs(angle) > 5)
         {
-            float rotMax = _navMeshAgent.angularSpeed * Time.deltaTime;
-            float rot = Mathf.Min(Mathf.Abs(angle), rotMax);
+            var rotMax = _navMeshAgent.angularSpeed * Time.deltaTime;
+            var rot = Mathf.Min(Mathf.Abs(angle), rotMax);
             transform.Rotate(0f, rot * Mathf.Sign(angle), 0f);
         }
     }
