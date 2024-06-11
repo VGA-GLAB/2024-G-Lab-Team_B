@@ -17,6 +17,7 @@ public class CheckCardTouchPoint : MonoBehaviour
     [SerializeField] private float _waitTime = 7f;
     private float _timer = default; 
     private PatrolNPC[] _patrolNpcs = default; 
+    private IDoor _iDoor = default;
 
     private void Start()
     {
@@ -41,6 +42,7 @@ public class CheckCardTouchPoint : MonoBehaviour
             _isCardTouchPoint = false;
             _patrolNpc = null;
             _timer = 0f;
+            _iDoor.OpenDoor(); // ドアを開く
         }
 
         _timer += Time.deltaTime;
@@ -48,13 +50,12 @@ public class CheckCardTouchPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("CardTouchPoint"))
-        {
-            _patrolNpc = GetActivePatrolNpc();
-            _isCardTouchPoint = true;
-            _patrolNpc.IsTimer = true;
-            _patrolNpc.Anim.SetTrigger("Open");
-        }
+        if (!other.CompareTag("CardTouchPoint")) return;
+        _patrolNpc = GetActivePatrolNpc();
+        _isCardTouchPoint = true;
+        _patrolNpc.IsTimer = true;
+        _patrolNpc.Anim.SetTrigger("Open");
+        _iDoor = GetComponent<IDoor>(); // ドアに付いているインターフェースを取得
     }
 
     /// <summary>
