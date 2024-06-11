@@ -15,8 +15,8 @@ public class ClosureRoad : MonoBehaviour
     private float _timer = default;
     private PoliceOfficer _policeOfficer = default;
     private bool _isClosure = default;
-    
-    void Start()
+
+    private void Start()
     {
         if(_objects.Length == 0) 
             Debug.LogWarning("「通行止めをするオブジェクト」を指定してください");
@@ -27,7 +27,7 @@ public class ClosureRoad : MonoBehaviour
         _policeOfficer.IsTimer = true;
     }
 
-    void Update()
+    private void Update()
     {
         if(!_isClosure) return; // 行き止まり終了のとき
         if (_cardkey.activeSelf)
