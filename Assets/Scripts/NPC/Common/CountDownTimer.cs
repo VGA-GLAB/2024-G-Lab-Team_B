@@ -11,9 +11,17 @@ public class CountDownTimer : MonoBehaviour
     [SerializeField] private Text _text = default;
 
     /// <summary> 残り時間 </summary>
-    public float Timer => _timer;
+    public float Timer
+    {
+        get => _timer;
+        // set => _timer = value;
+    }
+    
+    void Start()
+    {
+    }
 
-    private void Update()
+    void Update()
     {
         if (_timer < 0)
         {

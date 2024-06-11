@@ -32,7 +32,7 @@ public class TalkingNPC : NPC
 /// </summary>
 public class TalkingState : StateBase
 {
-    private TalkingNPC _talkingNPC;
+    TalkingNPC _talkingNPC;
 
     public TalkingState(TalkingNPC owner) : base(owner)
     {

@@ -51,8 +51,8 @@ public class CleaningRobot : MonoBehaviour
     public int IndexNum { get => _indexNum; set => _indexNum = value; }
     
     #endregion
-
-    private void Start()
+    
+    void Start()
     {
         _nPCStateMachine = new NPCStateMachine();
         _cleaningRobotIdleState = new CleaningRobotIdleState(this);
@@ -71,7 +71,7 @@ public class CleaningRobot : MonoBehaviour
         _nPCStateMachine.ChangeState(_cleaningRobotPatrolState);
     }
 
-    private void Update()
+    void Update()
     {
         // 更新 
         _nPCStateMachine.Update();
@@ -89,7 +89,7 @@ public class CleaningRobot : MonoBehaviour
     /// <summary>
     /// アイドルステート後にデフォルトのステートに戻す
     /// </summary>
-    private void ToDefaultState(StateBase stateBase)
+    protected void ToDefaultState(StateBase stateBase)
     {
         if (_timer > _idleTime)
         {
@@ -102,12 +102,13 @@ public class CleaningRobot : MonoBehaviour
     /// <summary>
     /// 正面に障害物があれば待機ステートへ遷移する
     /// </summary>
-    private void FrontCheck()
+    void FrontCheck()
     {
-        var raycastDirection = _startPoint.transform.TransformDirection(_direction);
+        Vector3 raycastDirection = _startPoint.transform.TransformDirection(_direction);
+        RaycastHit hit;
         var startPosition = _startPoint.transform.position;
         // Raycastを発射してHitしたかどうかを検出
-        if (Physics.Raycast(startPosition, raycastDirection, out var hit, _raycastLength))
+        if (Physics.Raycast(startPosition, raycastDirection, out hit, _raycastLength))
         {
             _isTimer = true;
             Debug.DrawLine(startPosition, hit.point, Color.red);
@@ -192,7 +193,7 @@ public class CleaningRobotPatrolState : StateBase
             Debug.DrawLine(_cleaningRobot.transform.position, nextCorner, Color.yellow);
         }
         var to = nextCorner - _cleaningRobot.transform.position;
-        var angle = Vector3.SignedAngle(_cleaningRobot.transform.forward, to, Vector3.up);
+        float angle = Vector3.SignedAngle(_cleaningRobot.transform.forward, to, Vector3.up);
         // 角度が35゜を越えていたら
         if (Mathf.Abs(angle) > 35)
         {

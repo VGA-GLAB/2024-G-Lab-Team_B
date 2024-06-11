@@ -28,8 +28,8 @@ public class Witness : MonoBehaviour
     private bool _isWitness = default;
     
     #endregion
-
-    private void Start()
+    
+    void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _navMeshAgent.isStopped = false;
@@ -41,7 +41,7 @@ public class Witness : MonoBehaviour
         _countDownTimer = FindObjectOfType<CountDownTimer>();
     }
 
-    private void Update()
+    void Update()
     {
         if(_countDownTimer.Timer < 0) return;
         if (_isWitness)

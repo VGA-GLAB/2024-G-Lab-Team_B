@@ -8,9 +8,10 @@ public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
 {
     [Header("数秒後に再生するステート名"), Tooltip("数秒後に再生するステート名")]
     [SerializeField] private string _latePlayStateName = default;
-    [Tooltip("秒数カウント開始")] private bool _isCount = default;
-    [Tooltip("残り時間を持つクラス")] 
-    private CountDownTimer _countDownTimer = default;
+    [Header("秒数カウント開始"), Tooltip("秒数カウント開始")]
+    private bool _isCount = default;
+    [Header("残り時間を持つクラス"), Tooltip("残り時間を持つクラス")]
+    protected CountDownTimer _countDownTimer = default;
     
     protected override void OnStart()
     {
@@ -37,10 +38,14 @@ public class AssociateProfessorDeadOrAlive : DeadOrAliveBase
         
         // 残り時間が１０秒をきったら、フラグの干渉をできなくする
         if(_countDownTimer.Timer <= 10f){return;}
-
-        if (IsDead) return;
-        if (!_canPlay) return;
-        _animator.SetTrigger("ElectricShock"); // AED
-        _canPlay = false;
+        
+        if (!IsDead)
+        {
+            if (_canPlay)
+            {
+                _animator.SetTrigger("ElectricShock"); // AED
+                _canPlay = false;
+            }
+        }
     }
 }

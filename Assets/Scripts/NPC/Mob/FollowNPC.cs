@@ -15,23 +15,31 @@ public class FollowNPC : NPC
     [Header("速める際の速度"), Tooltip("速める際の速度")]
     [SerializeField] private float _speed = 1.8f;
     // 付いていく対象の左右の位置
+    private Vector3 _right = default;
+    private Vector3 _left = default;
     [Header("初期速度"), Tooltip("初期速度")] 
     [SerializeField] private float _defaultSpeed = 1f;
     [Tooltip("距離を出すための対象の位置")] private Vector3 _targetPos = default;
     [Tooltip("追尾ステート")] private FollowState _followState = default;
-    private Vector3 _right = default;
-    private Vector3 _left = default;
     
     #endregion
 
     #region プロパティ
 
     /// <summary> 相方 </summary>
-    public Transform TargetNpcTransform => _targetNpcTransform;
+    public Transform TargetNpcTransform
+    {
+        get => _targetNpcTransform;
+        // set => _targetNpcTransform = value;
+    }
 
     /// <summary> 横並びになる距離 </summary>
-    public float Distance => _distance;
-
+    public float Distance
+    {
+        get => _distance;
+        // set => _distance = value;
+    }
+    
     /// <summary> 距離を出すための対象の位置 </summary>
     public Vector3 TargetPos
     {
@@ -102,7 +110,7 @@ public class FollowNPC : NPC
 /// </summary>
 public class FollowState : StateBase
 {
-    private FollowNPC followNPC;
+    FollowNPC followNPC;
 
     public FollowState(FollowNPC owner) : base(owner)
     {

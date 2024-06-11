@@ -59,6 +59,8 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
                 else
                 {
                     LatePlayAnim(_deathAvoidance);
+                    // // Todo: 遷移のパラメータが確定したら以下を使用する
+                    // StartCoroutine(LateTransition(_deathAvoidance));
                 }
             }
         }
@@ -67,7 +69,7 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
     /// <summary>
     /// 回転
     /// </summary>
-    private void Rotate()
+    void Rotate()
     {
         var to = _targetPos - transform.position;
         float angle = Vector3.SignedAngle(transform.forward, -to, Vector3.up);
@@ -88,4 +90,9 @@ public class ProfessorDeadOrAlive : DeadOrAliveBase
     {
         _canRotate = true;
     }
+
+    // protected override void Transition()
+    // {
+    //     _animator.SetBool(name, true);
+    // }
 }

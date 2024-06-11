@@ -13,43 +13,64 @@ public class NPC : MonoBehaviour
 {
     #region"変数"
 
-    private Animator _anim = default;
-    private NPCStateMachine _nPCStateMachine = default;
-    private IdleState _idleState = default;
-    private AvoidState _avoidState = default;
-    private Vector3 _avoidPoint = default;
+    [Tooltip("アニメーター")] private Animator _anim = default;
+
+    [Tooltip("ステートマシン")] private NPCStateMachine _nPCStateMachine = default;
+
+    [Tooltip("アイドルステート")] private IdleState _idleState = default;
+    [Tooltip("回避ステート")] private AvoidState _avoidState = default;
+
+    [Header("待機状態の継続時間")] [Tooltip("待機状態の継続時間")]
+    [SerializeField] private float _idleTime = 2f;
+
+    [Tooltip("（待機時間の）時間計算")] private float _timer = 0f;
+    [Tooltip("（待機時間の）時間計算するか")] private bool _isTimer = false;
+
     private NavMeshAgent _navMeshAgent = default;
+    [Tooltip("回避先")] private Vector3 _avoidPoint = default;
+
+    [Header("立ちか座りか(待機と作業に影響)")] [Tooltip("立ちか座りか(待機と作業に影響)")]
+    [SerializeField] private bool _isStand = default;
+
+    [Header("レイを出す始点")] [Tooltip("レイを出す始点")]
+    [SerializeField] private GameObject _startPoint = default;
+
+    [Header("レイの方向")] [Tooltip("レイの方向")]
+    [SerializeField] private Vector3 _direction = default;
+
+    [Header("レイの長さ")] [Tooltip("レイの長さ")]
+    [SerializeField] private float _raycastLength = 2f;
+
+    [Header("レイを出す始点(壁越しさせない用)")] [Tooltip("レイを出す始点(壁越しさせない用)")]
+    [SerializeField] private GameObject _rayOrigin = default;
+
+    [Tooltip("コルーチンでの待ち時間")] private float _waitTime = default;
     private WaitForSeconds _wfs = default;
     private GameObject _lookAtTarget = default;
     private bool _canLookAt = default;
-    [Tooltip("（待機時間の）時間計算")] private float _timer = 0f;
-    [Tooltip("（待機時間の）時間計算するか")] private bool _isTimer = false;
-    [Tooltip("コルーチンでの待ち時間")] private float _waitTime = default;
-    [Header("待機状態の継続時間")] [Tooltip("待機状態の継続時間")]
-    [SerializeField] private float _idleTime = 2f;
-    [Header("立ちか座りか(待機と作業に影響)")] [Tooltip("立ちか座りか(待機と作業に影響)")]
-    [SerializeField] private bool _isStand = default;
-    [Header("レイを出す始点")] [Tooltip("レイを出す始点")]
-    [SerializeField] private GameObject _startPoint = default;
-    [Header("レイの方向")] [Tooltip("レイの方向")]
-    [SerializeField] private Vector3 _direction = default;
-    [Header("レイの長さ")] [Tooltip("レイの長さ")]
-    [SerializeField] private float _raycastLength = 2f;
-    [Header("レイを出す始点(壁越しさせない用)")] [Tooltip("レイを出す始点(壁越しさせない用)")]
-    [SerializeField] private GameObject _rayOrigin = default;
     
     #endregion
 
     #region"プロパティ"
 
     /// <summary> アニメーター </summary>
-    public Animator Anim => _anim;
+    public Animator Anim
+    {
+        get => _anim;
+        // set => _anim = value;
+    }
 
     /// <summary> ナビメッシュ コンポーネント </summary>
-    public NavMeshAgent NavMeshAgent => _navMeshAgent;
+    public NavMeshAgent NavMeshAgent
+    {
+        get => _navMeshAgent;
+    }
 
     /// <summary> ステートマシン </summary>
-    protected NPCStateMachine NpcStateMachine => _nPCStateMachine;
+    public NPCStateMachine NpcStateMachine
+    {
+        get => _nPCStateMachine;
+    }
 
     /// <summary> 回避先の位置情報 </summary>
     public Vector3 AvoidPoint
@@ -59,7 +80,11 @@ public class NPC : MonoBehaviour
     }
 
     /// <summary> 立ちか座りか </summary>
-    public bool IsStand => _isStand;
+    public bool IsStand
+    {
+        get => _isStand;
+        // set => _isStand = value;
+    }
 
     /// <summary> （アイドル時間の）時間計算するか </summary>
     public bool IsTimer
@@ -78,14 +103,14 @@ public class NPC : MonoBehaviour
     {
     }
 
-    private void Start()
+    void Start()
     {
         _idleState = new IdleState(this);
         _avoidState = new AvoidState(this);
         _navMeshAgent = GetComponent<NavMeshAgent>();
-        _anim = GetComponent<Animator>();
         _nPCStateMachine = new NPCStateMachine();
         _timer = 0f;
+        _anim = GetComponent<Animator>();
         NpcStateMachine.ChangeState(_idleState);
         _waitTime = 2f;
         _wfs = new WaitForSeconds(_waitTime);
@@ -94,7 +119,7 @@ public class NPC : MonoBehaviour
         OnStart();
     }
 
-    private void Update()
+    void Update()
     {
         // 更新 
         _nPCStateMachine.Update();
@@ -138,7 +163,7 @@ public class NPC : MonoBehaviour
     /// <summary>
     /// 回避先を決める
     /// </summary>
-    private void DecideAvoidPoint()
+    void DecideAvoidPoint()
     {
         // 回避先を決める 
         Vector3 raycastDirection = _startPoint.transform.TransformDirection(_direction);
@@ -165,7 +190,7 @@ public class NPC : MonoBehaviour
     /// ※プレイヤーが透明化中は回避しない
     /// </summary>
     /// <param name="other"></param>
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         TriggerEnter(other);
 
@@ -196,7 +221,7 @@ public class NPC : MonoBehaviour
     /// ※プレイヤーが透明化中でもぶつかる
     /// </summary>
     /// <param name="other"></param>
-    private void OnCollisionEnter(Collision other)
+    void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("RecordedPlayer"))
         {
@@ -231,8 +256,8 @@ public class NPC : MonoBehaviour
         _anim.ResetTrigger("Collision");
         StartCoroutine(AvoidStateCoroutine());
     }
-
-    private IEnumerator AvoidStateCoroutine()
+    
+    IEnumerator AvoidStateCoroutine()
     {
         _nPCStateMachine.ChangeState(_idleState);
         yield return _wfs;
@@ -245,7 +270,7 @@ public class NPC : MonoBehaviour
     /// <summary>
     /// ぶつかったプレイヤーを見る
     /// </summary>
-    private void LookAtPlayer()
+    void LookAtPlayer()
     {
         if(_lookAtTarget == null) return;
         var pos = _lookAtTarget.transform.position;
