@@ -11,7 +11,7 @@ public class ClosureRoad : MonoBehaviour
     [SerializeField] private GameObject[] _objects = default;
     [Header("カードキー入手後、移動を開始するまでの時間"), Tooltip("カードキー入手後、移動を開始するまでの時間")]
     [SerializeField] private float _startTimeForMove = 5f;
-    [Tooltip("カードキーオブジェクト"), SerializeField] private GameObject _cardkey = default;
+    [SerializeField, Tooltip("カードキーオブジェクト")] private GameObject _cardkey = default;
     private float _timer = default;
     private PoliceOfficer _policeOfficer = default;
     private bool _isClosure = default;

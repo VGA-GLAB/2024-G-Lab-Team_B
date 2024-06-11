@@ -16,7 +16,7 @@ public class CardioPulmonaryArrest : VictimBase
     /// <summary>
     /// タイムラインに合わせて行動する
     /// </summary>
-    void TimeLineMove()
+    private void TimeLineMove()
     {
         var remainingTime = _countDownTimer.Timer;
         if (remainingTime < _timeline[2])

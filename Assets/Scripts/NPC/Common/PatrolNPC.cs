@@ -13,7 +13,7 @@ public class PatrolNPC : NPC
     #region 変数
 
     // パトロール関係
-    [Space] [Header("===パトロール関係===")] [Header("移動速度")] [Tooltip("移動速度")]
+    [Header("===パトロール関係===")] [Header("移動速度")] [Tooltip("移動速度")]
     [SerializeField] private float _speed = 1f;
     [Header("到達したとみなす距離　※推奨：2人1組の場合数字を大きく")] [Tooltip("到達したとみなす距離")]
     [SerializeField] private float _distance = 0.1f;
@@ -40,17 +40,10 @@ public class PatrolNPC : NPC
     #region プロパティ
 
     /// <summary> 到達したとみなす距離 </summary>
-    public float Distance
-    {
-        get => _distance;
-        // set => _distanse = value;
-    }
+    public float Distance => _distance;
 
     /// <summary> 経路の位置情報 </summary>
-    public Vector3[] Positions
-    {
-        get => _positions;
-    }
+    public Vector3[] Positions => _positions;
 
     /// <summary> めざす場所のインデックス番号 </summary>
     public int IndexNum
@@ -60,23 +53,13 @@ public class PatrolNPC : NPC
     }
 
     /// <summary> 作業の時間 </summary>
-    public float StandingWorkTime
-    {
-        get => _standingWorkTime;
-    }
+    public float StandingWorkTime => _standingWorkTime;
 
     /// <summary> 各ポジションに到達したら、毎度その場で一時停止するか </summary>
-    public bool IsWaitEveryTime
-    {
-        get => _isWaitEveryTime;
-        //set => _isWaitEveryTime = value;
-    }
+    public bool IsWaitEveryTime => _isWaitEveryTime;
 
     /// <summary> 当たり判定を無くす </summary>
-    public Collider[] Colliders
-    {
-        get => _colliders;
-    }
+    public Collider[] Colliders => _colliders;
 
     #endregion
 
@@ -145,7 +128,7 @@ public class PatrolNPC : NPC
 /// </summary>
 public class PatrolState : StateBase
 {
-    PatrolNPC _patrolNpc;
+    private PatrolNPC _patrolNpc;
 
     public PatrolState(PatrolNPC owner) : base(owner)
     {

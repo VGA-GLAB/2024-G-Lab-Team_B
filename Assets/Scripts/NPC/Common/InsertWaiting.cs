@@ -19,8 +19,8 @@ public class InsertWaiting : MonoBehaviour
     private float _defaultSpeed = default; 
     private float _resetTimer = default;
     private bool _canMove = false;
-    
-    void Start()
+
+    private void Start()
     {
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _patrolNpc = GetComponent<PatrolNPC>();
@@ -29,7 +29,7 @@ public class InsertWaiting : MonoBehaviour
         _canMove = true;
     }
 
-    void Update()
+    private void Update()
     {
         if(_positions.Length == 0) return; // 待機場所の指定がないとき
         if (!_canMove)
@@ -65,14 +65,12 @@ public class InsertWaiting : MonoBehaviour
                 _timer = 0f;
             }
         }
-        
-        if (_num == _positions.Length)
+
+        if (_num != _positions.Length) return;
+        if (_positions.Length == 1)
         {
-            if (_positions.Length == 1)
-            {
-                _canMove = false;
-            }
-            _num = 0;
+            _canMove = false;
         }
+        _num = 0;
     }
 }
