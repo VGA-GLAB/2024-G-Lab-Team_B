@@ -1,6 +1,8 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.Collections.Generic;
 using DG.Tweening;
 using UniRx;
 using static CriAudioManager;
@@ -13,32 +15,39 @@ public class Transparent : MonoBehaviour
 {
     #region 変数
 
-    [Header("透明化する対象")] [Tooltip("透明化する対象")]
-    [SerializeField] private GameObject _target = default;
+    [Header("透明化する対象")] [Tooltip("透明化する対象")] [SerializeField]
+    private GameObject _target = default;
 
     private Renderer[] _renderers = default;
 
-    [Header("透明度")] [Tooltip("透明度")]
-    [SerializeField] private float _value = default;
+    [Header("透明度")] [Tooltip("透明度")] [SerializeField]
+    private float _value = default;
 
-    [Header("透明化にかける時間")] [Tooltip("透明化にかける時間")]
-    [SerializeField] private float _duration = default;
+    [Header("透明化にかける時間")] [Tooltip("透明化にかける時間")] [SerializeField]
+    private float _duration = default;
 
-    [Header("透明にするか")] [Tooltip("透明にするか")]
-    [SerializeField] private bool _isTransparent = default;
+    [Header("透明にするか")] [Tooltip("透明にするか")] [SerializeField]
+    private bool _isTransparent = default;
 
-    [Header("レイヤーの名前：TransparentPlayer")] [Tooltip("レイヤーの名前：TransparentPlayer")]
-    [SerializeField] private string _layerName = "TransparentPlayer";
+    [Header("レイヤーの名前：TransparentPlayer")] [Tooltip("レイヤーの名前：TransparentPlayer")] [SerializeField]
+    private string _layerName = "TransparentPlayer";
 
     private string _defaultLayerName = default;
 
-    [Header("キー入力ができるか")] [Tooltip("キー入力ができるか")]
-    [SerializeField] private bool _canInput = default;
+    [Header("キー入力ができるか")] [Tooltip("キー入力ができるか")] [SerializeField]
+    private bool _canInput = default;
 
-    [SerializeField]
-    private float _timeLimit = 10f;
+    [SerializeField] private float _timeLimit = 10f;
 
-    private float _timer = 0f;
+    bool _playOne;      //一回だけSEを再生する際に使うbool
+
+    bool _sePause;      //Pause中ならTrueじゃなければFalse
+
+    bool _isClick;      //TrueならクリックできないFalseならできる   
+
+    bool _timeLimit2;   //TimeLimit02のSEの音が流れていたらTrueにする
+    
+    PlayerAbilitySelecterTGSVersion _abilitySelecter;
 
     private Subject<Unit> _limit = new();
     #endregion
@@ -49,13 +58,20 @@ public class Transparent : MonoBehaviour
         get => _canInput;
         set => _canInput = value;
     }
-    
+
+    public bool IsTransparent
+    {
+        get => _isTransparent;
+        set => _isTransparent = value;
+    }
+
     private void Start()
     {
+        _abilitySelecter = FindObjectOfType<PlayerAbilitySelecterTGSVersion>();
         _renderers = _target.GetComponentsInChildren<Renderer>();
         _defaultLayerName = LayerMask.LayerToName(_target.gameObject.layer);
 
-        _limit.FirstOrDefault().Subscribe(_ => 
+        _limit.FirstOrDefault().Subscribe(_ =>
         {
             ChangeAlpha(false);
             CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Cancellation_01");
@@ -64,21 +80,37 @@ public class Transparent : MonoBehaviour
 
     private void Update()
     {
+        //_isTransparentがtrueの時は_timeLimitの数値を減らす
         if (_isTransparent)
         {
-            _timer += Time.deltaTime;
+            _timeLimit -= Time.deltaTime;
         }
-
-        if (_timer <= _timeLimit)
+        if (_timeLimit <= 5)
         {
-            if(Input.GetButtonDown("Fire2") && CanInput)
+            if (!_playOne)      //一回だけLoopSEを再生する
             {
-                OnClick();
+                CriAudioManager.Instance.StopLoopSE();
+                CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_TimeLimit_02");
+                _playOne = !_playOne;
             }
         }
+        
+        //_timeLimit変数が０よりも大きいとき透明化の切り替えを行う
+        if (_timeLimit > 0)
+        {
+            if (!_isClick)
+            {
+                if (Input.GetButtonDown("Fire2") && CanInput)       //右クリックで透明化オンオフの切り替えを行う
+                {
+                    OnClick();      //透明化の切り替えを行う
+                }   
+            }
+        }
+        //_timeLimit変数が０よりも小さい時強制的に透明化を解除し、SEを止め解除SEを鳴らす
         else
         {
-            _limit.OnNext(Unit.Default);//タイムリミットにより強制解除
+            CriAudioManager.Instance.StopLoopSE();
+            _limit.OnNext(Unit.Default); //タイムリミットにより強制解除
         }
     }
 
@@ -91,15 +123,44 @@ public class Transparent : MonoBehaviour
     {
         _isTransparent = !_isTransparent;
         ChangeAlpha(_isTransparent);
-
-        if(_isTransparent)
+        //_isTransparentがFalseなら透明化使用時の音を鳴らす
+        
+        if (_isTransparent)
         {
             CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Use_03");
+            if (!_playOne)
+            {
+                _isClick = true;
+                StartCoroutine(LimitSE(1.7f, "SE_Ability_TimeLimit_01"));
+            }
+            else
+            {
+                StartCoroutine(LimitSE(1.7f, "SE_Ability_TimeLimit_02"));
+            }
         }
         else
         {
+            CriAudioManager.Instance.StopLoopSE();
             CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Ability_Cancellation_01");
         }
+    }
+
+    IEnumerator LimitSE(float time, string seName)
+    {
+        yield return new WaitForSeconds(time);
+        // CriAudioManager.Instance.StopSE(0);
+        SEStop();
+        if (_canInput == true)
+        {
+            CriAudioManager.Instance.PlaySE(CueSheetType.SE, seName);   
+        }
+        _isClick = false;
+    }
+
+    /// <summary>SEを止めるメソッド</summary>
+    public void SEStop()
+    {
+        CriAudioManager.Instance.StopLoopSE();
     }
 
     /// <summary>

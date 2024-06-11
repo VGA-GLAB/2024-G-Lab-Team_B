@@ -24188,4 +24188,12 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.16666667
+    functionName: OnRunSound
+    data: 
+    objectReferenceParameter: {fileID: 1636378300736736152, guid: 9f8ae69f39a97a844bbf4da762546d7b,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
