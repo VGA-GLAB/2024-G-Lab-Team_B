@@ -1,4 +1,5 @@
 using UnityEngine;
+using static CriAudioManager;
 
 /// <summary>「カメラから見た方向」にキャラクターを動かします</summary>
 [RequireComponent(typeof(CharacterController))]
@@ -94,10 +95,12 @@ public class PlayerMoveController : MonoBehaviour
             else
             {
                 _isCrouch = true;
+                
             }
             _animator.SetBool("Crouch", _isCrouch);
         }
     }
+    
 
 
     /// <summary>
@@ -107,6 +110,8 @@ public class PlayerMoveController : MonoBehaviour
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         //Debug.Log($"{hit.collider.name} に衝突した(OnControllerColliderHit)");
+        if (hit.gameObject.tag == "")
+        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Clash_01");
     }
 
     /// <summary>
@@ -116,5 +121,7 @@ public class PlayerMoveController : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         //Debug.Log($"{collision.gameObject.name} に衝突した(OnCollisionEnter)");
+        
     }
+    
 }

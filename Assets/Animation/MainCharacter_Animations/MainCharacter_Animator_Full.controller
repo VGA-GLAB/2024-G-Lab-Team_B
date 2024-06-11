@@ -37,10 +37,10 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SelectAvility
+    m_ConditionEvent: Select
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: UseAvility
+    m_ConditionEvent: Decide
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5986418995406825563}
@@ -63,7 +63,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_SelectAvility 2
+  m_Name: Select Avility 2
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -216,7 +216,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_LookAway
+  m_Name: Look Away
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -374,7 +374,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_SelectAvility 3
+  m_Name: Select Avility 3
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -509,7 +509,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SelectAvility
+    m_ConditionEvent: Select
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6290650644822340491}
@@ -619,7 +619,7 @@ AnimatorStateTransition:
     m_ConditionEvent: Change
     m_EventTreshold: 0
   - m_ConditionMode: 1
-    m_ConditionEvent: UseAvility
+    m_ConditionEvent: Decide
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5986418995406825563}
@@ -689,7 +689,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_SelectAvility 1
+  m_Name: Select Avility 1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -746,7 +746,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_UseAED
+  m_Name: Use AED
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -877,13 +877,13 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: SelectAvility
+  - m_Name: Select
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: UseAvility
+  - m_Name: Decide
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -1031,7 +1031,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SelectAvility
+    m_ConditionEvent: Select
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1934400825589394222}
@@ -1078,7 +1078,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: SelectAvility
+    m_ConditionEvent: Select
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6290650644822340491}
@@ -1151,7 +1151,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_Stand_UseItem
+  m_Name: Use Item
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1188,9 +1188,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.37415898
   m_TransitionOffset: 0
-  m_ExitTime: 0.8666667
+  m_ExitTime: 0.80044854
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1233,7 +1233,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SelectAvility
+    m_ConditionEvent: Select
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9113368100582424918}
@@ -1306,7 +1306,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_Talk
+  m_Name: Talk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1386,7 +1386,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_UseCardKey
+  m_Name: Use Card Key
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1443,7 +1443,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 2
-    m_ConditionEvent: UseAvility
+    m_ConditionEvent: Decide
     m_EventTreshold: 0
   - m_ConditionMode: 2
     m_ConditionEvent: Change
@@ -1516,7 +1516,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_UseAvility
+  m_Name: Use Avility
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1543,7 +1543,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_LookWatch
+  m_Name: Look Watch
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1597,7 +1597,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MainCharacter_Stand_GetItem
+  m_Name: Get Item
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1626,7 +1626,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: SelectAvility
+    m_ConditionEvent: Select
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -9113368100582424918}
