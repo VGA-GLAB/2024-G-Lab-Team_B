@@ -15,7 +15,8 @@ public class ClosureRoad : MonoBehaviour
     private float _timer = default;
     private PoliceOfficer _policeOfficer = default;
     private bool _isClosure = default;
-
+    private Animator _animator = default;
+    
     private void Start()
     {
         if(_objects.Length == 0) 
@@ -23,6 +24,7 @@ public class ClosureRoad : MonoBehaviour
         if(_cardkey == null) 
             Debug.LogWarning("「Cardkey」オブジェクトがアサインされていません。");
         _policeOfficer = GetComponent<PoliceOfficer>();
+        _animator = GetComponent<Animator>();
         _isClosure = true;
         _policeOfficer.IsTimer = true;
     }
@@ -32,7 +34,11 @@ public class ClosureRoad : MonoBehaviour
         if(!_isClosure) return; // 行き止まり終了のとき
         if (_cardkey.activeSelf)
         {
-            if (_policeOfficer.enabled) _policeOfficer.enabled = false;
+            if (_policeOfficer.enabled)
+            {
+                _policeOfficer.enabled = false;
+                _animator.SetFloat("Speed", 0);
+            }
             return; // カードキー未入手のとき
         }
         if (_timer > _startTimeForMove)
@@ -48,7 +54,7 @@ public class ClosureRoad : MonoBehaviour
     /// <summary>
     /// 通行止めしていたオブジェクトを非アクティブにする。
     /// </summary>
-    void EraseObject()
+    private void EraseObject()
     {
         foreach (var obj in _objects)
         {
