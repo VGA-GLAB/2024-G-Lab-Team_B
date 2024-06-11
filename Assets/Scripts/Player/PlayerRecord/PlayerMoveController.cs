@@ -109,9 +109,12 @@ public class PlayerMoveController : MonoBehaviour
     /// <param name="hit"></param>
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        //Debug.Log($"{hit.collider.name} に衝突した(OnControllerColliderHit)");
-        if (hit.gameObject.tag == "")
-        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Clash_01");
+        // // //Debug.Log($"{hit.collider.name} に衝突した(OnControllerColliderHit)");
+        // if (hit.gameObject.CompareTag("NPC"))
+        // {
+        //     // CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Clash_01");   
+        //     Debug.Log("触れた");
+        // }
     }
 
     /// <summary>

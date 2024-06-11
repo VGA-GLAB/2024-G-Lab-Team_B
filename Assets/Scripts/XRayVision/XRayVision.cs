@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// 透視能力
@@ -51,7 +53,12 @@ public class XRayVision : MonoBehaviour
     [Tooltip("インスタンスされた古いターゲットのマテリアル")]
     private Material _oldMaterial = default;        // 透視後削除する用(instanse)が入る)
 
+    bool _bloc;
+    /// <summary>再生中の</summary>
+    bool _playSe;
 
+    // bool _timeLimit2;    //TimeLimit2のSEが流れたらTrueにする
+    
     // テスト用
     //private LineRenderer _lineRenderer = default;
     //private Vector3 _rayHitPosition;
@@ -110,6 +117,24 @@ public class XRayVision : MonoBehaviour
     private void OnClick()
     {
         IsXRayVision = !IsXRayVision;
+        if (IsXRayVision)
+        {
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheetType.SE, "SE_Ability_Use_02");
+            if (!_bloc)
+            {
+                StartCoroutine(LimitSe(1.6f,"SE_Ability_TimeLimit_01"));   
+            }
+            else
+            {
+                StartCoroutine(LimitSe(1.6f,"SE_Ability_TimeLimit_02"));
+            }
+            _playSe = true;
+            
+        }
+        else
+        {
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheetType.SE, "SE_Ability_Cancellation_01");
+        }
         RaycastGetObject(IsXRayVision);
     }
 
@@ -225,7 +250,29 @@ public class XRayVision : MonoBehaviour
         if (_timeLimit <= 0)
         {
             IsXRayVision = false;
+            _playSe = false;
             Debug.Log("使用制限時間を超えています");
+            CriAudioManager.Instance.StopLoopSE();
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheetType.SE, "SE_Ability_Cancellation_01");
+        }
+        else if (_timeLimit  < 5)
+        {
+            if (_bloc == false)
+            {
+                _bloc = true;
+                CriAudioManager.Instance.StopLoopSE();
+                CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheetType.SE, "SE_Ability_TimeLimit_02");
+            }
+        }
+    }
+
+    IEnumerator LimitSe(float time,string cueName)
+    {
+        yield return new WaitForSeconds(time);
+        CriAudioManager.Instance.StopSE(0);
+        if (_isXRayVision)
+        {
+            CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheetType.SE, cueName);   
         }
     }
 }

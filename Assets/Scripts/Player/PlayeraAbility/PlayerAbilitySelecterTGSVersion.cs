@@ -18,6 +18,7 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
     private XRayVision _xRayVision;
     private ReactiveProperty<int> _currentIndex = new(); // 現在の能力の番号
     private bool _isScroll;
+    public bool IsScroll => _isScroll;
 
     public IReactiveProperty<int> CurrentIndex => _currentIndex;
 
@@ -61,46 +62,44 @@ public class PlayerAbilitySelecterTGSVersion : MonoBehaviour
         if (scroll > 0)
         {
             _currentIndex.Value++;
-            CriAudioManager.Instance.StopLoopSE();
+            _transparent.SEStop();      //Transparentクラスで再生されているSEを止める
+            _cameraSwitcher.ChangeFirstPerson();        //視点を一人称にしてSEを止める
             _isScroll = true;
         }
         else if (scroll < 0)
         {
             _currentIndex.Value--;
-            CriAudioManager.Instance.StopLoopSE();
+            _transparent.SEStop();
+            _cameraSwitcher.ChangeFirstPerson();        //視点を一人称にしてSEを止める
             _isScroll = true;
         }
-
-        if (_isScroll)
+        else if (scroll == 0)
         {
-            switch (_currentIndex.Value)
-            {
-                case 0: // カメラ切り替え
-
-                    _cameraSwitcher.enabled = true;
-                    NullificationTransparent();
-                    NullificationClairvoyance();
-                    UIDisplayChange();
-                    _isScroll = false;
-
-                    break;
-                case 1: // 透明化
-                    _transparent.CanInput = true;
-                    NullificationCameraSwitcher();
-                    NullificationClairvoyance();
-                    UIDisplayChange();
-                    _isScroll = false;
-                    break;
-                case 2: // 透視
-                    _xRayVision.SetAvility = true;
-                    NullificationCameraSwitcher();
-                    NullificationTransparent();
-                    UIDisplayChange();
-                    _isScroll = false;
-                    break;
-            }
-
             _isScroll = false;
+        }
+        
+        switch (_currentIndex.Value)
+        {
+            case 0: // カメラ切り替え
+
+                _cameraSwitcher.enabled = true;
+                NullificationTransparent();
+                NullificationClairvoyance();
+                UIDisplayChange();
+
+                break;
+            case 1: // 透明化
+                _transparent.CanInput = true;
+                NullificationCameraSwitcher();
+                NullificationClairvoyance();
+                UIDisplayChange();
+                break;
+            case 2: // 透視
+                _xRayVision.SetAvility = true;
+                NullificationCameraSwitcher();
+                NullificationTransparent();
+                UIDisplayChange();
+                break;
         }
     }
 

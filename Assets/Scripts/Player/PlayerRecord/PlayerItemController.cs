@@ -93,7 +93,7 @@ public class PlayerItemController : MonoBehaviour
         _inventory[_selectItemIndex.Value].transform.position = hit.point;
         _inventory[_selectItemIndex.Value].gameObject.SetActive(true);
         _inventory.RemoveAt(_selectItemIndex.Value);//インベントリから削除
-        //CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");
+        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");
 
         if (_selectItemIndex.Value >= _inventory.Count)
         {

@@ -12,5 +12,6 @@ public class CardKey : ItemBase
     public override void UseItem(GameObject obj)
     {
         Debug.Log("カードキーを使用");
+        CriAudioManager.Instance.PlaySE(CriAudioManager.CueSheetType.SE, "SE_Item_Use_03");
     }
 }
