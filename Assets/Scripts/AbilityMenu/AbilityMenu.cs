@@ -15,7 +15,7 @@ public class AbilityMenu : MonoBehaviour
     [Header("最初のメニューのアイテムボタン")] private Button _firstMenuSelectItemButton;
 
     [SerializeField]
-    [Header("能力のメニューボタン①")] private Button _cameraSwitcherButtona;
+    [Header("能力のメニューボタン①")] private Button _cameraSwitcherButton;
     [SerializeField]
     [Header("能力のメニューボタン②")] private Button _transparentButton;
     [SerializeField]
@@ -28,15 +28,27 @@ public class AbilityMenu : MonoBehaviour
     [SerializeField]
     [Header("AEDのメニューボタン")] private Button _aedButton;
 
+    [SerializeField]
+    [Header("クリック音")] private AudioClip _clickSound;
+
+    private AudioSource _audioSource;
+
     // メニューの状態を表す列挙型
     enum MenuState { FirstMenu, AbilityMenu, ItemMenu }
     // 現在のメニューの状態
-    private MenuState _currentMenuState;
+    private MenuState _currentMenuState = MenuState.FirstMenu;
 
     private bool _isMenuOpen = false;
 
     public void Start()
     {
+        // AudioSourceコンポーネントを取得または追加
+        _audioSource = gameObject.GetComponent<AudioSource>();
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         // ボタンのリスナーを設定
         SetupListeners();
         // 初期状態ですべてのボタンを非表示にする
@@ -49,6 +61,7 @@ public class AbilityMenu : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !_isMenuOpen)
         {
             OpenMenu();
+            PlayClickSound();
         }
 
         // メニューが開いているときのみ以下の操作を許可する
@@ -57,22 +70,15 @@ public class AbilityMenu : MonoBehaviour
             // ホイールクリックでメニューを閉じる
             if (Input.GetMouseButtonDown(2))
             {
-                CloseMenu();
+                CloseAndResetMenu();
+                PlayClickSound();
             }
 
             // 右クリックで前のメニューに戻るか、メニューを閉じる
             if (Input.GetMouseButtonDown(1))
             {
-                if (_currentMenuState == MenuState.FirstMenu)
-                {
-                    // メニューを閉じる
-                    CloseMenu();
-                }
-                else
-                {
-                    // 最初のメニューに戻る
-                    FirstMenu();
-                }
+                CloseAndResetMenu();
+                PlayClickSound();
             }
         }
     }
@@ -82,12 +88,21 @@ public class AbilityMenu : MonoBehaviour
     {
         _firstMenuSelectAbilityButton.onClick.AddListener(() => OnMenuButtonClick(MenuState.AbilityMenu));
         _firstMenuSelectItemButton.onClick.AddListener(() => OnMenuButtonClick(MenuState.ItemMenu));
+
+        _cameraSwitcherButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+        _transparentButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+        _xRayVisionButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+
+        _drugButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+        _cardkeyButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+        _aedButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
     }
 
     // メニューのボタンクリック時の処理
     private void OnMenuButtonClick(MenuState newState)
     {
         ChangeMenuState(newState);
+        PlayClickSound();
     }
 
     // 最初のメニューを表示
@@ -127,7 +142,7 @@ public class AbilityMenu : MonoBehaviour
         _firstMenuSelectAbilityButton.gameObject.SetActive(showFirst);
         _firstMenuSelectItemButton.gameObject.SetActive(showFirst);
 
-        _cameraSwitcherButtona.gameObject.SetActive(showAbilities);
+        _cameraSwitcherButton.gameObject.SetActive(showAbilities);
         _transparentButton.gameObject.SetActive(showAbilities);
         _xRayVisionButton.gameObject.SetActive(showAbilities);
 
@@ -157,5 +172,25 @@ public class AbilityMenu : MonoBehaviour
     {
         _isMenuOpen = false;
         ToggleMenu(showFirst: false, showAbilities: false, showItems: false);
+    }
+
+    private void CloseAndResetMenu()
+    {
+        CloseMenu();
+        _currentMenuState = MenuState.FirstMenu;
+    }
+
+    private void CloseAndResetMenuWithSound()
+    {
+        CloseAndResetMenu();
+        PlayClickSound();
+    }
+
+    private void PlayClickSound()
+    {
+        if (_clickSound != null && _audioSource != null)
+        {
+            _audioSource.PlayOneShot(_clickSound);
+        }
     }
 }
