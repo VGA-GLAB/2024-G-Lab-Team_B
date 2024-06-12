@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using static CriAudioManager;
 
 /// <summary>ドアを開閉するためのscript</summary>
 public class AutoDoor : MonoBehaviour
@@ -29,6 +30,7 @@ public class AutoDoor : MonoBehaviour
 
             if (currentPlayerInRange)
             {
+                CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_KeyCase_01");
                 OpenDoor();
             }
         }
@@ -38,6 +40,7 @@ public class AutoDoor : MonoBehaviour
     private void OpenDoor()
     {
         _door.OpenDoor();
+        
         StartCoroutine(CloseDoorAfterDelay());
     }
 
@@ -58,6 +61,13 @@ public class AutoDoor : MonoBehaviour
             //範囲内に侵入者がいれば扉を閉めない
             _closeDoorCoroutine = StartCoroutine(CloseDoorAfterDelay());
         }
+    }
+
+    private IEnumerator OpenDoorSE()
+    {
+        yield return new WaitForSeconds(1.2f);
+        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Door_01");
+        
     }
 
     //侵入判定Debug用のGizmo
