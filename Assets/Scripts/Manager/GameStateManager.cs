@@ -12,6 +12,7 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
     private SceneChangeUtility _sceneChangeUtility;
     private CancellationTokenSource _cancellationTokenSource;
     private int _caseNumber;
+    private bool _isPause;
 
     /// <summary>事件番号を取得します</summary>
     public int CaseNumber => _caseNumber;
@@ -26,6 +27,16 @@ public class GameStateManager : SingletonMonoBehavior<GameStateManager>
     /// <param name="flagNumber">事件番号</param>
     /// <param name="isSuccess">事件解決の可否</param>
     public void SetCaseFlag(int flagNumber, bool isSuccess) => _caseFlags[flagNumber] = isSuccess;
+
+    public bool IsPause
+    {
+        get => _isPause;
+        set
+        {
+            _isPause = value;
+            Time.timeScale = value ? 0 : 1;
+        }
+    }
 
     /// <summary>初期化を行います</summary>
     public void Initialize()
