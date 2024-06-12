@@ -86,7 +86,7 @@ public class PlayerMoveController : MonoBehaviour
     /// </summary>
     private void Crouch()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             if (_isCrouch)
             {

@@ -7,6 +7,9 @@ public class PlayerItemController : MonoBehaviour
 {
     [SerializeField, Header("アイテムの取得、使用ができる距離")]
     private float _maxDistance = 5f;
+    
+    [SerializeField, Header("アイテムの取得、使用ができる距離")]
+    private LayerMask _layerMask;
 
     private List<ItemBase> _inventory = new List<ItemBase>(); // プレイヤーのインベントリ
 
@@ -23,8 +26,9 @@ public class PlayerItemController : MonoBehaviour
     private void Update()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+        ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
         RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, _maxDistance))
+        if (Physics.Raycast(ray, out hit, _maxDistance, _layerMask))
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -37,7 +41,6 @@ public class PlayerItemController : MonoBehaviour
             }
         }
         ChangeSelectedItem();
-
     }
 
     /// <summary>
