@@ -2,23 +2,30 @@
 
 namespace Recording
 {
-    namespace Demo
+    namespace Master
     {
         public class Recorder : MonoBehaviour
         {
             [SerializeField]
-            private RecordDataDemo _recordData = default;
-            [Tooltip("記録対象の状態（新規に記録するか、記録を再現するか）")]
+            private int _recordDataID = 0;
+            [Tooltip("何フレームごとに記録を行うか")]
+            [Range(2, 10)]
             [SerializeField]
+            private int _recordFrame = 5;
+            [SerializeField]
+            private RecordData _recordData = default;
+
+            private int _frameCounter = 0;
+            /// <summary> 記録対象の状態（新規に記録するか、記録を再現するか） </summary>
             private RecordMode _recordMode = RecordMode.Record;
 
             private void Start()
             {
-                if (_recordData == null)
+                if (!RecordData.TryGetRecordData(_recordDataID, out _recordData))
                 {
                     _recordData = new();
                     _recordMode = RecordMode.Record;
-                    _recordData.RecordRun(transform);
+                    _recordData.RecordRun(_recordDataID, transform);
                 }
                 else
                 {
@@ -29,8 +36,17 @@ namespace Recording
 
             private void Update()
             {
-                if (Input.GetKeyDown(KeyCode.Return) && _recordMode == RecordMode.Record) { _recordData.Apply(transform); }
-                else if (_recordMode == RecordMode.Reproduce) { _recordData.Reproduce(); }
+                if ( _recordMode == RecordMode.Record) { return; }
+                _recordData.Reproduce();
+            }
+
+            private void FixedUpdate()
+            {
+                _frameCounter++;
+                if (_frameCounter % _recordFrame == 0)
+                {
+                    _recordData.Apply(transform);
+                }
             }
 
             private void OnDisable()
