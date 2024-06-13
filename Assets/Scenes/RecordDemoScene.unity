@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9fa8cbe6148f844b85c442a4985c1c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _recordData: {fileID: 11400000, guid: 36a5ba2405d259a4fa9afc1e99e9ad36, type: 2}
+  _recordData: {fileID: 0}
   _recordMode: 0
 --- !u!114 &1063573611
 MonoBehaviour:
