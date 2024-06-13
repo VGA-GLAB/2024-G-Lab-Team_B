@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Recording
 {
-    namespace Demo
+    namespace Master
     {
         public enum RecordMode
         {
@@ -13,14 +13,18 @@ namespace Recording
             Reproduce
         }
 
-        public class RecordDataDemo : ScriptableObject
+        public class RecordData : ScriptableObject
         {
+            [HideInInspector]
             /// <summary> このデータが何番目のものか </summary>
             public int ID = -1;
+            [HideInInspector]
             /// <summary> 最終的な位置 </summary>
             public Vector3 Position;
+            [HideInInspector]
             /// <summary> 最終的な角度 </summary>
             public Quaternion Rotation;
+            [HideInInspector]
             /// <summary> キャラクターがたどった経路 </summary>
             public List<Vector3> WayPoints;
 
@@ -30,16 +34,16 @@ namespace Recording
 
             protected bool IsTargetPosChange => (_target.position - _targetPos).sqrMagnitude <= 1f;
 
-            public RecordDataDemo()
+            public RecordData()
             {
                 WayPoints = new();
             }
 
             #region Record
             /// <summary> 記録開始 </summary>
-            public void RecordRun(Transform transform)
+            public void RecordRun(int id, Transform transform)
             {
-                ID = 0;
+                ID = id;
                 Position = transform.position;
                 Rotation = transform.rotation;
                 WayPoints.Add(Position);
@@ -48,7 +52,7 @@ namespace Recording
             }
 
             /// <summary> 現在のデータを取得する </summary>
-            public RecordDataDemo GetCurrentRecord() => this;
+            public RecordData GetCurrentRecord() => this;
 
             /// <summary> データの更新 </summary>
             public void Apply(Transform transform)
@@ -61,9 +65,9 @@ namespace Recording
             }
 
             /// <summary> 最新データの保存 </summary>
-            public void Close(RecordDataDemo recordData)
+            public void Close(RecordData recordData)
             {
-                FileCreator.CreateFile("Assets/Resources/RecordDataDemo.asset", recordData);
+                FileCreator.CreateFile($"Assets/Resources/RecordDataDemo {ID}.asset", recordData);
                 Debug.Log("closed");
             }
             #endregion
@@ -91,17 +95,39 @@ namespace Recording
                 _target.position = Vector3.Lerp(_target.position, _targetPos, Time.deltaTime);
             }
             #endregion
+
+            /// <summary> IDから保存したデータを取得する </summary>
+            public static bool TryGetRecordData(int id, out RecordData getData)
+            {
+                try
+                {
+                    var data = Resources.Load<RecordData>($"RecordDataDemo {id}.asset");
+                    getData = data;
+                    return true;
+                }
+                catch
+                {
+                    getData = null;
+                    return false;
+                }
+            }
         }
 
         /// <summary> Animationパラメータの保存情報 </summary>
-        public class AnimationRecordDataDemo : ScriptableObject
+        public class AnimationRecordData : ScriptableObject
         {
-            public float Speed { get; private set; }
-            public Dictionary<string, bool> AnimationFlags { get; private set; }
+            [HideInInspector]
+            /// <summary> このデータが何番目のものか </summary>
+            public int ID = -1;
+            [HideInInspector]
+            public float Speed;
+            [HideInInspector]
+            public Dictionary<string, bool> AnimationFlags;
 
             /// <summary> 記録開始 </summary>
-            public void RecordRun()
+            public void RecordRun(int id)
             {
+                ID = id;
                 Speed = 0f;
 
                 AnimationFlags = new()
@@ -109,8 +135,8 @@ namespace Recording
                     { "Collision", false },
                     { "Crouch", false },
                     { "Change", false },
-                    { "SelectAvility", false },
-                    { "UseAvility", false },
+                    { "Select", false },
+                    { "Decide", false },
                     { "GetItem", false },
                     { "UseItem", false },
                     { "UseKey", false },
@@ -121,7 +147,7 @@ namespace Recording
             }
 
             /// <summary> 現在のデータを取得する </summary>
-            public AnimationRecordDataDemo GetCurrentRecord() => this;
+            public AnimationRecordData GetCurrentRecord() => this;
 
             public void Apply(float speed)
             {
@@ -148,10 +174,20 @@ namespace Recording
             private void ApplyLog() => Debug.Log("apply");
 
             /// <summary> 最新データの保存 </summary>
-            public void Close(AnimationRecordDataDemo recordData)
+            public void Close(AnimationRecordData recordData)
             {
-                FileCreator.CreateFile("Assets/Resources/AnimationRecordDataDemo.asset", recordData);
+                FileCreator.CreateFile($"Assets/Resources/AnimationRecordDataDemo {ID}.asset", recordData);
                 Debug.Log("closed");
+            }
+
+            /// <summary> IDから保存したデータを取得する </summary>
+            public static AnimationRecordData GetRecordData(int id)
+            {
+                try
+                {
+                    return Resources.Load<AnimationRecordData>($"AnimationRecordDataDemo {id}.asset");
+                }
+                catch { return null; }
             }
         }
     }
