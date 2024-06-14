@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CriWare;
 using UnityEngine.SceneManagement;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -74,12 +75,13 @@ public class CriAudioManager : MonoBehaviour
         _voiceData = new List<CriPlayerData>();
         Initialize();
         
-        // acfの設定
-        var path = Application.streamingAssetsPath + $"/{_acfFileName}.acf";
-        CriAtomEx.RegisterAcf(null, path);
+        
         // CriAtom作成: acbファイルを管理するため
         var go = new GameObject().AddComponent<CriAtom>();
         go.name = "New GameObject Have CriAtom";
+        // acfの設定
+        var path = Application.streamingAssetsPath + $"/{_acfFileName}.acf";
+        CriAtomEx.RegisterAcf(null, path);
         // 使用するacbファイルを追加
         CriAtom.AddCueSheet(_bGMCueSheet, $"{_bGMCueSheet}.acb", $"{_bGMCueSheet}.awb", null);
         CriAtom.AddCueSheet(_sECueSheet, $"{_sECueSheet}.acb", $"{_sECueSheet}.awb", null);
