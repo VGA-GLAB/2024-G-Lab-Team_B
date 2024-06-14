@@ -19,7 +19,11 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'ProfessorEmeritus__2_:mn_c_main' has translation
+      animation that will be discarded.\n\t'ProfessorEmeritus__2_:mn_c_main' is inbetween
+      humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -79,8 +83,902 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: ProfessorEmeritus__2_:mn_c_main
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_hip
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_hip
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_knee
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_knee
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_ancle
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_ancle
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_c_spine01
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_c_spine02
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_c_neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_c_head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_collar
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_collar1
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_shoulder
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_shoulder
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_elbow
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_elbow
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_wrist
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_wrist
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_l_toe
+      humanName: LeftToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:mn_r_toe
+      humanName: RightToes
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandThumb1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandThumb2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandThumb3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandIndex1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandIndex2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandIndex3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandMiddle1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandMiddle2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandMiddle3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandRing1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandRing2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandRing3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandPinky1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandPinky2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:LeftHandPinky3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandThumb1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandThumb2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandThumb3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandIndex1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandIndex2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandIndex3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandMiddle1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandMiddle2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandMiddle3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandRing1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandRing2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandRing3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandPinky1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandPinky2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: ProfessorEmeritus__2_:rightHandPinky3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: BgMD_Mori_Meiyokyoju_Taiki_0101(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Master
+      parentName: BgMD_Mori_Meiyokyoju_Taiki_0101(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Waist
+      parentName: Master
+      position: {x: 0.00010168479, y: 0.8371977, z: 0.0046617785}
+      rotation: {x: -0.006170957, y: 0, z: -0, w: 0.999981}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine
+      parentName: Waist
+      position: {x: -2.842171e-16, y: 0.11, z: 6.2406224e-17}
+      rotation: {x: -0.019720882, y: -0.019720882, z: -0.70683175, w: 0.70683175}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chest
+      parentName: Spine
+      position: {x: -0.13171959, y: -1.7347234e-20, z: -0.021212094}
+      rotation: {x: 0, y: 0.2526476, z: -0, w: 0.9675584}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm_R
+      parentName: Chest
+      position: {x: -0.22185105, y: 0.0963177, z: 0.017674433}
+      rotation: {x: 0.7643279, y: 0.62423515, z: 0.122493654, w: -0.105492696}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_R
+      parentName: Arm_R
+      position: {x: 0.07942731, y: -0.000000043465974, z: -6.4699285e-10}
+      rotation: {x: -0.083832994, y: -0.004269507, z: 0.563924, w: 0.8215495}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Elbow_R
+      parentName: Shoulder_R
+      position: {x: 0.18353498, y: 0.00000011807174, z: -0.0000000015197243}
+      rotation: {x: -0.009248456, y: 0.09671775, z: -0.00718604, w: 0.99524295}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_R
+      parentName: Elbow_R
+      position: {x: 0.224413, y: -0.00000004483251, z: 0.00079400104}
+      rotation: {x: 0, y: 0, z: 0.032331757, w: 0.9994772}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm_L
+      parentName: Chest
+      position: {x: -0.22185105, y: -0.09631765, z: 0.017674433}
+      rotation: {x: -0.10828615, y: 0.092345394, z: 0.79076827, w: 0.5953419}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_L
+      parentName: Arm_L
+      position: {x: -0.07942734, y: -1.6940659e-23, z: -8.881784e-18}
+      rotation: {x: -0.11318912, y: 0.0579316, z: 0.5351743, w: 0.83511716}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Elbow_L
+      parentName: Shoulder_L
+      position: {x: -0.1835352, y: 0, z: 8.881784e-18}
+      rotation: {x: -0.0073377048, y: 0.05721719, z: -0.005487151, w: 0.99831975}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_L
+      parentName: Elbow_L
+      position: {x: -0.22441246, y: -0.0000000044286663, z: -0.00079404446}
+      rotation: {x: 0.0035901065, y: 0.0066309096, z: 0.026219392, w: 0.9996278}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Neck
+      parentName: Chest
+      position: {x: -0.22185105, y: 5.8824466e-17, z: 0.017674433}
+      rotation: {x: 0, y: 2.7755576e-17, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Neck
+      position: {x: -0.080081165, y: 6.7378737e-18, z: 0.019803565}
+      rotation: {x: 0, y: -0.16334967, z: -0, w: 0.9865683}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_L
+      parentName: Master
+      position: {x: -0.099999994, y: 0.11874005, z: -0.000000006842464}
+      rotation: {x: -0.36380348, y: 0.36380348, z: 0.6063391, w: 0.6063391}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ikHandle_L
+      parentName: Leg_L
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ikHandleL
+      parentName: ikHandle_L
+      position: {x: -0.014967247, y: -0.00010168479, z: 0.0010207647}
+      rotation: {x: 0.36380348, y: -0.36380348, z: -0.6063391, w: 0.6063391}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knee_L
+      parentName: Leg_L
+      position: {x: -0.08664501, y: -1.7763568e-17, z: 0.36679497}
+      rotation: {x: 0, y: 0.23938277, z: -0, w: 0.97092533}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locator_L
+      parentName: Knee_L
+      position: {x: 0.00000000752211, y: 0, z: -4.887319e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Toe_L
+      parentName: Leg_L
+      position: {x: -0.15235822, y: -1.7763568e-17, z: -0.033113837}
+      rotation: {x: 0, y: 0.23938277, z: -0, w: 0.97092533}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_R
+      parentName: Master
+      position: {x: 0.099999994, y: 0.11874005, z: -0.0000000068424644}
+      rotation: {x: -0.36380348, y: 0.36380348, z: 0.6063391, w: 0.6063391}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ikHandle_R
+      parentName: Leg_R
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ikHandleR
+      parentName: ikHandle_R
+      position: {x: -0.014967247, y: -0.00010168479, z: 0.0010207647}
+      rotation: {x: 0.36380348, y: -0.36380348, z: -0.6063391, w: 0.6063391}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knee_R
+      parentName: Leg_R
+      position: {x: -0.08664501, y: 0, z: 0.36679497}
+      rotation: {x: 0, y: 0.23938277, z: -0, w: 0.97092533}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locator_R
+      parentName: Knee_R
+      position: {x: 0.00000000752211, y: -5.3290704e-17, z: -4.8873544e-11}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Toe_R
+      parentName: Leg_R
+      position: {x: -0.15235822, y: 7.105427e-17, z: -0.033113837}
+      rotation: {x: 0, y: 0.23938277, z: -0, w: 0.9709253}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:ProfessorEmeritus
+      parentName: BgMD_Mori_Meiyokyoju_Taiki_0101(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:Root
+      parentName: BgMD_Mori_Meiyokyoju_Taiki_0101(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:mn_c_main
+      parentName: ProfessorEmeritus__2_:Root
+      position: {x: 0.00010168479, y: 0.8371977, z: 0.0046617785}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:mn_c_spine01
+      parentName: ProfessorEmeritus__2_:mn_c_main
+      position: {x: -0, y: 0.11, z: 0}
+      rotation: {x: -0.08001395, y: -0.08001395, z: -0.7025652, w: 0.70256513}
+      scale: {x: 1.0000004, y: 1.0000004, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:mn_c_spine02
+      parentName: ProfessorEmeritus__2_:mn_c_spine01
+      position: {x: -0.13341664, y: 2.9624445e-17, z: -1.4210854e-16}
+      rotation: {x: -0, y: 0.113156796, z: 0.00000005894598, w: 0.9935771}
+      scale: {x: 0.9999998, y: 1, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:mn_c_neck
+      parentName: ProfessorEmeritus__2_:mn_c_spine02
+      position: {x: -0.21, y: 9.4663307e-32, z: 1.2434498e-16}
+      rotation: {x: 4.4408916e-16, y: 0.0000000074505797, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:mn_c_head
+      parentName: ProfessorEmeritus__2_:mn_c_neck
+      position: {x: -0.08008121, y: -1.8169456e-17, z: 0.019803565}
+      rotation: {x: -1.1179634e-10, y: 0.00000002235174, z: 9.816431e-10, w: 1}
+      scale: {x: 0.99999976, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:en_c_head
+      parentName: ProfessorEmeritus__2_:mn_c_head
+      position: {x: -0.13184081, y: -6.6197048e-18, z: -1.7763568e-17}
+      rotation: {x: -0, y: -0, z: 2.4988427e-18, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:mn_l_collar
+      parentName: ProfessorEmeritus__2_:mn_c_spine02
+      position: {x: -0.21, y: -0.09631765, z: 1.2878587e-16}
+      rotation: {x: 0.000000014901161, y: 0.000000007450581, z: 0.70710677, w: 0.7071068}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:mn_l_shoulder
+      parentName: ProfessorEmeritus__2_:mn_l_collar
+      position: {x: -0.07942733, y: -2.842171e-16, z: -4.4408918e-17}
+      rotation: {x: -0.000000010536713, y: -4.440892e-16, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:mn_l_elbow
+      parentName: ProfessorEmeritus__2_:mn_l_shoulder
+      position: {x: -0.1835352, y: -2.842171e-16, z: 8.881784e-18}
+      rotation: {x: 0.00000001580507, y: 0.000000005268357, z: -1.6653345e-16, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: ProfessorEmeritus__2_:mn_l_wrist
+      parentName: ProfessorEmeritus__2_:mn_l_elbow
+      position: {x: -0.22441244, y: 0, z: -0.00079404336}
+      rotation: {x: -0.0000000052683564, y: -0.0000000052683564, z: 1.110223e-16,
+        w: 1}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHand
+      parentName: ProfessorEmeritus__2_:mn_l_wrist
+      position: {x: -0.051175885, y: -0.00010790438, z: -0.0023991556}
+      rotation: {x: -0.014689795, y: 0.7136327, z: 0.69922316, w: -0.039995037}
+      scale: {x: 1.0000005, y: 1.0000004, z: 1.0000005}
+    - name: ProfessorEmeritus__2_:LeftHandThumb1
+      parentName: ProfessorEmeritus__2_:LeftHand
+      position: {x: 0.03294822, y: 0.041163452, z: -0.013383974}
+      rotation: {x: -0.87313205, y: -0.28043765, z: 0.14494993, w: 0.37146297}
+      scale: {x: 0.9999998, y: 1.0000001, z: 0.9999998}
+    - name: ProfessorEmeritus__2_:LeftHandThumb2
+      parentName: ProfessorEmeritus__2_:LeftHandThumb1
+      position: {x: 0.019495679, y: 0.00006299226, z: -0.00039810786}
+      rotation: {x: 0.11885519, y: -0.0056997524, z: 0.036628887, w: 0.99221945}
+      scale: {x: 1, y: 0.9999997, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:LeftHandThumb3
+      parentName: ProfessorEmeritus__2_:LeftHandThumb2
+      position: {x: 0.016186392, y: -0.000000022420624, z: 0.00000025066288}
+      rotation: {x: -0, y: -0, z: 0.0000000011641531, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandIndex1
+      parentName: ProfessorEmeritus__2_:LeftHand
+      position: {x: 0.06436273, y: 0.020020964, z: 0.005636094}
+      rotation: {x: -0.7246612, y: -0.056887105, z: -0.0018106586, w: 0.6867509}
+      scale: {x: 0.9999998, y: 0.9999998, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:LeftHandIndex2
+      parentName: ProfessorEmeritus__2_:LeftHandIndex1
+      position: {x: 0.022566034, y: 0.0007019717, z: 0.0002605766}
+      rotation: {x: 0.010518608, y: 0.0058808057, z: 0.045407943, w: 0.99889594}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandIndex3
+      parentName: ProfessorEmeritus__2_:LeftHandIndex2
+      position: {x: 0.028068492, y: -0.0027434255, z: -0.0003809388}
+      rotation: {x: 9.3132224e-10, y: 4.6566112e-10, z: 0.000000007996275, w: 1}
+      scale: {x: 1.0000002, y: 1.0000004, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:LeftHandIndex4
+      parentName: ProfessorEmeritus__2_:LeftHandIndex3
+      position: {x: 0.025471725, y: -0.0010829062, z: 0.00027349318}
+      rotation: {x: -0.050832674, y: 0.0064307842, z: -0.99779874, w: -0.042100545}
+      scale: {x: 0.99999994, y: 0.9999997, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandMiddle1
+      parentName: ProfessorEmeritus__2_:LeftHand
+      position: {x: 0.06524524, y: -0.0010911191, z: 0.0077049895}
+      rotation: {x: -0.70410806, y: -0.015842864, z: -0.03096346, w: 0.70924056}
+      scale: {x: 0.9999997, y: 0.9999996, z: 0.9999998}
+    - name: ProfessorEmeritus__2_:LeftHandMiddle2
+      parentName: ProfessorEmeritus__2_:LeftHandMiddle1
+      position: {x: 0.024712496, y: 0.0012873724, z: 0.00007101805}
+      rotation: {x: -0.0070905974, y: -0.0034274557, z: 0.029632457, w: 0.9995299}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandMiddle3
+      parentName: ProfessorEmeritus__2_:LeftHandMiddle2
+      position: {x: 0.03491596, y: -0.0016858365, z: -0.00012586889}
+      rotation: {x: -0, y: -2.3283056e-10, z: -7.803462e-10, w: 1}
+      scale: {x: 0.9999998, y: 0.99999994, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandMiddle4
+      parentName: ProfessorEmeritus__2_:LeftHandMiddle3
+      position: {x: 0.026984602, y: -0.0021441295, z: 0.000034978173}
+      rotation: {x: -0.010602486, y: -0.006711657, z: -0.99929863, w: -0.03528303}
+      scale: {x: 0.99999946, y: 0.9999997, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:LeftHandRing1
+      parentName: ProfessorEmeritus__2_:LeftHand
+      position: {x: 0.06200476, y: -0.016448928, z: 0.006502378}
+      rotation: {x: -0.6875356, y: -0.0426954, z: -0.1044871, w: 0.7173245}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:LeftHandRing2
+      parentName: ProfessorEmeritus__2_:LeftHandRing1
+      position: {x: 0.027877232, y: 0.00041952735, z: -0.00006192606}
+      rotation: {x: -0.029045068, y: -0.0020490899, z: 0.062018212, w: 0.9976502}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandRing3
+      parentName: ProfessorEmeritus__2_:LeftHandRing2
+      position: {x: 0.028645223, y: -0.00093203364, z: 0.00023048118}
+      rotation: {x: -0, y: -0, z: 0.0000000017462296, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:LeftHandRing4
+      parentName: ProfessorEmeritus__2_:LeftHandRing3
+      position: {x: 0.02589053, y: -0.0015590396, z: 0.0017889458}
+      rotation: {x: 0.014038831, y: -0.0043861005, z: -0.99871117, w: -0.048577648}
+      scale: {x: 0.9999997, y: 0.9999998, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandPinky1
+      parentName: ProfessorEmeritus__2_:LeftHand
+      position: {x: 0.05510741, y: -0.03462712, z: 0.0042913454}
+      rotation: {x: -0.6727405, y: 0.0091667315, z: -0.12070099, w: 0.72990924}
+      scale: {x: 0.9999998, y: 0.99999994, z: 0.9999998}
+    - name: ProfessorEmeritus__2_:LeftHandPinky2
+      parentName: ProfessorEmeritus__2_:LeftHandPinky1
+      position: {x: 0.022756271, y: 0.0007085389, z: -0.00050339795}
+      rotation: {x: -0.04648569, y: -0.0077461186, z: 0.11650656, w: 0.9920712}
+      scale: {x: 1.0000004, y: 1.0000001, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:LeftHandPinky3
+      parentName: ProfessorEmeritus__2_:LeftHandPinky2
+      position: {x: 0.01823948, y: -0.004958094, z: 0.000028165992}
+      rotation: {x: 0.0015741885, y: 0.0056002387, z: -0.03361479, w: 0.9994179}
+      scale: {x: 1.0000001, y: 1, z: 1}
+    - name: ProfessorEmeritus__2_:LeftHandPinky4
+      parentName: ProfessorEmeritus__2_:LeftHandPinky3
+      position: {x: 0.023196196, y: -0.0027838093, z: 0.00062253216}
+      rotation: {x: 0.058552705, y: -0.007162276, z: -0.9964428, w: -0.06018502}
+      scale: {x: 0.9999998, y: 0.9999996, z: 1}
+    - name: ProfessorEmeritus__2_:mn_r_collar1
+      parentName: ProfessorEmeritus__2_:mn_c_spine02
+      position: {x: -0.21, y: 0.0963177, z: 5.62472e-10}
+      rotation: {x: 0.7071068, y: 0.70710677, z: 0.000000012167082, w: -0.000000007450581}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:mn_r_shoulder
+      parentName: ProfessorEmeritus__2_:mn_r_collar1
+      position: {x: 0.079427294, y: 0, z: 1.3322676e-17}
+      rotation: {x: 0.000000010536713, y: 0.000000010536711, z: -0, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000006}
+    - name: ProfessorEmeritus__2_:mn_r_elbow
+      parentName: ProfessorEmeritus__2_:mn_r_shoulder
+      position: {x: 0.183535, y: 0, z: 0}
+      rotation: {x: 0.000000021073422, y: -0.000000021073426, z: 4.440892e-16, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: ProfessorEmeritus__2_:mn_r_wrist
+      parentName: ProfessorEmeritus__2_:mn_r_elbow
+      position: {x: 0.224413, y: 6.9317707e-12, z: 0.000794}
+      rotation: {x: -0.000000010536711, y: -0, z: 1.11022276e-16, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:rightHand
+      parentName: ProfessorEmeritus__2_:mn_r_wrist
+      position: {x: 0.051175997, y: 0.000110000015, z: 0.0023992}
+      rotation: {x: -0.014689763, y: 0.71363276, z: 0.6992231, w: -0.03999496}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000004}
+    - name: ProfessorEmeritus__2_:rightHandThumb1
+      parentName: ProfessorEmeritus__2_:rightHand
+      position: {x: -0.032947857, y: -0.041163467, z: 0.013384213}
+      rotation: {x: 0.8731355, y: 0.28042704, z: -0.14495857, w: -0.37145957}
+      scale: {x: 1.0000001, y: 1.0000007, z: 1.0000004}
+    - name: ProfessorEmeritus__2_:rightHandThumb2
+      parentName: ProfessorEmeritus__2_:rightHandThumb1
+      position: {x: -0.019495405, y: -0.00006251711, z: 0.00039843647}
+      rotation: {x: 0.11885467, y: -0.005745455, z: 0.036699943, w: 0.99221665}
+      scale: {x: 0.99999994, y: 1, z: 1.0000004}
+    - name: ProfessorEmeritus__2_:rightHandThumb3
+      parentName: ProfessorEmeritus__2_:rightHandThumb2
+      position: {x: -0.016185228, y: 0.0000024130104, z: 0.0000012430543}
+      rotation: {x: -0, y: -0, z: -4.6566123e-10, w: 1}
+      scale: {x: 1.0000001, y: 0.99999994, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:rightHandIndex1
+      parentName: ProfessorEmeritus__2_:rightHand
+      position: {x: -0.06436174, y: -0.020021116, z: -0.005641959}
+      rotation: {x: 0.72466123, y: 0.05688708, z: 0.0018106113, w: -0.6867509}
+      scale: {x: 1, y: 1.0000002, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:rightHandIndex2
+      parentName: ProfessorEmeritus__2_:rightHandIndex1
+      position: {x: -0.022565624, y: -0.0007045087, z: -0.00026069066}
+      rotation: {x: 0.01051855, y: 0.005880773, z: 0.04540804, w: 0.99889594}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000007}
+    - name: ProfessorEmeritus__2_:rightHandIndex3
+      parentName: ProfessorEmeritus__2_:rightHandIndex2
+      position: {x: -0.028069021, y: 0.0027432893, z: 0.00038099528}
+      rotation: {x: 9.3132235e-10, y: -0, z: 0.0000000049622018, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000004}
+    - name: ProfessorEmeritus__2_:rightHandIndex4
+      parentName: ProfessorEmeritus__2_:rightHandIndex3
+      position: {x: -0.025471548, y: 0.0010829371, z: -0.00027351207}
+      rotation: {x: 0.05083269, y: -0.0064308224, z: 0.99779874, w: 0.04210061}
+      scale: {x: 0.99999994, y: 0.9999998, z: 1}
+    - name: ProfessorEmeritus__2_:rightHandMiddle1
+      parentName: ProfessorEmeritus__2_:rightHand
+      position: {x: -0.065244585, y: 0.0010910893, z: -0.007705482}
+      rotation: {x: 0.7041082, y: 0.015842833, z: 0.030963384, w: -0.7092405}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000004}
+    - name: ProfessorEmeritus__2_:rightHandMiddle2
+      parentName: ProfessorEmeritus__2_:rightHandMiddle1
+      position: {x: -0.024712814, y: -0.0012829258, z: -0.00007110952}
+      rotation: {x: -0.007090538, y: -0.0034274547, z: 0.029632429, w: 0.9995299}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000007}
+    - name: ProfessorEmeritus__2_:rightHandMiddle3
+      parentName: ProfessorEmeritus__2_:rightHandMiddle2
+      position: {x: -0.034916233, y: 0.0016833297, z: 0.00012583412}
+      rotation: {x: -0, y: -2.3283059e-10, z: -5.693436e-10, w: 1}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:rightHandMiddle4
+      parentName: ProfessorEmeritus__2_:rightHandMiddle3
+      position: {x: -0.026984481, y: 0.0021440494, z: -0.000034983}
+      rotation: {x: 0.010602485, y: 0.0067116832, z: 0.99929863, w: 0.035283003}
+      scale: {x: 1, y: 0.99999994, z: 1.0000004}
+    - name: ProfessorEmeritus__2_:rightHandRing1
+      parentName: ProfessorEmeritus__2_:rightHand
+      position: {x: -0.062003925, y: 0.01644885, z: -0.0065063685}
+      rotation: {x: 0.68753564, y: 0.04269541, z: 0.10448707, w: -0.71732444}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000006}
+    - name: ProfessorEmeritus__2_:rightHandRing2
+      parentName: ProfessorEmeritus__2_:rightHandRing1
+      position: {x: -0.027876774, y: -0.00042049563, z: 0.00006194662}
+      rotation: {x: -0.029044684, y: -0.0020550115, z: 0.062103737, w: 0.9976449}
+      scale: {x: 1, y: 0.9999997, z: 1}
+    - name: ProfessorEmeritus__2_:rightHandRing3
+      parentName: ProfessorEmeritus__2_:rightHandRing2
+      position: {x: -0.028645243, y: 0.000935723, z: -0.0002305226}
+      rotation: {x: -0, y: -0, z: 0.000000002037268, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:rightHandRing4
+      parentName: ProfessorEmeritus__2_:rightHandRing3
+      position: {x: -0.025891313, y: 0.0015495635, z: -0.0017888611}
+      rotation: {x: -0.014038837, y: 0.0043861, z: 0.99871117, w: 0.048577644}
+      scale: {x: 0.9999997, y: 0.9999996, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:rightHandPinky1
+      parentName: ProfessorEmeritus__2_:rightHand
+      position: {x: -0.05510702, y: 0.034627024, z: -0.004294183}
+      rotation: {x: 0.67274225, y: -0.009166962, z: 0.12068756, w: -0.72990984}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1.0000006}
+    - name: ProfessorEmeritus__2_:rightHandPinky2
+      parentName: ProfessorEmeritus__2_:rightHandPinky1
+      position: {x: -0.022756247, y: -0.00070471823, z: 0.000503094}
+      rotation: {x: -0.046502646, y: -0.007856405, z: 0.1162575, w: 0.99209875}
+      scale: {x: 1.0000002, y: 1.0000004, z: 1.0000005}
+    - name: ProfessorEmeritus__2_:rightHandPinky3
+      parentName: ProfessorEmeritus__2_:rightHandPinky2
+      position: {x: -0.018240448, y: 0.004949241, z: -0.00002805138}
+      rotation: {x: 0.001563899, y: 0.005574821, z: -0.03330053, w: 0.99942863}
+      scale: {x: 1, y: 1.0000001, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:rightHandPinky4
+      parentName: ProfessorEmeritus__2_:rightHandPinky3
+      position: {x: -0.023195887, y: 0.002787581, z: -0.0006226716}
+      rotation: {x: -0.058552697, y: 0.007162273, z: 0.99644274, w: 0.060184967}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:back_l_mant1
+      parentName: ProfessorEmeritus__2_:mn_c_spine01
+      position: {x: 0.08719344, y: -0.10509605, z: -0.18336917}
+      rotation: {x: 0.09900341, y: -0.70014167, z: 0.70014167, w: 0.099003375}
+      scale: {x: 1.0000004, y: 1.0000005, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:back_l_mant2
+      parentName: ProfessorEmeritus__2_:back_l_mant1
+      position: {x: -0.59249556, y: 0.038465343, z: -1.7763568e-17}
+      rotation: {x: 0.4862815, y: 0.513352, z: -0.4862815, w: 0.513352}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:back_r_mant1
+      parentName: ProfessorEmeritus__2_:mn_c_spine01
+      position: {x: 0.08719352, y: 0.105096, z: -0.18336868}
+      rotation: {x: 0.7001417, y: 0.09900343, z: -0.09900334, w: 0.70014167}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+    - name: ProfessorEmeritus__2_:back_r_mant2
+      parentName: ProfessorEmeritus__2_:back_r_mant1
+      position: {x: 0.5924952, y: -0.03846549, z: 5.3290704e-17}
+      rotation: {x: 0.48628157, y: 0.5133519, z: -0.48628154, w: 0.51335204}
+      scale: {x: 1.0000002, y: 1.0000008, z: 1.000001}
+    - name: ProfessorEmeritus__2_:mn_l_hip
+      parentName: ProfessorEmeritus__2_:mn_c_main
+      position: {x: -0.099999994, y: -0.073977806, z: 0}
+      rotation: {x: 1.6077749e-11, y: 1.6077749e-11, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:mn_l_knee
+      parentName: ProfessorEmeritus__2_:mn_l_hip
+      position: {x: -0.37441364, y: 0, z: 0}
+      rotation: {x: -2.2737366e-11, y: 0.000000005820766, z: -6.6174455e-20, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: ProfessorEmeritus__2_:mn_l_ancle
+      parentName: ProfessorEmeritus__2_:mn_l_knee
+      position: {x: -0.2828685, y: 1.7763568e-17, z: 0}
+      rotation: {x: 9.748563e-12, y: 0.5144959, z: 5.84914e-12, w: 0.8574929}
+      scale: {x: 1.0000001, y: 1, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:mn_l_toe
+      parentName: ProfessorEmeritus__2_:mn_l_ancle
+      position: {x: -0.15235822, y: 0, z: -0.033113845}
+      rotation: {x: 4.3368082e-19, y: 0.23938257, z: 4.3368082e-19, w: 0.97092533}
+      scale: {x: 1, y: 0.99999994, z: 0.9999997}
+    - name: ProfessorEmeritus__2_:en_l_toe
+      parentName: ProfessorEmeritus__2_:mn_l_toe
+      position: {x: -0.08944009, y: -1.7763568e-17, z: -2.8865798e-17}
+      rotation: {x: -0, y: -0, z: -2.5849391e-26, w: 1}
+      scale: {x: 0.9999999, y: 1, z: 0.99999994}
+    - name: ProfessorEmeritus__2_:mn_r_hip
+      parentName: ProfessorEmeritus__2_:mn_c_main
+      position: {x: 0.099999994, y: -0.073977806, z: 0}
+      rotation: {x: 1.6077749e-11, y: 1.6077749e-11, z: 0.7071068, w: 0.7071068}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000001}
+    - name: ProfessorEmeritus__2_:mn_r_knee
+      parentName: ProfessorEmeritus__2_:mn_r_hip
+      position: {x: -0.37441364, y: 0, z: -1.5777218e-32}
+      rotation: {x: -2.2737366e-11, y: 0.000000005820766, z: -6.6174455e-20, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: ProfessorEmeritus__2_:mn_r_ancle
+      parentName: ProfessorEmeritus__2_:mn_r_knee
+      position: {x: -0.2828685, y: 1.7763568e-17, z: 7.888609e-33}
+      rotation: {x: 9.748563e-12, y: 0.5144959, z: 5.84914e-12, w: 0.8574929}
+      scale: {x: 1.0000001, y: 1, z: 1.0000002}
+    - name: ProfessorEmeritus__2_:mn_r_toe
+      parentName: ProfessorEmeritus__2_:mn_r_ancle
+      position: {x: -0.15235822, y: 0, z: -0.033113845}
+      rotation: {x: 4.3368082e-19, y: 0.23938257, z: 4.3368082e-19, w: 0.97092533}
+      scale: {x: 0.9999999, y: 0.9999998, z: 0.9999996}
+    - name: ProfessorEmeritus__2_:en_r_toe
+      parentName: ProfessorEmeritus__2_:mn_r_toe
+      position: {x: -0.089439884, y: 3.5527136e-17, z: -1.5543122e-17}
+      rotation: {x: -0, y: -0, z: -2.5849391e-26, w: 1}
+      scale: {x: 1.0000001, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5

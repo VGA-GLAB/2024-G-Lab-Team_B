@@ -59,7 +59,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 138b1503ac7ef2840b26a94e41f02f35, type: 2}
+    m_Motion: {fileID: 7400000, guid: 58e665a241a145a4f80ee9717db969bb, type: 2}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -67,7 +67,7 @@ BlendTree:
     m_DirectBlendParameter: Speed
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 79e72d30a2d27714d9430cafb47d47de, type: 2}
+    m_Motion: {fileID: 7400000, guid: 1ed2c83bf4701e44eb494bc69c80a1ef, type: 2}
     m_Threshold: 3
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -98,9 +98,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
+  m_TransitionDuration: 0.24999994
+  m_TransitionOffset: 0.049080346
+  m_ExitTime: 0.75000006
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -306,10 +306,10 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.49912667
   m_TransitionOffset: 0
-  m_ExitTime: 0.97564936
-  m_HasExitTime: 1
+  m_ExitTime: 0.90091133
+  m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
@@ -363,7 +363,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: b27982e8eee71aa4d9f74bb050dcc973, type: 2}
+  m_Motion: {fileID: 7400000, guid: 1e7296f0c3b52c34ab86e1daa96f7300, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -391,7 +391,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5448b19c7b08aa848967b84018b1a8c2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 39a54ae1f84242d46b043fc873f4aab7, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
