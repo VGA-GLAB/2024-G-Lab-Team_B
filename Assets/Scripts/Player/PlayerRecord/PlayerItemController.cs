@@ -23,6 +23,8 @@ public class PlayerItemController : MonoBehaviour
 
     public List<ItemBase> Inventory { get => _inventory; set => _inventory = value; }
 
+    RaycastHit _clickHit;
+
     private void Update()
     {
         Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
@@ -34,8 +36,11 @@ public class PlayerItemController : MonoBehaviour
             {
                 if (_inventory?.Count > 0 && !SelectUseItem(hit) && !hit.collider.TryGetComponent<ItemBase>(out ItemBase item))
                 {
-                    DropItem(hit);
-                    CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");
+                    if (!hit.collider.gameObject.CompareTag($"Wall"))
+                    {
+                        DropItem(hit);
+                        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Item_Setting_01");   
+                    }
                 }
                 GetItem(hit);
             }
@@ -113,6 +118,7 @@ public class PlayerItemController : MonoBehaviour
     /// </summary>
     private bool SelectUseItem(RaycastHit hit)
     {
+        
         if (hit.collider.tag == "Poison" && _inventory[_selectItemIndex.Value].ItemType == ItemType.Drug)
         {
             _inventory[_selectItemIndex.Value].UseItem(hit.collider.gameObject);
