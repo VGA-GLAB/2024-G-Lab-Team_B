@@ -19,7 +19,11 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Policeman_hip' has translation animation
+      that will be discarded.\n\t'Policeman_hip' is inbetween humanoid transforms
+      and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -79,8 +83,885 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: Policeman_hip
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_leg
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_leg
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_uncle
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_uncle
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_foot
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_foot
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_spine0
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_spine1
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_neck
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_head
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_collar
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_collar
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_shoulder
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_shoulder
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_elbow
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_elbow
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_wrist
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_wrist
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_1_1
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_1_2
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_1_3
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_2_1
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_2_2
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_2_3
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_3_1
+      humanName: Left Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_3_2
+      humanName: Left Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_3_3
+      humanName: Left Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_4_1
+      humanName: Left Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_4_2
+      humanName: Left Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_4_3
+      humanName: Left Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_5_1
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_5_2
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_l_5_3
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_1_1
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_1_2
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_1_3
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_2_1
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_2_2
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_2_3
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_3_1
+      humanName: Right Middle Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_3_2
+      humanName: Right Middle Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_3_3
+      humanName: Right Middle Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_4_1
+      humanName: Right Ring Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_4_2
+      humanName: Right Ring Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_4_3
+      humanName: Right Ring Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_5_1
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_5_2
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_r_5_3
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Policeman_spine2
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: BgMD_Mori_Keibiin_Taiki_0101(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BgMD_Policeman
+      parentName: BgMD_Mori_Keibiin_Taiki_0101(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.79, y: 0.79, z: 0.79}
+    - name: BgMD_Policeman_Body
+      parentName: BgMD_Policeman
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BgMD_Policeman_Hair
+      parentName: BgMD_Policeman
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BgMD_Policeman_Parts
+      parentName: BgMD_Policeman
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: BgMD_Policeman_Loap
+      parentName: BgMD_Policeman
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Master
+      parentName: BgMD_Mori_Keibiin_Taiki_0101(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Waist
+      parentName: Master
+      position: {x: -0.015107752, y: 0.943814, z: -0.03146106}
+      rotation: {x: -0.47065374, y: 0.609413, z: -0.39793032, w: 0.49875072}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine1
+      parentName: Waist
+      position: {x: -0.11214308, y: -0.000000004242552, z: 6.6327034e-17}
+      rotation: {x: 0.99497247, y: -0.09581339, z: 0.013048049, w: -0.026065396}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine2
+      parentName: Spine1
+      position: {x: -0.12641028, y: -3.5516584e-10, z: 1.2620123e-17}
+      rotation: {x: 0.03914015, y: 0.000073878335, z: 0.09238758, w: 0.9949536}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Chaist
+      parentName: Spine2
+      position: {x: -0.1343196, y: 0.0140024135, z: -9.6425576e-17}
+      rotation: {x: 0.029158399, y: -0.004516589, z: 0.025794294, w: 0.99923176}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Neck
+      parentName: Chaist
+      position: {x: -0.14496383, y: -0.013930475, z: 6.4667544e-17}
+      rotation: {x: 0.97849464, y: -0.20627232, z: -1.2630537e-17, w: 5.991552e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head
+      parentName: Neck
+      position: {x: -0.05783275, y: -0.0000000029126825, z: -5.044931e-18}
+      rotation: {x: 0.011955884, y: 0.00029940243, z: -0.008284031, w: 0.9998942}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm_L
+      parentName: Chaist
+      position: {x: -0.05241202, y: -0.04396841, z: 0.1027}
+      rotation: {x: -0.4739909, y: 0.5551661, z: 0.4416614, w: 0.5215922}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_L
+      parentName: Arm_L
+      position: {x: -0.071100004, y: 8.470329e-24, z: 5.3290704e-17}
+      rotation: {x: 0.12644425, y: 0.031046674, z: 0.674346, w: 0.7268462}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Elbow_L
+      parentName: Shoulder_L
+      position: {x: -0.27329397, y: 0, z: -1.1546319e-16}
+      rotation: {x: 0, y: 0.09104277, z: -0, w: 0.995847}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_L
+      parentName: Elbow_L
+      position: {x: -0.23408093, y: -8.5265126e-16, z: -3.2862602e-16}
+      rotation: {x: -0.20778917, y: -0.000658061, z: 0.016436255, w: 0.97803533}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Arm_R
+      parentName: Chaist
+      position: {x: -0.05306216, y: -0.043901637, z: -0.1027}
+      rotation: {x: 0.46947643, y: -0.5351401, z: 0.46956375, w: 0.5222326}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_R
+      parentName: Arm_R
+      position: {x: -0.0711, y: 0.00000003277958, z: 4.8849813e-17}
+      rotation: {x: -0.14296263, y: -0.021263374, z: 0.67003083, w: 0.7281266}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Elbow_R
+      parentName: Shoulder_R
+      position: {x: -0.27329415, y: 0.00000008288674, z: -3.1974422e-16}
+      rotation: {x: 0, y: -0.10935519, z: -0, w: 0.99400276}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hand_R
+      parentName: Elbow_R
+      position: {x: -0.23408096, y: -0.000000018099028, z: -3.819167e-16}
+      rotation: {x: 0.15471968, y: 0.0007161607, z: 0.01885453, w: 0.98777825}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_L
+      parentName: Master
+      position: {x: -0.1834132, y: 0.10940698, z: -0.03120789}
+      rotation: {x: 0.18005176, y: 0.6329232, z: 0.20603253, w: 0.7242515}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knee_L
+      parentName: Leg_L
+      position: {x: -0.18086372, y: 0.5841594, z: 0.009362897}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locator_L
+      parentName: Knee_L
+      position: {x: -0.000000006058201, y: 0.0000000037503347, z: 1.8173267e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ikHandle_L
+      parentName: Leg_L
+      position: {x: -6.3948843e-16, y: 8.437695e-16, z: -2.0783375e-14}
+      rotation: {x: -0.19099618, y: -0.6713953, z: -0.19592986, w: 0.6887383}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_R
+      parentName: Master
+      position: {x: 0.09928955, y: 0.10940658, z: -0.1110186}
+      rotation: {x: 0.20164599, y: 0.7088323, z: 0.18495087, w: 0.65014523}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Knee_R
+      parentName: Leg_R
+      position: {x: -0.18096516, y: 0.5842224, z: 0.000000025319668}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locator_R
+      parentName: Knee_R
+      position: {x: -0.000000010114548, y: 0.000000006261414, z: 1.6786572e-15}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ikHandle_R
+      parentName: Leg_R
+      position: {x: -4.2632563e-16, y: 7.7271523e-16, z: 2.6645352e-17}
+      rotation: {x: -0.1934786, y: -0.680122, z: -0.19347857, w: 0.68012214}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Policeman_root
+      parentName: BgMD_Mori_Keibiin_Taiki_0101(Clone)
+      position: {x: 0.015107758, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Policeman_hip
+      parentName: Policeman_root
+      position: {x: -0.015107752, y: 0.943814, z: -0.03146106}
+      rotation: {x: -0.45680386, y: 0.5397502, z: -0.45680386, w: 0.53975016}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000007}
+    - name: Policeman_spine0
+      parentName: Policeman_hip
+      position: {x: -0.11214311, y: 0, z: 3.735116e-17}
+      rotation: {x: 0.9960048, y: -0.08929941, z: 0.000000059604645, w: 0}
+      scale: {x: 1.0000001, y: 1.0000005, z: 1.0000001}
+    - name: Policeman_spine1
+      parentName: Policeman_spine0
+      position: {x: -0.12641028, y: 4.4408918e-17, z: 8.94916e-19}
+      rotation: {x: -0.0000000046636184, y: -0.0000000144479415, z: 0.056284107, w: 0.9984149}
+      scale: {x: 1.0000011, y: 1.0000012, z: 1.0000012}
+    - name: Policeman_spine2
+      parentName: Policeman_spine1
+      position: {x: -0.13536258, y: 7.105427e-17, z: 7.63378e-18}
+      rotation: {x: -0.000000004175197, y: -0.000000029508545, z: -0.0034495364, w: 0.99999404}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1}
+    - name: Policeman_neck
+      parentName: Policeman_spine2
+      position: {x: -0.14320397, y: 8.171241e-16, z: 7.517294e-18}
+      rotation: {x: -0.97849464, y: 0.2062722, z: -0.000000014869223, w: 9.75043e-10}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999997}
+    - name: Policeman_head
+      parentName: Policeman_neck
+      position: {x: -0.05783276, y: 7.105427e-17, z: 7.517294e-18}
+      rotation: {x: 0.000000027788364, y: -0.00000003168854, z: 0.00837618, w: 0.99996495}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000005}
+    - name: Policeman_headEnd
+      parentName: Policeman_head
+      position: {x: -0.21594495, y: -5.684342e-16, z: 6.310887e-32}
+      rotation: {x: 0.4157303, y: -0.5719863, z: 0.41573033, w: 0.57198626}
+      scale: {x: 1.0000004, y: 1.0000004, z: 0.9999998}
+    - name: Policeman_l_collar
+      parentName: Policeman_spine2
+      position: {x: -0.051302407, y: -0.029971123, z: 0.1027}
+      rotation: {x: -0.46951967, y: 0.52872604, z: 0.4695197, w: 0.5287261}
+      scale: {x: 0.9999996, y: 0.99999946, z: 0.99999934}
+    - name: Policeman_l_shoulder
+      parentName: Policeman_l_collar
+      position: {x: -0.0711, y: 0, z: -3.1086245e-17}
+      rotation: {x: 0.000000059604645, y: -0, z: -0, w: 1}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Policeman_l_elbow
+      parentName: Policeman_l_shoulder
+      position: {x: -0.273294, y: 5.684342e-16, z: 5.3290704e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 0.9999998, y: 1.0000002, z: 1}
+    - name: Policeman_l_wrist
+      parentName: Policeman_l_elbow
+      position: {x: -0.23408093, y: 0, z: 6.217249e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000002, z: 1}
+    - name: Policeman_l_wristEnd
+      parentName: Policeman_l_wrist
+      position: {x: -0.0711, y: -2.842171e-16, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+    - name: Policeman_l_1_1
+      parentName: Policeman_l_wrist
+      position: {x: -0.04212078, y: -0.0039234543, z: 0.033514313}
+      rotation: {x: -0.0040484313, y: 0.3832683, z: 0.020800354, w: 0.92339396}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000004}
+    - name: Policeman_l_1_2
+      parentName: Policeman_l_1_1
+      position: {x: -0.024855323, y: -2.842171e-16, z: 0}
+      rotation: {x: 0.027121238, y: 0.036763486, z: 0.010002123, w: 0.9989059}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
+    - name: Policeman_l_1_3
+      parentName: Policeman_l_1_2
+      position: {x: -0.027100328, y: -2.842171e-16, z: 7.105427e-17}
+      rotation: {x: -0.011991691, y: -0.041170288, z: 0.005404684, w: 0.9990656}
+      scale: {x: 1.0000013, y: 1.0000002, z: 1}
+    - name: Policeman_l_1_4
+      parentName: Policeman_l_1_3
+      position: {x: -0.029733986, y: -2.842171e-16, z: 0}
+      rotation: {x: -0, y: -0, z: 5.238688e-10, w: 1}
+      scale: {x: 1.0000006, y: 1.0000002, z: 1.000001}
+    - name: Policeman_l_2_1
+      parentName: Policeman_l_wrist
+      position: {x: -0.09302507, y: 0.008368521, z: 0.032105073}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+    - name: Policeman_l_2_2
+      parentName: Policeman_l_2_1
+      position: {x: -0.0316, y: 0, z: 6.1062266e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_2_3
+      parentName: Policeman_l_2_2
+      position: {x: -0.026257863, y: 0, z: 4.9960034e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_2_4
+      parentName: Policeman_l_2_3
+      position: {x: -0.030697223, y: 2.842171e-16, z: 7.216449e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_3_1
+      parentName: Policeman_l_wrist
+      position: {x: -0.09302507, y: 0.010585063, z: 0.0098786745}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+    - name: Policeman_l_3_2
+      parentName: Policeman_l_3_1
+      position: {x: -0.036387097, y: 0, z: 8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_3_3
+      parentName: Policeman_l_3_2
+      position: {x: -0.030977419, y: 2.842171e-16, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_3_4
+      parentName: Policeman_l_3_3
+      position: {x: -0.03678817, y: 2.842171e-16, z: -4.440892e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_4_1
+      parentName: Policeman_l_wrist
+      position: {x: -0.09302507, y: 0.010137807, z: -0.011574792}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+    - name: Policeman_l_4_2
+      parentName: Policeman_l_4_1
+      position: {x: -0.03284516, y: 0, z: 8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_4_3
+      parentName: Policeman_l_4_2
+      position: {x: -0.027227955, y: 2.842171e-16, z: 8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_4_4
+      parentName: Policeman_l_4_3
+      position: {x: -0.032444086, y: 2.842171e-16, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_5_1
+      parentName: Policeman_l_wrist
+      position: {x: -0.09302507, y: 0.0070070135, z: -0.031218432}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000004, y: 1.0000001, z: 1}
+    - name: Policeman_l_5_2
+      parentName: Policeman_l_5_1
+      position: {x: -0.02753534, y: 0, z: 2.6645352e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_5_3
+      parentName: Policeman_l_5_2
+      position: {x: -0.02138142, y: 2.842171e-16, z: -8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_l_5_4
+      parentName: Policeman_l_5_3
+      position: {x: -0.026101537, y: 0, z: 1.7763568e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_r_collar
+      parentName: Policeman_spine2
+      position: {x: -0.051302414, y: -0.02997115, z: -0.1027}
+      rotation: {x: -0.46951964, y: 0.5287261, z: -0.46951964, w: -0.52872604}
+      scale: {x: 0.99999994, y: 0.9999996, z: 0.99999946}
+    - name: Policeman_r_shoulder
+      parentName: Policeman_r_collar
+      position: {x: -0.0711, y: -5.684342e-16, z: -7.5495166e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 0.9999996, y: 1.0000002, z: 1}
+    - name: Policeman_r_elbow
+      parentName: Policeman_r_shoulder
+      position: {x: -0.27329418, y: -5.684342e-16, z: 7.9936054e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
+    - name: Policeman_r_wrist
+      parentName: Policeman_r_elbow
+      position: {x: -0.23408094, y: -1.1368684e-15, z: 6.661338e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1}
+    - name: Policeman_r_wristEnd
+      parentName: Policeman_r_wrist
+      position: {x: -0.0711, y: -2.842171e-16, z: 2.2204459e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_1_1
+      parentName: Policeman_r_wrist
+      position: {x: -0.042120427, y: -0.0039263, z: -0.033514343}
+      rotation: {x: 0.0040445314, y: -0.38325384, z: 0.020786129, w: 0.92340034}
+      scale: {x: 1.0000012, y: 0.99999994, z: 1.0000008}
+    - name: Policeman_r_1_2
+      parentName: Policeman_r_1_1
+      position: {x: -0.024854714, y: 0, z: 7.105427e-17}
+      rotation: {x: -0.027120955, y: -0.036752358, z: 0.010044249, w: 0.99890584}
+      scale: {x: 1.0000021, y: 0.9999998, z: 1.000003}
+    - name: Policeman_r_1_3
+      parentName: Policeman_r_1_2
+      position: {x: -0.027101697, y: 5.684342e-16, z: -1.4210854e-16}
+      rotation: {x: 0.011992252, y: 0.041163262, z: 0.0053251996, w: 0.9990663}
+      scale: {x: 0.9999998, y: 1.0000002, z: 0.99999994}
+    - name: Policeman_r_1_4
+      parentName: Policeman_r_1_3
+      position: {x: -0.02973355, y: 0, z: 1.4210854e-16}
+      rotation: {x: -0.00000061932934, y: -0.0000023134048, z: -0.000000116357086,
+        w: 1}
+      scale: {x: 1.0000008, y: 1.0000002, z: 1.0000011}
+    - name: Policeman_r_2_1
+      parentName: Policeman_r_wrist
+      position: {x: -0.09302487, y: 0.0083661, z: -0.032105103}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_2_2
+      parentName: Policeman_r_2_1
+      position: {x: -0.0316, y: -2.842171e-16, z: 1.0547119e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: Policeman_r_2_3
+      parentName: Policeman_r_2_2
+      position: {x: -0.026259601, y: 2.842171e-16, z: 7.771561e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_2_4
+      parentName: Policeman_r_2_3
+      position: {x: -0.0306994, y: 0, z: 7.771561e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Policeman_r_3_1
+      parentName: Policeman_r_wrist
+      position: {x: -0.09302487, y: 0.010585999, z: -0.009878713}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_3_2
+      parentName: Policeman_r_3_1
+      position: {x: -0.0363874, y: -2.842171e-16, z: 1.3322676e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: Policeman_r_3_3
+      parentName: Policeman_r_3_2
+      position: {x: -0.030975899, y: 2.842171e-16, z: 4.440892e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_3_4
+      parentName: Policeman_r_3_3
+      position: {x: -0.0367903, y: -2.842171e-16, z: 1.3322676e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Policeman_r_4_1
+      parentName: Policeman_r_wrist
+      position: {x: -0.09302487, y: 0.010135699, z: 0.011574764}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_4_2
+      parentName: Policeman_r_4_1
+      position: {x: -0.0328482, y: -2.842171e-16, z: 8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: Policeman_r_4_3
+      parentName: Policeman_r_4_2
+      position: {x: -0.0272234, y: 2.842171e-16, z: 8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_4_4
+      parentName: Policeman_r_4_3
+      position: {x: -0.0324453, y: 0, z: 8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Policeman_r_5_1
+      parentName: Policeman_r_wrist
+      position: {x: -0.09302487, y: 0.0070073, z: 0.03121843}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_5_2
+      parentName: Policeman_r_5_1
+      position: {x: -0.027531499, y: -2.842171e-16, z: -8.881784e-18}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000002}
+    - name: Policeman_r_5_3
+      parentName: Policeman_r_5_2
+      position: {x: -0.021385299, y: 2.842171e-16, z: 1.7763568e-17}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000004}
+    - name: Policeman_r_5_4
+      parentName: Policeman_r_5_3
+      position: {x: -0.0261016, y: 0, z: 0}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: Policeman_l_leg
+      parentName: Policeman_hip
+      position: {x: 0.031165179, y: -0.005224135, z: -0.065175}
+      rotation: {x: -0.000000014901161, y: -0.000000029802322, z: 0.9956206, w: 0.0934864}
+      scale: {x: 1.0000008, y: 1.0000004, z: 1}
+    - name: Policeman_l_uncle
+      parentName: Policeman_l_leg
+      position: {x: -0.40559304, y: 1.5321078e-16, z: 1.687539e-16}
+      rotation: {x: -0.99210054, y: -0.12544589, z: 0.000000011034132, w: -0.0000000031500527}
+      scale: {x: 1.0000007, y: 1.0000008, z: 1.0000007}
+    - name: Policeman_l_foot
+      parentName: Policeman_l_uncle
+      position: {x: -0.41238737, y: -1.0658141e-16, z: 2.0428103e-16}
+      rotation: {x: 0.81187546, y: 0.5838307, z: 0.000000022615035, w: -0.0000000125264785}
+      scale: {x: 1.0000006, y: 1, z: 1.0000001}
+    - name: Policeman_l_footEnd
+      parentName: Policeman_l_foot
+      position: {x: -0.18091784, y: -9.7699626e-17, z: -3.2862602e-16}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000005, y: 1.0000001, z: 1.0000001}
+    - name: Policeman_r_leg
+      parentName: Policeman_hip
+      position: {x: 0.031165179, y: -0.005224135, z: 0.065175}
+      rotation: {x: -0.000000014901161, y: -0.000000029802322, z: 0.9956206, w: 0.0934864}
+      scale: {x: 1.000001, y: 1.0000005, z: 1.0000001}
+    - name: Policeman_r_uncle
+      parentName: Policeman_r_leg
+      position: {x: -0.40559304, y: 1.5321078e-16, z: 8.622313e-10}
+      rotation: {x: -0.99210054, y: -0.12544589, z: 0.000000011034132, w: -0.0000000031500527}
+      scale: {x: 1.0000005, y: 1.0000007, z: 1.0000005}
+    - name: Policeman_r_foot
+      parentName: Policeman_r_uncle
+      position: {x: -0.41238773, y: -5.3290704e-17, z: 9.937482e-10}
+      rotation: {x: 0.8118753, y: 0.583831, z: -0.0000000052556555, w: 0.00000004800545}
+      scale: {x: 1.000001, y: 1.0000007, z: 1.0000007}
+    - name: Policeman_r_footEnd
+      parentName: Policeman_r_foot
+      position: {x: -0.18091719, y: 6.217249e-17, z: -8.881784e-18}
+      rotation: {x: 0.000000008482692, y: -0.00000006609794, z: 0.00000005960463,
+        w: 1}
+      scale: {x: 1.0000014, y: 1.0000004, z: 1.0000014}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
