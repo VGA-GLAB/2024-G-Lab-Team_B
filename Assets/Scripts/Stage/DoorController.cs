@@ -1,4 +1,5 @@
 using UnityEngine;
+using static CriAudioManager;
 
 /// <summary>各DoorObjectにアタッチして使用</summary>
 public class DoorController : MonoBehaviour, IDoor
@@ -20,5 +21,6 @@ public class DoorController : MonoBehaviour, IDoor
     public void CloseDoor()
     {
         _animator.SetTrigger("Close");
+        CriAudioManager.Instance.PlaySE(CueSheetType.SE, "SE_Door_01");
     }
 }
