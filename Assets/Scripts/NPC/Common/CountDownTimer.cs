@@ -22,7 +22,7 @@ public class CountDownTimer : MonoBehaviour
         _timer -= Time.deltaTime;
         if (_text)
         {
-            _text.text = _timer.ToString("0.0");
+            _text.text = ((int)_timer / 60).ToString("0") + ":" + ((int)_timer % 60).ToString("00");
         }
     }
 }
