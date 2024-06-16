@@ -77,15 +77,14 @@ public class CriAudioManager : MonoBehaviour
         
         
         // CriAtom作成: acbファイルを管理するため
-        var go = new GameObject().AddComponent<CriAtom>();
-        go.name = "New GameObject Have CriAtom";
+        //var go = new GameObject("New GameObject Have CriAtom").AddComponent<CriAtom>();
         // acfの設定
         var path = Application.streamingAssetsPath + $"/{_acfFileName}.acf";
         CriAtomEx.RegisterAcf(null, path);
         // 使用するacbファイルを追加
         CriAtom.AddCueSheet(_bGMCueSheet, $"{_bGMCueSheet}.acb", $"{_bGMCueSheet}.awb", null);
         CriAtom.AddCueSheet(_sECueSheet, $"{_sECueSheet}.acb", $"{_sECueSheet}.awb", null);
-        CriAtom.AddCueSheet(_voiceCueSheet, $"{_voiceCueSheet}.acb", $"{_voiceCueSheet}.awb", null);
+        //CriAtom.AddCueSheet(_voiceCueSheet, $"{_voiceCueSheet}.acb", $"{_voiceCueSheet}.awb", null);
     }
 
     /// <summary>
