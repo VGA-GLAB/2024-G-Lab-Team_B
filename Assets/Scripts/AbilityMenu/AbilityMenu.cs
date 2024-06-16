@@ -2,43 +2,53 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 右クリックで戻る、左クリックで開く
-
+/// <summary>右クリックで戻る、左クリックで開く</summary>
 public class AbilityMenu : MonoBehaviour
 {
-    [SerializeField]
-    [Header("プレイヤーItemController")] private PlayerItemController _playerItemController;
+    [SerializeField] [Header("プレイヤーItemController")]
+    private PlayerItemController _playerItemController;
 
-    [SerializeField]
-    [Header("最初のメニューの能力ボタン")] private Button _firstMenuSelectAbilityButton;
-    [SerializeField]
-    [Header("最初のメニューのアイテムボタン")] private Button _firstMenuSelectItemButton;
+    [SerializeField] [Header("最初のメニューの能力ボタン")]
+    private Button _firstMenuSelectAbilityButton;
 
-    [SerializeField]
-    [Header("能力のメニューボタン①")] private Button _cameraSwitcherButton;
-    [SerializeField]
-    [Header("能力のメニューボタン②")] private Button _transparentButton;
-    [SerializeField]
-    [Header("能力のメニューボタン③")] private Button _xRayVisionButton;
+    [SerializeField] [Header("最初のメニューのアイテムボタン")]
+    private Button _firstMenuSelectItemButton;
 
-    [SerializeField]
-    [Header("薬のメニューボタン")] private Button _drugButton;
-    [SerializeField]
-    [Header("カードキーのメニューボタン")] private Button _cardkeyButton;
-    [SerializeField]
-    [Header("AEDのメニューボタン")] private Button _aedButton;
+    [SerializeField] [Header("能力のメニューボタン①")]
+    private Button _cameraSwitcherButton;
 
-    [SerializeField]
-    [Header("クリック音")] private AudioClip _clickSound;
+    [SerializeField] [Header("能力のメニューボタン②")]
+    private Button _transparentButton;
+
+    [SerializeField] [Header("能力のメニューボタン③")]
+    private Button _xRayVisionButton;
+
+    [SerializeField] [Header("薬のメニューボタン")] private Button _drugButton;
+
+    [SerializeField] [Header("カードキーのメニューボタン")]
+    private Button _cardkeyButton;
+
+    [SerializeField] [Header("AEDのメニューボタン")]
+    private Button _aedButton;
+
+    [SerializeField] [Header("クリック音")] private AudioClip _clickSound;
 
     private AudioSource _audioSource;
 
     // メニューの状態を表す列挙型
-    enum MenuState { FirstMenu, AbilityMenu, ItemMenu }
+    enum MenuState
+    {
+        FirstMenu,
+        AbilityMenu,
+        ItemMenu
+    }
+
     // 現在のメニューの状態
     private MenuState _currentMenuState = MenuState.FirstMenu;
 
     private bool _isMenuOpen = false;
+
+    private int _lastInventoryCount = -1; //変更
 
     public void Start()
     {
@@ -53,6 +63,8 @@ public class AbilityMenu : MonoBehaviour
         SetupListeners();
         // 初期状態ですべてのボタンを非表示にする
         ToggleMenu(showFirst: false, showAbilities: false, showItems: false);
+
+        UpdateButtonState();　//変更
     }
 
     public void Update()
@@ -81,6 +93,21 @@ public class AbilityMenu : MonoBehaviour
                 PlayClickSound();
             }
         }
+        
+        //変更
+        if (_playerItemController.Inventory.Count != _lastInventoryCount)
+        {
+            _lastInventoryCount = _playerItemController.Inventory.Count;
+            UpdateButtonState();
+        }
+    }
+
+    //変更
+    private void UpdateButtonState()
+    {
+        var hasItems = _playerItemController.Inventory.Count > 0;
+
+        _firstMenuSelectItemButton.interactable = hasItems;
     }
 
     // ボタンのリスナーを設定
@@ -88,7 +115,6 @@ public class AbilityMenu : MonoBehaviour
     {
         _firstMenuSelectAbilityButton.onClick.AddListener(() => OnMenuButtonClick(MenuState.AbilityMenu));
         _firstMenuSelectItemButton.onClick.AddListener(() => OnMenuButtonClick(MenuState.ItemMenu));
-
         _cameraSwitcherButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
         _transparentButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
         _xRayVisionButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
