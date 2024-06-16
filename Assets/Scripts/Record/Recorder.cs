@@ -6,8 +6,6 @@ namespace Recording
     {
         public class Recorder : MonoBehaviour
         {
-            [SerializeField]
-            private int _recordDataID = 0;
             [Tooltip("何フレームごとに記録を行うか")]
             [Range(2, 10)]
             [SerializeField]
@@ -19,13 +17,13 @@ namespace Recording
             /// <summary> 記録対象の状態（新規に記録するか、記録を再現するか） </summary>
             private RecordMode _recordMode = RecordMode.Record;
 
-            private void Start()
+            public void Initialize(int id)
             {
-                if (!RecordData.TryGetRecordData(_recordDataID, out _recordData))
+                if (!RecordData.TryGetRecordData(id, out _recordData))
                 {
                     _recordData = new();
                     _recordMode = RecordMode.Record;
-                    _recordData.RecordRun(_recordDataID, transform);
+                    _recordData.RecordRun(id, transform);
                 }
                 else
                 {
@@ -43,10 +41,7 @@ namespace Recording
             private void FixedUpdate()
             {
                 _frameCounter++;
-                if (_frameCounter % _recordFrame == 0)
-                {
-                    _recordData.Apply(transform);
-                }
+                if (_frameCounter % _recordFrame == 0) { _recordData.Apply(transform); }
             }
 
             private void OnDisable()
