@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 /// <summary>右クリックで戻る、左クリックで開く</summary>
@@ -35,6 +36,10 @@ public class AbilityMenu : MonoBehaviour
 
     private AudioSource _audioSource;
 
+    //
+    private CameraSwitcher _cameraSwitcher;
+    private Transparent _transparent;
+    private XRayVision _xRayVision;
     // メニューの状態を表す列挙型
     enum MenuState
     {
@@ -64,7 +69,13 @@ public class AbilityMenu : MonoBehaviour
         // 初期状態ですべてのボタンを非表示にする
         ToggleMenu(showFirst: false, showAbilities: false, showItems: false);
 
-        UpdateButtonState();　//変更
+        UpdateButtonState(); //変更
+
+
+        //
+        _cameraSwitcher = FindFirstObjectByType<CameraSwitcher>();
+        _transparent = FindFirstObjectByType<Transparent>();
+        _xRayVision = FindFirstObjectByType<XRayVision>();
     }
 
     public void Update()
@@ -72,6 +83,7 @@ public class AbilityMenu : MonoBehaviour
         // 左クリックでメニューを開く
         if (Input.GetMouseButtonDown(0) && !_isMenuOpen)
         {
+            _cameraSwitcher.ChangeFirstPerson();
             OpenMenu();
             PlayClickSound();
         }
@@ -115,8 +127,14 @@ public class AbilityMenu : MonoBehaviour
     {
         _firstMenuSelectAbilityButton.onClick.AddListener(() => OnMenuButtonClick(MenuState.AbilityMenu));
         _firstMenuSelectItemButton.onClick.AddListener(() => OnMenuButtonClick(MenuState.ItemMenu));
+        // 三人称視点の能力をセットし、UIを消す
+        _cameraSwitcherButton.onClick.AddListener(() => SwitchAbilityCameraSwitcher());
         _cameraSwitcherButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+        // 透明化の能力のセットし、UIを消す
+        _transparentButton.onClick.AddListener(() => SwitchAbilityTransparent());
         _transparentButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
+        // 透視能力のセットし、UIを消す
+        _xRayVisionButton.onClick.AddListener(() => SwitchAbilityXRayVision());
         _xRayVisionButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
 
         _drugButton.onClick.AddListener(() => CloseAndResetMenuWithSound());
@@ -218,5 +236,35 @@ public class AbilityMenu : MonoBehaviour
         {
             _audioSource.PlayOneShot(_clickSound);
         }
+    }
+
+    /// <summary>
+    /// カメラの能力をセット
+    /// </summary>
+    private void SwitchAbilityCameraSwitcher()
+    {
+        _cameraSwitcher.IsClick = true;
+        _transparent.CanInput = false;
+        _xRayVision.SetAvility = false;
+    }
+
+    /// <summary>
+    /// 透明化の能力をセット
+    /// </summary>
+    private void SwitchAbilityTransparent()
+    {
+        _cameraSwitcher.IsClick = false;
+        _transparent.CanInput = true;
+        _xRayVision.SetAvility = false;
+    }
+
+    /// <summary>
+    /// 透視の能力をセット
+    /// </summary>
+    private void SwitchAbilityXRayVision()
+    {
+        _cameraSwitcher.IsClick = false;
+        _transparent.CanInput = false;
+        _xRayVision.SetAvility = true;
     }
 }
