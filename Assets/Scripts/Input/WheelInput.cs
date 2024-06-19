@@ -1,25 +1,41 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class WheelInput
 {
-    public bool IsWheelInputUp => Input.GetAxis("Mouse ScrollWheel") > 0.05f;
-    public bool IsWheelInputDown => Input.GetAxis("Mouse ScrollWheel") < -0.05f;
+    private event Action<int> OnWheelUp;
+    private event Action<int> OnWheelDown;
+
+    protected bool IsWheelInputUp => Input.GetAxis("Mouse ScrollWheel") > 0.05f;
+    protected bool IsWheelInputDown => Input.GetAxis("Mouse ScrollWheel") < -0.05f;
+
+    /// <summary>
+    /// マウスホイールが上昇したときのAction
+    /// 引数の値には「-1」が割り当てられるものとする
+    /// </summary>
+    public void RegisterWheelUpEvent(params Action<int>[] actions)
+    {
+        foreach (var actionItem in actions) { OnWheelUp += actionItem; }
+    }
+
+    /// <summary>
+    /// マウスホイールが下降したときのAction
+    /// 引数の値には「1」が割り当てられるものとする
+    /// </summary>
+    public void RegisterWheelDownEvent(params Action<int>[] actions)
+    {
+        foreach (var actionItem in actions) { OnWheelDown += actionItem; }
+    }
 
     public void OnUpdate()
     {
-        if (IsWheelInputUp) { Demo(-1); }
-        if (IsWheelInputDown) { Demo(1); }
+        if (IsWheelInputUp) { OnWheelUp?.Invoke(-1); }
+        if (IsWheelInputDown) { OnWheelDown?.Invoke(1); }
     }
 
-    private void Demo(int value)
+    public void OnDestroy()
     {
-        //ここにUIの割り当て（配列のインデックスにそろえる）
-        //以下Demo
-        int currentIndex = 0;
-        int[] demoArray = new int[5];
-
-        if (currentIndex + value >= demoArray.Length) { currentIndex = 0; }
-        else if (currentIndex + value < 0) { currentIndex = demoArray.Length - 1; }
-        else { currentIndex += value; }
+        OnWheelUp = null;
+        OnWheelDown = null;
     }
 }
