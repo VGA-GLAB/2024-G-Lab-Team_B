@@ -29,7 +29,7 @@ public class CameraSwitcher : MonoBehaviour
     private CancellationToken _token;
     private bool _isFirstPerson = true;//一人称かどうか
     /// <summary>Trueならマウスクリックができる。Falseならできない</summary>
-    private bool _isClick = true;
+    private bool _isClick = false;
     //一回だけSEを呼ぶときに使う変数
     bool _playOne;
     //強制終了する際に一回だけ呼ぶときに使う変数
@@ -43,6 +43,7 @@ public class CameraSwitcher : MonoBehaviour
     public CinemachineVirtualCameraBase FirstPerson { get => _firstPerson; set => _firstPerson = value; }
 
     public CinemachineFreeLook ThirdPerson { get => _thirdPerson; set => _thirdPerson = value; }
+    public bool IsClick { get => _isClick; set => _isClick = value; }
 
     private void Start()
     {
