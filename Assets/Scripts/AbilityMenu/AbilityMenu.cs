@@ -210,7 +210,6 @@ public class AbilityMenu : MonoBehaviour
         }
         //buttonの表示/非表示を切り替えた後にボタンリストを更新
         inputReceiver.UpdateButtons();
-        
     }
 
     private void OpenMenu()

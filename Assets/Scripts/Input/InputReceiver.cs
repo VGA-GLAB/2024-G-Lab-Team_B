@@ -38,8 +38,8 @@ public class InputReceiver : MonoBehaviour
     private void Demo(int value)
     {
         if (_buttons == null || _buttons.Length == 0) return;
-
-        // ボタンの色を白にする
+        
+        // 現在のボタンの色を白に戻す
         _buttons[_currentIndex].image.color = Color.white;
 
         // インデックスを更新
@@ -47,6 +47,10 @@ public class InputReceiver : MonoBehaviour
 
         // 新しいボタンを選択
         SelectButton(_currentIndex);
+        
+        Debug.Log(_buttons.Length);
+        //indexが範囲外に出ないように制限
+        //if(newIndex < 0 || newIndex >= _buttons.Length) return;
     }
     
     //選択中のボタンかどうかを視覚で判別可能にする
@@ -66,8 +70,14 @@ public class InputReceiver : MonoBehaviour
         // アクティブなボタンのみを取得
         _buttons = FindObjectsOfType<Button>().Where(b => b.gameObject.activeInHierarchy).ToArray();
 
-        if (_buttons.Length <= 0) return;
-        _currentIndex = 0;
-        SelectButton(_currentIndex);
+        if (_buttons.Length > 0)
+        {
+            _currentIndex = Mathf.Clamp(_currentIndex, 0, _buttons.Length - 1);
+            SelectButton(_currentIndex);
+        }
+        else
+        {
+            _currentIndex = 0;
+        }
     }
 }
