@@ -1,13 +1,13 @@
 using UnityEngine;
 public class MouseVisibleController :MonoBehaviour
 {
-    void OnEnable()
+    private void OnEnable()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

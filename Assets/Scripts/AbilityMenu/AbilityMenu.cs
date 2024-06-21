@@ -40,6 +40,10 @@ public class AbilityMenu : MonoBehaviour
     private CameraSwitcher _cameraSwitcher;
     private Transparent _transparent;
     private XRayVision _xRayVision;
+    
+    //追加
+    [SerializeField]　private InputReceiver inputReceiver;
+    
     // メニューの状態を表す列挙型
     enum MenuState
     {
@@ -204,6 +208,9 @@ public class AbilityMenu : MonoBehaviour
             _cardkeyButton.gameObject.SetActive(false);
             _aedButton.gameObject.SetActive(false);
         }
+        //buttonの表示/非表示を切り替えた後にボタンリストを更新
+        inputReceiver.UpdateButtons();
+        
     }
 
     private void OpenMenu()
