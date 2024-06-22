@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCardTouchPoint: 0
+  _waitTime: 5
 --- !u!95 &8338793382810279853
 Animator:
   serializedVersion: 5
@@ -406,6 +407,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BgMD_Mori_DanseikenkyuinTaiki_0100 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8711513589916031659, guid: 33a28a5f6b2c7904da006130ed25d6c2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33a28a5f6b2c7904da006130ed25d6c2, type: 3}
