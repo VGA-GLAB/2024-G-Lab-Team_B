@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -17,8 +18,8 @@ public class CheckCardTouchPoint : MonoBehaviour
     [SerializeField] private float _waitTime = 7f;
     private float _timer = default; 
     private PatrolNPC[] _patrolNpcs = default; 
-    private IDoor _iDoor = default;
-
+    private List<IDoor> _iDoors = new List<IDoor>();
+    
     private void Start()
     {
         _isCardTouchPoint = false;
@@ -42,7 +43,10 @@ public class CheckCardTouchPoint : MonoBehaviour
             _isCardTouchPoint = false;
             _patrolNpc = null;
             _timer = 0f;
-            _iDoor.OpenDoor(); // ドアを開く
+            foreach (var item in _iDoors)
+            {
+                item.OpenDoor();
+            }
         }
 
         _timer += Time.deltaTime;
@@ -51,11 +55,17 @@ public class CheckCardTouchPoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("CardTouchPoint")) return;
+        _iDoors.Clear();
         _patrolNpc = GetActivePatrolNpc();
         _isCardTouchPoint = true;
         _patrolNpc.IsTimer = true;
         _patrolNpc.Anim.SetTrigger("Open");
-        _iDoor = GetComponent<IDoor>(); // ドアに付いているインターフェースを取得
+        var ctp = other.gameObject.GetComponent<CardTouchPoint>();
+        // ドアに付いているインターフェースを取得
+        foreach (var item in ctp.Doors)
+        {
+            _iDoors.Add(item);
+        }
     }
 
     /// <summary>
