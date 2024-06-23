@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCardTouchPoint: 0
+  _waitTime: 5
 --- !u!1 &6593155132807557252
 GameObject:
   m_ObjectHideFlags: 0
