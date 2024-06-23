@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isCardTouchPoint: 0
-  _waitTime: 6
+  _waitTime: 5
 --- !u!114 &6073825239578230888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -929,6 +929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _insidePoint: {fileID: 0}
   _exitPosition: {fileID: 1761234348696449488}
+  _speed: 3
 --- !u!1 &8356051732208330727
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +972,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ProfessorEmeritus efectrig_UV_humanoid Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508771152471960833, guid: 390cf155c67f20c4e8671d894ef9a5a1,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4321899185982601147, guid: 390cf155c67f20c4e8671d894ef9a5a1,
         type: 3}
