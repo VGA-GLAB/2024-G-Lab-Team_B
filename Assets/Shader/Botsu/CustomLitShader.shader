@@ -3,8 +3,9 @@ Shader "Custom/CustomLitShader"
     Properties
     {
         _BaseMap ("Base Texture", 2D) = "white" {}
-        _BaseColor ("Color", Color) = (0, 0.66, 0.73, 1)
-        _DitherLevel("DitherLevel", Range(0, 16)) = 0
+        _BaseColor ("Base Color", Color) = (255, 255, 255, 1)
+        _ShadowColor ("Shadow Color", Color) = (0, 0, 0, 1)
+        _DitherLevel("Dither Level", Range(0, 16)) = 0
         _Smoothness ("Smoothness", Float) = 0.5
 
         [Toggle(_ALPHATEST_ON)] _EnableAlphaTest("Enable Alpha Cutoff", Float) = 0.0
@@ -19,8 +20,8 @@ Shader "Custom/CustomLitShader"
         [HDR] _EmissionColor ("Emission Color", Color) = (0, 0, 0, 0)
 
         [Toggle(_OUTLINE)] _EnableOutLine("Enable OutLine", Float) = 0.0
-        _OutLineColor ("OutLineColor", Color) = (0, 0, 0, 1)
-        _OutlineWidth ("OutlineWidth", Range(0, 100)) = 0
+        _OutLineColor ("OutLine Color", Color) = (0, 0, 0, 1)
+        _OutlineWidth ("Outline Width", Range(0, 100)) = 0
     }
     SubShader
     {
@@ -35,6 +36,7 @@ Shader "Custom/CustomLitShader"
         CBUFFER_START(UnityPerMaterial)
             float4 _BaseMap_ST;
             float4 _BaseColor;
+            float4 _ShadowColor;
             float _BumpScale;
             float4 _EmissionColor;
             float _Smoothness;
@@ -295,7 +297,7 @@ Shader "Custom/CustomLitShader"
 
                 // 閾値が0以下なら描画しない
                 clip(dither - _DitherLevel);
-
+                
                 return color; // float4(inputData.bakedGI,1);
             }
             ENDHLSL

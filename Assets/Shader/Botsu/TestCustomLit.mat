@@ -9,12 +9,13 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: TestCustomLit
   m_Shader: {fileID: 4800000, guid: 319e46be337ef8c48a1fbfdb820b91a7, type: 3}
-  m_ValidKeywords: []
+  m_ValidKeywords:
+  - _OUTLINE
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -25,7 +26,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 8a7dbcb2f4a32ec4297486403aee5f74, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -40,11 +41,12 @@ Material:
     - _EnableAlphaTest: 0
     - _EnableBumpMap: 0
     - _EnableEmission: 0
-    - _EnableOutLine: 0
+    - _EnableOutLine: 1
     - _OutlineWidth: 0
     - _Smoothness: 0.5
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.65999997, b: 0.73, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _OutLineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
