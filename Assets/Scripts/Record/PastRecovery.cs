@@ -14,6 +14,12 @@ public class PastRecovery : MonoBehaviour
     /// <summary> 過去のキャラクターの生成 </summary>
     public void SpawnCharacter()
     {
+        if (!RecordData.TryGetRecordData(_recordID, out _))
+        {
+            var recordCharacter = FindObjectOfType<Recorder>();
+            recordCharacter.Initialize(_recordID);
+        }
+
         var character = Instantiate(_pastCharacter);
         var transform = character.transform;
         transform.position = _spawnTransform.position;
