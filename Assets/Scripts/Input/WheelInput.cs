@@ -16,8 +16,11 @@ public class WheelInput
     /// <param name="actions"></param>
     public void RegisterWheelEvents(params Action<int>[] actions)
     {
-        foreach (var actionItem in actions) { OnWheelUp += actionItem; }
-        foreach (var actionItem in actions) { OnWheelDown += actionItem; }
+        foreach (var actionItem in actions)
+        {
+            OnWheelUp += actionItem;
+            OnWheelDown += actionItem;
+        }
     }
 
     public void OnUpdate()
