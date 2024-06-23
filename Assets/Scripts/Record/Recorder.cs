@@ -17,19 +17,21 @@ namespace Recording
             /// <summary> 記録対象の状態（新規に記録するか、記録を再現するか） </summary>
             private RecordMode _recordMode = RecordMode.Record;
 
-            public void Initialize(int id)
+            /// <summary> 記録開始 </summary>
+            /// <param name="id"> データ作成時のID </param>
+            public void RecrdInitialize(int id)
             {
-                if (!RecordData.TryGetRecordData(id, out _recordData))
-                {
-                    _recordData = new();
-                    _recordMode = RecordMode.Record;
-                    _recordData.RecordRun(id, transform);
-                }
-                else
-                {
-                    _recordData.GetTransform(transform);
-                    _recordMode = RecordMode.Reproduce;
-                }
+                _recordData = new();
+                _recordMode = RecordMode.Record;
+                _recordData.RecordRun(id, transform);
+            }
+
+            /// <summary> 経路復元開始 </summary>
+            public void ReproduceInitialize(RecordData recordData)
+            {
+                _recordData = recordData;
+                _recordMode = RecordMode.Reproduce;
+                _recordData.GetTransform(transform);
             }
 
             private void Update()
